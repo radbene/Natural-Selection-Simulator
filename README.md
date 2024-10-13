@@ -3,7 +3,7 @@
 
 #Radosław Benedykciński
 
-Piątek 11:30
+Grupa 2 Piątek 11:30
 
 Spuchacz
 
