@@ -15,11 +15,11 @@ public enum MapDirection {
     }
 
     public MapDirection next(MapDirection direction){
-            return MapDirection.values()[(direction.ordinal() + 1) % 4];
+            return MapDirection.values()[(direction.ordinal() + 1) % MapDirection.values().length];
     }
 
     public MapDirection previous(MapDirection direction) {
-        return MapDirection.values()[(direction.ordinal() + 3) % 4];
+        return MapDirection.values()[(direction.ordinal() + MapDirection.values().length-1) % MapDirection.values().length];
     }
 
     public Vector2d toUnitVector(MapDirection direction){

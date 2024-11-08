@@ -3,9 +3,11 @@ package agh.ics.oop;
 import agh.ics.oop.model.MoveDirections;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class OptionsParser  {
-    public static MoveDirections[] parse(String[] args) {
+    //public static MoveDirections[] parse(String[] args) {
+    public static List<MoveDirections> parse(String[] args) {
             MoveDirections[] Moves = new MoveDirections[args.length];
             int i = 0;
             int a = 0;
@@ -32,6 +34,8 @@ public class OptionsParser  {
                 }
                 i++;
             }
-            return Arrays.copyOfRange(Moves, 0, a);
+            //return Arrays.copyOfRange(Moves, 0, a);
+        List<MoveDirections> list_of_moves = Arrays.asList(Arrays.copyOfRange(Moves, 0, a));
+            return list_of_moves;
     }
 }
