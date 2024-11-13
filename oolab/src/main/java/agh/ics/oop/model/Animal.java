@@ -1,7 +1,10 @@
 package agh.ics.oop.model;
 
-public class Animal {
+import static agh.ics.oop.model.RectangularMap.*;
+
+public class Animal implements MoveValidator {
     private Vector2d position;
+
 
     private MapDirection direction;
     public MapDirection getDirection() {
@@ -10,6 +13,13 @@ public class Animal {
 
     private int index = 0;
 
+    static private Vector2d border_lowerleft;
+    static private Vector2d border_upperright;
+
+    public void setBorder(Vector2d lowerleft, Vector2d upperright) {
+        border_lowerleft = lowerleft;
+        border_upperright = upperright;
+    }
 
     public void setIndex(int index) {
         this.index = index;
@@ -32,21 +42,29 @@ public class Animal {
         this.direction = direction;
     }
 
+    public Vector2d getPosition() {
+        return position;
+    }
+
     public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }
 
-    public void move(MoveDirections dir){
+    public boolean canMoveTo(Vector2d position) {
+        return position.follows(border_lowerleft) && position.precedes(border_upperright);
+    }
+
+    public void move(MoveDirection dir){
         switch (dir){
             case FORWARD:
-                Vector2d new_position1 = this.direction.toUnitVector(this.direction).add(this.position);
-                if(new_position1.getX() >= 0 && new_position1.getY() >= 0 && new_position1.getX() <= 4 && new_position1.getY() <=4){
+                Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
+                if(canMoveTo(new_position1)){
                     this.position = new_position1;
                 }
                 break;
             case BACKWARD:
-                Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector(this.direction));
-                if(new_position2.getX() >= 0 && new_position2.getY() >= 0 && new_position2.getX() <= 4 && new_position2.getY() <=4){
+                Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
+                if(canMoveTo(new_position2)) {
                     this.position = new_position2;
                 }
                 break;
@@ -63,8 +81,11 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal: " + index +
-                "\nposition = " + position +
-                ", direction = " + direction;
+        return switch(this.direction){
+            case NORTH -> "N";
+            case EAST -> "E";
+            case SOUTH -> "S";
+            case WEST -> "W";
+        };
     }
 }

@@ -1,7 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MapDirection;
-import agh.ics.oop.model.MoveDirections;
+import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,8 +12,8 @@ class OptionsParserTest {
     @Test
     void InvalidCharacters(){
         String[] dir = {"q","!", ".", "-", "v",")"};
-        MoveDirections[] expected_result = {};
-        List<MoveDirections> actual_result = OptionsParser.parse(dir);
+        MoveDirection[] expected_result = {};
+        List<MoveDirection> actual_result = OptionsParser.parse(dir);
         //assertArrayEquals(result,OptionsParser.parse(dir));
         assertArrayEquals(expected_result, actual_result.toArray());
     }
@@ -22,8 +21,8 @@ class OptionsParserTest {
     @Test
     void NoCharacters(){
         String[] dir = {};
-        MoveDirections[] expected_result = {};
-        List<MoveDirections> actual_result = OptionsParser.parse(dir);
+        MoveDirection[] expected_result = {};
+        List<MoveDirection> actual_result = OptionsParser.parse(dir);
         //assertArrayEquals(result,OptionsParser.parse(dir));
         assertArrayEquals(expected_result, actual_result.toArray());
     }
@@ -31,8 +30,8 @@ class OptionsParserTest {
     @Test
     void ValidCharacters(){
         String[] dir = {"f", "l", "l", "l", "r","b"};
-        MoveDirections[] expected_result = {MoveDirections.FORWARD,MoveDirections.LEFT,MoveDirections.LEFT,MoveDirections.LEFT,MoveDirections.RIGHT,MoveDirections.BACKWARD};
-        List<MoveDirections> actual_result = OptionsParser.parse(dir);
+        MoveDirection[] expected_result = {MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.RIGHT, MoveDirection.BACKWARD};
+        List<MoveDirection> actual_result = OptionsParser.parse(dir);
         //assertArrayEquals(result,OptionsParser.parse(dir));
         assertArrayEquals(expected_result, actual_result.toArray());
     }
@@ -40,8 +39,8 @@ class OptionsParserTest {
     @Test
     void SomeValidSomeInvalidCharacters(){
         String[] dir = {"-","f", "4","b","q"};
-        MoveDirections[] expected_result = {MoveDirections.FORWARD,MoveDirections.BACKWARD};
-        List<MoveDirections> actual_result = OptionsParser.parse(dir);
+        MoveDirection[] expected_result = {MoveDirection.FORWARD, MoveDirection.BACKWARD};
+        List<MoveDirection> actual_result = OptionsParser.parse(dir);
         //assertArrayEquals(result,OptionsParser.parse(dir));
         assertArrayEquals(expected_result, actual_result.toArray());
     }
