@@ -130,4 +130,21 @@ class SimulationTest {
         animals = simulation.getAnimals();
         assertEquals(animals.get(0).getDirection(), MapDirection.NORTH);
     }
+
+    @Test
+    void AnimalColissionTest() {
+        List<Vector2d> starting_positions = new ArrayList<>();
+        List<MoveDirection> moves = new ArrayList<>();
+        starting_positions.add(new Vector2d(0, 0));
+        starting_positions.add(new Vector2d(0, 1));
+        moves.add(MoveDirection.FORWARD);
+        moves.add(MoveDirection.FORWARD);
+        WorldMap map = new RectangularMap(5,5);
+        Simulation simulation = new Simulation(starting_positions, moves, map);
+        simulation.run();
+        List<Animal> animals = simulation.getAnimals();
+        assertFalse(animals.get(0).isAt(animals.get(1).getPosition()));
+        assertEquals(animals.get(0).getPosition(),new Vector2d(0,0));
+        assertEquals(animals.get(1).getPosition(),new Vector2d(0,2));
+    }
 }

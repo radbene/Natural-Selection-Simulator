@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MoveValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/util/MapVisualizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/OptionsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/OptionsParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MapDirection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MapDirection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MoveDirections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MoveDirection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/OptionsParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/OptionsParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/SimulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/SimulationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="lab4-dodatkowe" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -154,7 +143,7 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SimulationTest.SameStartingPosition">
+  <component name="RunManager" selected="Gradle.SimulationTest.AnimalColissionTest">
     <configuration name="SimulationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -179,7 +168,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SimulationTest.EmptyMovesTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SimulationTest.AnimalColissionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -192,7 +181,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.SimulationTest.EmptyMovesTest&quot;" />
+            <option value="&quot;agh.ics.oop.SimulationTest.AnimalColissionTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -277,18 +266,18 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.SimulationTest" />
+      <item itemvalue="Gradle.SimulationTest.AnimalColissionTest" />
       <item itemvalue="Gradle.SimulationTest.GoingOutOfBoundsTest" />
       <item itemvalue="Gradle.SimulationTest.SameStartingPosition" />
       <item itemvalue="Gradle.SimulationTest.StartingPositionsOutOfBoundsTest" />
-      <item itemvalue="Gradle.SimulationTest.EmptyMovesTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.SimulationTest.AnimalColissionTest" />
         <item itemvalue="Gradle.SimulationTest.SameStartingPosition" />
         <item itemvalue="Gradle.SimulationTest" />
         <item itemvalue="Gradle.SimulationTest.GoingOutOfBoundsTest" />
         <item itemvalue="Gradle.SimulationTest.StartingPositionsOutOfBoundsTest" />
-        <item itemvalue="Gradle.SimulationTest.EmptyMovesTest" />
       </list>
     </recent_temporary>
   </component>
@@ -324,7 +313,7 @@
       <workItem from="1730997778883" duration="2159000" />
       <workItem from="1731052327346" duration="8255000" />
       <workItem from="1731445562309" duration="3668000" />
-      <workItem from="1731499861265" duration="10016000" />
+      <workItem from="1731499861265" duration="11810000" />
     </task>
     <servers />
   </component>
