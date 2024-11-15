@@ -25,6 +25,16 @@ public class World {
         WorldMap map = new RectangularMap(10,10);
         Simulation simulation = new Simulation(positions, directions,map);
         simulation.run();
+
+
+        List<String> texts = List.of("Ala", "ma", "sowoniedźwiedzia");
+        WorldMap<String, Integer> textMap = new TextMap();
+        for (String text : texts) {
+            textMap.place(text);
+        }
+        System.out.println(textMap);
+        textMap.move("ma", MoveDirection.FORWARD);
+        System.out.println(textMap);
         System.out.println("system zakończył działanie");
     }
 

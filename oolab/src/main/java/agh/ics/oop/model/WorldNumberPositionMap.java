@@ -1,14 +1,8 @@
 package agh.ics.oop.model;
 
-/**
- * The interface responsible for interacting with the map of the world.
- * Assumes that Vector2d and MoveDirection classes are defined.
- *
- * @author apohllo, idzik
- */
-public interface WorldMap<T,P> extends MoveValidator<P> {
+public interface WorldNumberPositionMap<T> extends WorldMap<T, Number>{
 
-    boolean canMoveTo(P position);
+    boolean canMoveTo(Number position);
 
     /*
      * Place an animal on the map.
@@ -32,7 +26,7 @@ public interface WorldMap<T,P> extends MoveValidator<P> {
      * @param position Position to check.
      * @return True if the position is occupied.
      */
-    boolean isOccupied(P position);
+    boolean isOccupied(Number position);
 
     /*
      * Return an animal at a given position.
@@ -40,5 +34,5 @@ public interface WorldMap<T,P> extends MoveValidator<P> {
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
-    T objectAt(P position);
+    T objectAt(Number position);
 }
