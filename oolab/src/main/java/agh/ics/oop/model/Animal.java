@@ -2,8 +2,9 @@ package agh.ics.oop.model;
 
 import static agh.ics.oop.model.RectangularMap.*;
 
-public class Animal implements MoveValidator {
+public class Animal{
     private Vector2d position;
+    private static MoveValidator validator = new RectangularMap(5,5);
 
 
     private MapDirection direction;
@@ -50,21 +51,21 @@ public class Animal implements MoveValidator {
         return this.position.equals(position);
     }
 
-    public boolean canMoveTo(Vector2d position) {
-        return position.follows(border_lowerleft) && position.precedes(border_upperright);
-    }
+    //public boolean canMoveTo(Vector2d position) {
+    //    return position.follows(border_lowerleft) && position.precedes(border_upperright);
+    //}
 
     public void move(MoveDirection dir){
         switch (dir){
             case FORWARD:
                 Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
-                if(canMoveTo(new_position1)){
+                if(validator.canMoveTo(new_position1)){
                     this.position = new_position1;
                 }
                 break;
             case BACKWARD:
                 Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
-                if(canMoveTo(new_position2)) {
+                if(validator.canMoveTo(new_position2)) {
                     this.position = new_position2;
                 }
                 break;
