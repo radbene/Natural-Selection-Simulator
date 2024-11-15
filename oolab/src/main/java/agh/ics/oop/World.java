@@ -1,8 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirections;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
 import java.util.List;
 
@@ -22,16 +20,17 @@ public class World {
 
         Animal spuchacz = new Animal();
         System.out.println(spuchacz.toString());
-        List<MoveDirections> directions = OptionsParser.parse(args);
+        List<MoveDirection> directions = OptionsParser.parse(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions);
+        WorldMap map = new RectangularMap(10,10);
+        Simulation simulation = new Simulation(positions, directions,map);
         simulation.run();
         System.out.println("system zakończył działanie");
     }
 
     //static public void run(String[] args)
     //public static void run(MoveDirections[] moves)
-    public static void run(List<MoveDirections> moves)
+    public static void run(List<MoveDirection> moves)
     {
         //System.out.println("zwierzak idzie do przodu");
         /*for (int i = 0; i < args.length; i++) {
@@ -52,10 +51,10 @@ public class World {
                 case "r" -> System.out.println("zwierzak skręca w prawo");
                 case "l" -> System.out.println("zwierzak skręca w lewo");
                  */
-                case MoveDirections.FORWARD -> System.out.println("zwierzak idzie do przodu");
-                case MoveDirections.BACKWARD -> System.out.println("zwierzak idzie do tyłu");
-                case MoveDirections.RIGHT -> System.out.println("zwierzak skręca w prawo");
-                case MoveDirections.LEFT -> System.out.println("zwierzak skręca w lewo");
+                case MoveDirection.FORWARD -> System.out.println("zwierzak idzie do przodu");
+                case MoveDirection.BACKWARD -> System.out.println("zwierzak idzie do tyłu");
+                case MoveDirection.RIGHT -> System.out.println("zwierzak skręca w prawo");
+                case MoveDirection.LEFT -> System.out.println("zwierzak skręca w lewo");
             }
         }
         System.out.println("Stop");

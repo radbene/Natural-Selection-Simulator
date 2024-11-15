@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Simulation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/SimulationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/OptionsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/OptionsParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MapDirection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/MapDirection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/OptionsParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/OptionsParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,15 +42,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="lab2" />
+        <entry key="$PROJECT_DIR$/.." value="lab4-dodatkowe" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -85,56 +80,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.World.executor": "Run",
-    "Gradle.AnimalTest.InvalidAnimalStartingPosition.executor": "Run",
-    "Gradle.Build oolab.executor": "Run",
-    "Gradle.MapDirectionTest.NextTest.executor": "Run",
-    "Gradle.MapDirectionTest.PreviousTest.executor": "Run",
-    "Gradle.OptionsParserTest.InvalidCharacters.executor": "Run",
-    "Gradle.OptionsParserTest.NoCharacters.executor": "Run",
-    "Gradle.OptionsParserTest.RandomCharacters.executor": "Run",
-    "Gradle.OptionsParserTest.SomeValidSomeInvalidCharacters.executor": "Run",
-    "Gradle.OptionsParserTest.ValidCharacters.executor": "Run",
-    "Gradle.OptionsParserTest.executor": "Run",
-    "Gradle.SimulationTest.EmptyMovesTest.executor": "Run",
-    "Gradle.SimulationTest.EmptyStartingPositionsTest.executor": "Run",
-    "Gradle.SimulationTest.EmptyStarting_positionsAndMoves.executor": "Run",
-    "Gradle.SimulationTest.GoingOutOfBoundsTest.executor": "Run",
-    "Gradle.SimulationTest.RotatingLeftTest.executor": "Run",
-    "Gradle.SimulationTest.RotatingRightTest.executor": "Run",
-    "Gradle.Vector2dTest.AddingVectors.executor": "Run",
-    "Gradle.Vector2dTest.DifferentVectorsEquals.executor": "Run",
-    "Gradle.Vector2dTest.FollowingVectors.executor": "Run",
-    "Gradle.Vector2dTest.LowerLeftTest.executor": "Run",
-    "Gradle.Vector2dTest.PrecedingVectors.executor": "Run",
-    "Gradle.Vector2dTest.SameVectorsEquals.executor": "Run",
-    "Gradle.Vector2dTest.StringFormat.executor": "Run",
-    "Gradle.Vector2dTest.UpperRightTest.executor": "Run",
-    "Gradle.oolab [:agh.ics.oop.World.main()].executor": "Run",
-    "JUnit.agh.ics.oop in oolab.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "lab3",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Radek/IdeaProjects/oolab/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.World.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AnimalTest.InvalidAnimalStartingPosition.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build oolab.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MapDirectionTest.NextTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MapDirectionTest.PreviousTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.InvalidCharacters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.NoCharacters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.RandomCharacters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.SomeValidSomeInvalidCharacters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.ValidCharacters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OptionsParserTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.EmptyMovesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.EmptyStartingPositionsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.EmptyStarting_positionsAndMoves.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.GoingOutOfBoundsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.RotatingLeftTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.RotatingRightTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.SameStartingPosition.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.StartingPositionsOutOfBoundsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SimulationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.AddingVectors.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.DifferentVectorsEquals.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.FollowingVectors.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.LowerLeftTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.PrecedingVectors.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.SameVectorsEquals.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.StringFormat.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Vector2dTest.UpperRightTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.oolab [:agh.ics.oop.World.main()].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.agh.ics.oop in oolab.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#5 on lab4&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Radek/IdeaProjects/oolab/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -144,8 +142,21 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SimulationTest.EmptyMovesTest">
-    <configuration name="AnimalTest.InvalidAnimalStartingPosition" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Application.World">
+    <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
+      <module name="oolab.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="agh.ics.oop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimulationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -158,7 +169,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.AnimalTest.InvalidAnimalStartingPosition&quot;" />
+            <option value="&quot;agh.ics.oop.SimulationTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -193,7 +204,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SimulationTest.EmptyStartingPositionsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SimulationTest.SameStartingPosition" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -206,7 +217,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.SimulationTest.EmptyStartingPositionsTest&quot;" />
+            <option value="&quot;agh.ics.oop.SimulationTest.SameStartingPosition&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -217,7 +228,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SimulationTest.RotatingLeftTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SimulationTest.StartingPositionsOutOfBoundsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -230,31 +241,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.SimulationTest.RotatingLeftTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="SimulationTest.RotatingRightTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;agh.ics.oop.SimulationTest.RotatingRightTest&quot;" />
+            <option value="&quot;agh.ics.oop.SimulationTest.StartingPositionsOutOfBoundsTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -266,19 +253,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.AnimalTest.InvalidAnimalStartingPosition" />
+      <item itemvalue="Application.World" />
       <item itemvalue="Gradle.SimulationTest.EmptyMovesTest" />
-      <item itemvalue="Gradle.SimulationTest.EmptyStartingPositionsTest" />
-      <item itemvalue="Gradle.SimulationTest.RotatingLeftTest" />
-      <item itemvalue="Gradle.SimulationTest.RotatingRightTest" />
+      <item itemvalue="Gradle.SimulationTest" />
+      <item itemvalue="Gradle.SimulationTest.SameStartingPosition" />
+      <item itemvalue="Gradle.SimulationTest.StartingPositionsOutOfBoundsTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.SimulationTest.StartingPositionsOutOfBoundsTest" />
+        <item itemvalue="Gradle.SimulationTest.SameStartingPosition" />
+        <item itemvalue="Gradle.SimulationTest" />
         <item itemvalue="Gradle.SimulationTest.EmptyMovesTest" />
-        <item itemvalue="Gradle.SimulationTest.RotatingLeftTest" />
-        <item itemvalue="Gradle.SimulationTest.RotatingRightTest" />
-        <item itemvalue="Gradle.AnimalTest.InvalidAnimalStartingPosition" />
-        <item itemvalue="Gradle.SimulationTest.EmptyStartingPositionsTest" />
+        <item itemvalue="Application.World" />
       </list>
     </recent_temporary>
   </component>
@@ -312,7 +299,11 @@
       <workItem from="1730887958901" duration="280000" />
       <workItem from="1730888249549" duration="5813000" />
       <workItem from="1730997778883" duration="2159000" />
-      <workItem from="1731052327346" duration="1969000" />
+      <workItem from="1731052327346" duration="8255000" />
+      <workItem from="1731445562309" duration="3668000" />
+      <workItem from="1731499861265" duration="10016000" />
+      <workItem from="1731633463275" duration="3784000" />
+      <workItem from="1731666558717" duration="2285000" />
     </task>
     <servers />
   </component>

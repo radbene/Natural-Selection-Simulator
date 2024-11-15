@@ -22,12 +22,12 @@ public enum MapDirection {
         return MapDirection.values()[(direction.ordinal() + MapDirection.values().length-1) % MapDirection.values().length];
     }
 
-    public Vector2d toUnitVector(MapDirection direction){
+    public Vector2d toUnitVector(){
         Vector2d vector2d_north = new Vector2d(0, 1);
         Vector2d vector2d_east = new Vector2d(1, 0);
         Vector2d vector2d_south = new Vector2d(0, -1);
         Vector2d vector2d_west = new Vector2d(-1, 0);
-        return switch (direction) {
+        return switch (this) {
             case NORTH -> vector2d_north;
             case EAST -> vector2d_east;
             case SOUTH -> vector2d_south;
