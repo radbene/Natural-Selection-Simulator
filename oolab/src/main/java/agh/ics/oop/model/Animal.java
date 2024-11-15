@@ -1,8 +1,6 @@
 package agh.ics.oop.model;
 
-import static agh.ics.oop.model.RectangularMap.*;
-
-public class Animal implements MoveValidator {
+public class Animal implements MoveValidator<Vector2d> {
     private Vector2d position;
 
 
