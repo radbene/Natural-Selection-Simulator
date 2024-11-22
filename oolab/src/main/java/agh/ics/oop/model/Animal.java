@@ -2,7 +2,7 @@ package agh.ics.oop.model;
 
 import static agh.ics.oop.model.RectangularMap.*;
 
-public class Animal{
+public class Animal implements WorldElement{
     private Vector2d position;
     private static MoveValidator validator = new RectangularMap(5,5);
 

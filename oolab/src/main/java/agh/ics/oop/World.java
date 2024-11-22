@@ -19,12 +19,15 @@ public class World {
         System.out.println(position1.add(position2));
 
         Animal spuchacz = new Animal();
-        System.out.println(spuchacz.toString());
+        spuchacz.toString();
         List<MoveDirection> directions = OptionsParser.parse(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        WorldMap map = new RectangularMap(10,10);
+        //WorldMap map = new RectangularMap(10,10);
+        WorldMap map = new GrassField(10);
         Simulation simulation = new Simulation(positions, directions,map);
         simulation.run();
+        //GrassField field = new GrassField(10);
+        //field.toString();
         System.out.println("system zakończył działanie");
     }
 
