@@ -50,10 +50,12 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
 
+
     public List<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>(animals.values());
         return elements;
     }
-    
+
+    @Override
     abstract public boolean canMoveTo(Vector2d position);
 }
