@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AbstractWorldMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Grass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/GrassField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldElement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/GrassFieldTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/RectangularMapTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_11_2024_22_16_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_11_2024_22_16_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_11_2024_22_16__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_11_2024_22_16__Changes_1.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RandomPositionGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AbstractWorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/GrassField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/GrassField.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,16 +44,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="lab4-dodatkowe" />
+        <entry key="$PROJECT_DIR$/.." value="lab5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -138,7 +126,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "lab5",
+    "git-widget-placeholder": "lab5-dodatkowe",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab",
     "node.js.detected.package.eslint": "true",
