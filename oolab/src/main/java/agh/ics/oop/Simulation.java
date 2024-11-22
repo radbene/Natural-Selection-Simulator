@@ -19,6 +19,8 @@ public class Simulation {
 
     private List<Animal> animals = new ArrayList<>();
 
+
+
     public Simulation(List<Vector2d> starting_positions, List<MoveDirection> moves, WorldMap world) {
         /*if (starting_positions.size() == 0 || moves.size() == 0) {
             throw new IllegalArgumentException("starting_positions and moves must not be empty");
@@ -27,11 +29,14 @@ public class Simulation {
         this.starting_positions = starting_positions;
         this.moves = moves;
         int i = 0;
+        System.out.println("Starting positions: " + starting_positions);
         for (Vector2d position : starting_positions) {
             Animal new_animal = new Animal(position);
             new_animal.setIndex(i);
             if (map.place(new_animal)){
+                System.out.println(new_animal.getPosition());
                 this.animals.add(new_animal);
+                System.out.println("Animal placed: " + new_animal.getPosition());
             }
             i++;
         }
@@ -39,6 +44,7 @@ public class Simulation {
 
     public void run() {
         System.out.println(map);
+        System.out.println(animals.size());
         if (this.animals.isEmpty()){
             return;
         }

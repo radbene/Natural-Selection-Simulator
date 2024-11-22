@@ -9,9 +9,9 @@ public class RectangularMap implements WorldMap{
     private Map<Vector2d, Animal> animals;
 
 
-    private final Vector2d lowerLeft;
-    private final Vector2d upperRight;
-    private final MapVisualizer visualizer;
+    private  Vector2d lowerLeft;
+    private  Vector2d upperRight;
+    private  MapVisualizer visualizer;
 
 
     public RectangularMap(int width, int height){
