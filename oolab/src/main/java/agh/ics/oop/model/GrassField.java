@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,7 +41,15 @@ public class GrassField extends AbstractWorldMap{
         int n = this.noOfGrassFields;
         double upperlimit = Math.sqrt(n * 10);
         int i = 0;
-        while (i < noOfGrassFields) {
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int)upperlimit, (int)upperlimit, n);
+        Iterator<Vector2d> positionsIterator = randomPositionGenerator.iterator();
+
+        while(positionsIterator.hasNext()) {
+            Vector2d new_grass_position = positionsIterator.next();
+            grasses.put(new_grass_position, new Grass(new_grass_position));
+        }
+    }
+        /*while (i < noOfGrassFields) {
             int x = (int) (Math.random() * upperlimit);
             int y = (int) (Math.random() * upperlimit);
             boolean flag = false;
@@ -57,6 +66,7 @@ public class GrassField extends AbstractWorldMap{
         }
         System.out.println(grasses.size());
     }
+    */
 
     private void minMax(Map<Vector2d,Animal> animals,Map<Vector2d, Grass> grasses){
         int xmin = Integer.MAX_VALUE;

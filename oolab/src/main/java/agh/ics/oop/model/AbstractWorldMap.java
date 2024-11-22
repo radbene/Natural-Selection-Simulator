@@ -49,7 +49,8 @@ public abstract class AbstractWorldMap implements WorldMap {
         return null;
     }
 
-    
+
+
     public List<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>(animals.values());
         return elements;
