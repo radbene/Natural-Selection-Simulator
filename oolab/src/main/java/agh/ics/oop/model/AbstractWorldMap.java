@@ -1,6 +1,9 @@
 package agh.ics.oop.model;
 import agh.ics.oop.model.util.MapVisualizer;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 public abstract class AbstractWorldMap implements WorldMap {
 
@@ -46,5 +49,11 @@ public abstract class AbstractWorldMap implements WorldMap {
         return null;
     }
 
+    @Override
+    public List<WorldElement> getElements() {
+        List<WorldElement> elements = new ArrayList<>(animals.values());
+        return elements;
+    }
+    
     abstract public boolean canMoveTo(Vector2d position);
 }
