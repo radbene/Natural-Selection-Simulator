@@ -20,13 +20,20 @@ public class World {
 
         Animal spuchacz = new Animal();
         spuchacz.toString();
+        try {
         List<MoveDirection> directions = OptionsParser.parse(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        //WorldMap map = new RectangularMap(10,10);
-        WorldMap map = new GrassField(10);
-        Simulation simulation = new Simulation(positions, directions,map);
+        AbstractWorldMap map = new RectangularMap(10,10);
+        //AbstractWorldMap map = new GrassField(10);
+            map.addObserver(new ConsoleMapDisplay());
+            Simulation simulation = new Simulation(positions, directions,map);
         simulation.run();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
         //GrassField field = new GrassField(10);
+        //field.addObserver(new ConsoleMapDisplay());
         //field.toString();
         System.out.println("system zakończył działanie");
     }

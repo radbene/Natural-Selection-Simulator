@@ -1,9 +1,11 @@
 package agh.ics.oop.model;
 import agh.ics.oop.OptionsParser;
 import agh.ics.oop.Simulation;
+import agh.ics.oop.model.util.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 public class GrassFieldTest {
@@ -19,9 +21,12 @@ public class GrassFieldTest {
     void testCannotMoveToOccupiedPositionByAnimal() {
         Animal animal = new Animal(new Vector2d(5, 5));
         GrassField grassField = new GrassField(10);
-
+        try {
         grassField.place(animal);
-
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> grassField.place(animal));
         assertFalse(grassField.canMoveTo(new Vector2d(5, 5)));
     }
 
@@ -40,9 +45,12 @@ public class GrassFieldTest {
     void testPlaceAnimal() {
         Animal animal = new Animal(new Vector2d(2, 3));
         GrassField grassField = new GrassField(10); // Create a grass field with 10 grass patches
-
+        try {
         assertTrue(grassField.place(animal), "Animal should be placed successfully.");
-
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> grassField.place(animal));
         assertTrue(grassField.isOccupied(new Vector2d(2, 3)), "Position should be marked as occupied.");
         assertEquals(animal, grassField.objectAt(new Vector2d(2, 3)), "The placed animal should be retrievable.");
     }
@@ -52,8 +60,12 @@ public class GrassFieldTest {
         GrassField grassField = new GrassField(10); // Create a grass field with 10 grass patches
 
         Animal animal = new Animal(new Vector2d(2, 2));
+        try {
         grassField.place(animal);
-
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> grassField.place(animal));
         grassField.move(animal, MoveDirection.FORWARD);
         assertTrue(animal.getPosition().equals(new Vector2d(2, 3)), "Animal should have moved forward.");
     }
@@ -64,8 +76,17 @@ public class GrassFieldTest {
 
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(2, 3));
-        grassField.place(animal1);
-        grassField.place(animal2);
+        try {
+
+            grassField.place(animal1);
+            grassField.place(animal2);
+
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> grassField.place(animal1));
+        assertThrows(IncorrectPositionException.class, () -> grassField.place(animal2));
+
 
         grassField.move(animal1, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 2), animal1.getPosition(), "Animal should not move into an occupied position.");
@@ -76,8 +97,16 @@ public class GrassFieldTest {
         GrassField map = new GrassField(1); // Create a grass field with 10 grass patches
         Animal animal1 = new Animal(new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
         Animal animal2 = new Animal(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+
+            map.place(animal1);
+            map.place(animal2);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> map.place(animal1));
+        assertThrows(IncorrectPositionException.class, () -> map.place(animal2));
         map.getUpperright().equals(new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
         map.getLowerleft().equals(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE));
     }

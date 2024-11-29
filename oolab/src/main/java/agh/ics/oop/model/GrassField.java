@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.HashMap;
@@ -74,10 +75,10 @@ public class GrassField extends AbstractWorldMap{
         int ymin = Integer.MAX_VALUE;
         int ymax = Integer.MIN_VALUE;
         for(Vector2d v : animals.keySet()){
-            if(v.getX() < xmin) xmin = v.getX();
-            if(v.getX() > xmax) xmax = v.getX();
-            if(v.getY() < ymin) ymin = v.getY();
-            if(v.getY() > ymax) ymax = v.getY();
+             xmin = Math.min(v.getX(),xmin);
+             xmax = Math.max(v.getX(),xmax);
+             ymin = Math.min(v.getY(),ymin);
+             ymax = Math.max(v.getY(),ymax);
         }
 
         for(Vector2d v : grasses.keySet()){
@@ -101,6 +102,12 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
+    public Boundary getCurrentBounds() {
+        minMax(animals,grasses);
+        return new Boundary(this.lowerleft,this.upperright);
+    }
+
+   /* @Override
     public String toString() {
         minMax(animals,grasses);
         System.out.println(lowerleft);
@@ -108,11 +115,12 @@ public class GrassField extends AbstractWorldMap{
         return visualizer.draw(lowerleft, upperright);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(noOfGrassFields, lowerleft, upperright, visualizer, animals, grasses);
     }
-
+*/
     /*public boolean place(Animal animal){
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
