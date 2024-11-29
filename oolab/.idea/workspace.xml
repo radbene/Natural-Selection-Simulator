@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMap.java" afterDir="false" />
-    </list>
+    <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,15 +40,15 @@
       <list>
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="lab5" />
+        <entry key="$PROJECT_DIR$/.." value="lab4-dodatkowe" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -85,11 +82,6 @@
     "Application.World.executor": "Run",
     "Gradle.AnimalTest.InvalidAnimalStartingPosition.executor": "Run",
     "Gradle.Build oolab.executor": "Run",
-    "Gradle.GrassFieldTest.executor": "Run",
-    "Gradle.GrassFieldTest.testCannotMoveToOccupiedPositionByGrass.executor": "Run",
-    "Gradle.GrassFieldTest.testMapBoundaries.executor": "Run",
-    "Gradle.GrassFieldTest.testMoveAnimal.executor": "Debug",
-    "Gradle.GrassFieldTest.testMoveIntoOccupiedPosition.executor": "Run",
     "Gradle.MapDirectionTest.NextTest.executor": "Run",
     "Gradle.MapDirectionTest.PreviousTest.executor": "Run",
     "Gradle.OptionsParserTest.InvalidCharacters.executor": "Run",
@@ -99,6 +91,9 @@
     "Gradle.OptionsParserTest.ValidCharacters.executor": "Run",
     "Gradle.OptionsParserTest.executor": "Run",
     "Gradle.RectangularMapTests.executor": "Run",
+    "Gradle.RectangularMapTests.testCannotMoveToOccupiedPosition.executor": "Run",
+    "Gradle.RectangularMapTests.testPlaceAnimalOnOccupiedPosition.executor": "Run",
+    "Gradle.RectangularMapTests.testPlaceAnimalOutOfBounds.executor": "Run",
     "Gradle.RectangularMapTests.testToString.executor": "Run",
     "Gradle.SimulationTest.EmptyMovesTest.executor": "Run",
     "Gradle.SimulationTest.EmptyStartingPositionsTest.executor": "Run",
@@ -124,7 +119,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "#9 on lab5-dodatkowe",
+    "git-widget-placeholder": "lab6",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab",
     "node.js.detected.package.eslint": "true",
@@ -149,11 +144,11 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.GrassFieldTest">
+  <component name="RunManager" selected="Application.World">
     <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
       <module name="oolab.main" />
-      <option name="PROGRAM_PARAMETERS" value="f f f f f f f f" />
+      <option name="PROGRAM_PARAMETERS" value="l b f b f b f b f b f b f b r r f f f f f f f f" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="agh.ics.oop.*" />
@@ -163,54 +158,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="GrassFieldTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.GrassFieldTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="GrassFieldTest.testCannotMoveToOccupiedPositionByGrass" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.GrassFieldTest.testCannotMoveToOccupiedPositionByGrass&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
     </configuration>
     <configuration name="RectangularMapTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -226,6 +173,54 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;agh.ics.oop.model.RectangularMapTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="RectangularMapTests.testCannotMoveToOccupiedPosition" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;agh.ics.oop.model.RectangularMapTests.testCannotMoveToOccupiedPosition&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="RectangularMapTests.testPlaceAnimalOutOfBounds" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;agh.ics.oop.model.RectangularMapTests.testPlaceAnimalOutOfBounds&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -262,18 +257,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.World" />
-      <item itemvalue="Gradle.GrassFieldTest" />
-      <item itemvalue="Gradle.GrassFieldTest.testCannotMoveToOccupiedPositionByGrass" />
       <item itemvalue="Gradle.RectangularMapTests" />
+      <item itemvalue="Gradle.RectangularMapTests.testCannotMoveToOccupiedPosition" />
+      <item itemvalue="Gradle.RectangularMapTests.testPlaceAnimalOutOfBounds" />
       <item itemvalue="Gradle.RectangularMapTests.testToString" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.GrassFieldTest" />
+        <item itemvalue="Gradle.RectangularMapTests" />
         <item itemvalue="Application.World" />
         <item itemvalue="Gradle.RectangularMapTests.testToString" />
-        <item itemvalue="Gradle.RectangularMapTests" />
-        <item itemvalue="Gradle.GrassFieldTest.testCannotMoveToOccupiedPositionByGrass" />
+        <item itemvalue="Gradle.RectangularMapTests.testCannotMoveToOccupiedPosition" />
+        <item itemvalue="Gradle.RectangularMapTests.testPlaceAnimalOutOfBounds" />
       </list>
     </recent_temporary>
   </component>
@@ -312,9 +307,6 @@
       <workItem from="1731499861265" duration="10016000" />
       <workItem from="1731633463275" duration="3784000" />
       <workItem from="1731666558717" duration="2285000" />
-      <workItem from="1731715446408" duration="1873000" />
-      <workItem from="1732143122803" duration="15580000" />
-      <workItem from="1732270049779" duration="1839000" />
     </task>
     <servers />
   </component>

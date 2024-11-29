@@ -82,4 +82,5 @@ public class MapVisualizer {
         }
         return EMPTY_CELL;
     }
+
 }
