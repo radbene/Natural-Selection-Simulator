@@ -75,9 +75,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     abstract public boolean canMoveTo(Vector2d position);
 
 
-    public Boundary getCurrentBounds() {
-        return new Boundary(lowerLeft, upperRight);
-    }
+    abstract public Boundary getCurrentBounds();
 
     @Override
     public String toString() {
