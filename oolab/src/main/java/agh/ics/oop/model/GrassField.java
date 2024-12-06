@@ -3,10 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class GrassField extends AbstractWorldMap{
@@ -35,6 +32,7 @@ public class GrassField extends AbstractWorldMap{
         Animal animal = new Animal();
         animal.setBorder(lowerleft,upperright);
         animal = null;
+        this.addObserver(new ConsoleMapDisplay());
         this.visualizer = new MapVisualizer(this);
         this.GenerateGrassFields();
     }
@@ -100,6 +98,8 @@ public class GrassField extends AbstractWorldMap{
         if(object != null) return object;
         return grasses.get(position);
     }
+
+
 
     @Override
     public Boundary getCurrentBounds() {

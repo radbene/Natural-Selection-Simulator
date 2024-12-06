@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.model.*;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class World {
 
@@ -21,13 +22,24 @@ public class World {
         Animal spuchacz = new Animal();
         spuchacz.toString();
         try {
-        List<MoveDirection> directions = OptionsParser.parse(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        AbstractWorldMap map = new RectangularMap(10,10);
-        //AbstractWorldMap map = new GrassField(10);
-            map.addObserver(new ConsoleMapDisplay());
-            Simulation simulation = new Simulation(positions, directions,map);
-        simulation.run();
+            List<MoveDirection> directions = OptionsParser.parse(args);
+            List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+            List<Simulation> simulations = new ArrayList<>();
+            //for (int i = 0; i < 100; i++){
+                AbstractWorldMap map1 = new RectangularMap(5,5);
+                AbstractWorldMap map2 = new GrassField(30);
+                simulations.add(new Simulation(positions,directions,map1));
+                simulations.add(new Simulation(positions,directions,map2));
+            //}
+            //map.addObserver(new ConsoleMapDisplay());
+            //Simulation simulation = new Simulation(positions, directions,map);
+            SimulationEngine engine = new SimulationEngine(simulations);
+            //engine.runSync();
+            //engine.runAsync();
+            //engine.runAsyncInThreadPool();
+            //simulation.run();
+
+            engine.awaitSimulationsEnd();
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
             return;

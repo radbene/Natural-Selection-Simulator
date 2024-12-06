@@ -9,7 +9,7 @@ import agh.ics.oop.model.util.IncorrectPositionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private List<Vector2d> starting_positions;
     private List<MoveDirection> moves;
     private WorldMap map;
@@ -51,8 +51,6 @@ public class Simulation {
     }
 
     public void run() {
-        System.out.println(map);
-        System.out.println(animals.size());
         if (this.animals.isEmpty()){
             return;
         }
@@ -60,7 +58,6 @@ public class Simulation {
         int m = 0;
         while (m < this.moves.size()){
             map.move(this.animals.get(a % this.animals.size()), this.moves.get(m));
-            System.out.println(map);
             a++;
             m++;
         }
