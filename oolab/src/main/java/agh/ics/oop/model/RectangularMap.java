@@ -23,6 +23,7 @@ public class RectangularMap extends AbstractWorldMap{
         Animal animal = new Animal();
         animal.setBorder(this.lowerLeft,this.upperRight);
         animal = null;
+        this.addObserver(new ConsoleMapDisplay());
         this.visualizer = new MapVisualizer(this);
     }
 

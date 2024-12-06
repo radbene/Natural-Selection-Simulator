@@ -1,0 +1,23 @@
+Index: src/main/java/agh/ics/oop/model/ConsoleMapDisplay.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package agh.ics.oop.model;\r\npublic class ConsoleMapDisplay implements MapChangeListener{\r\n    private int updateCount = 0;\r\n    @Override\r\n    public void mapChanged(WorldMap worldMap, String message) {\r\n        System.out.println(\"Update #\" + (++updateCount) + \": \" + message);\r\n        System.out.println(worldMap);\r\n    }\r\n}
+===================================================================
+diff --git a/src/main/java/agh/ics/oop/model/ConsoleMapDisplay.java b/src/main/java/agh/ics/oop/model/ConsoleMapDisplay.java
+--- a/src/main/java/agh/ics/oop/model/ConsoleMapDisplay.java	(revision 584923ff128eb7cc8f93889129bd77337ef2372e)
++++ b/src/main/java/agh/ics/oop/model/ConsoleMapDisplay.java	(date 1733458258587)
+@@ -2,8 +2,10 @@
+ public class ConsoleMapDisplay implements MapChangeListener{
+     private int updateCount = 0;
+     @Override
+-    public void mapChanged(WorldMap worldMap, String message) {
+-        System.out.println("Update #" + (++updateCount) + ": " + message);
+-        System.out.println(worldMap);
++    public  void mapChanged(WorldMap worldMap, String message) {
++        synchronized(System.out) {
++            System.out.println("(Map " + worldMap.getId() + ") Update #" + (++updateCount) + ": " + message);
++            System.out.println(worldMap);
++        }
+     }
+ }
+\ No newline at end of file
