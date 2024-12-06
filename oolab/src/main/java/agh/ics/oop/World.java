@@ -4,7 +4,6 @@ import agh.ics.oop.model.*;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class World {
 
@@ -26,18 +25,18 @@ public class World {
             List<MoveDirection> directions = OptionsParser.parse(args);
             List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
             List<Simulation> simulations = new ArrayList<>();
-            for (int i = 0; i < 100; i++){
+            //for (int i = 0; i < 100; i++){
                 AbstractWorldMap map1 = new RectangularMap(5,5);
                 AbstractWorldMap map2 = new GrassField(30);
                 simulations.add(new Simulation(positions,directions,map1));
                 simulations.add(new Simulation(positions,directions,map2));
-            }
+            //}
             //map.addObserver(new ConsoleMapDisplay());
             //Simulation simulation = new Simulation(positions, directions,map);
             SimulationEngine engine = new SimulationEngine(simulations);
             //engine.runSync();
             //engine.runAsync();
-            engine.runAsyncInThreadPool();
+            //engine.runAsyncInThreadPool();
             //simulation.run();
 
             engine.awaitSimulationsEnd();
