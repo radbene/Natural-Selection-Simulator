@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import javafx.application.Application;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -26,18 +27,20 @@ public class World {
             List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
             List<Simulation> simulations = new ArrayList<>();
             //for (int i = 0; i < 100; i++){
-                AbstractWorldMap map1 = new RectangularMap(5,5);
+                //AbstractWorldMap map1 = new RectangularMap(5,5);
                 AbstractWorldMap map2 = new GrassField(30);
-                simulations.add(new Simulation(positions,directions,map1));
+                //simulations.add(new Simulation(positions,directions,map1));
                 simulations.add(new Simulation(positions,directions,map2));
             //}
             //map.addObserver(new ConsoleMapDisplay());
             //Simulation simulation = new Simulation(positions, directions,map);
             SimulationEngine engine = new SimulationEngine(simulations);
-            //engine.runSync();
+            engine.runAsync();
             //engine.runAsync();
             //engine.runAsyncInThreadPool();
             //simulation.run();
+            //Application.launch(SimulationApp.class, args);
+
 
             engine.awaitSimulationsEnd();
         } catch (IllegalArgumentException e) {
@@ -73,10 +76,10 @@ public class World {
                 case "r" -> System.out.println("zwierzak skręca w prawo");
                 case "l" -> System.out.println("zwierzak skręca w lewo");
                  */
-                case MoveDirection.FORWARD -> System.out.println("zwierzak idzie do przodu");
-                case MoveDirection.BACKWARD -> System.out.println("zwierzak idzie do tyłu");
-                case MoveDirection.RIGHT -> System.out.println("zwierzak skręca w prawo");
-                case MoveDirection.LEFT -> System.out.println("zwierzak skręca w lewo");
+                case FORWARD -> System.out.println("zwierzak idzie do przodu");
+                case BACKWARD -> System.out.println("zwierzak idzie do tyłu");
+                case RIGHT -> System.out.println("zwierzak skręca w prawo");
+                case LEFT -> System.out.println("zwierzak skręca w lewo");
             }
         }
         System.out.println("Stop");

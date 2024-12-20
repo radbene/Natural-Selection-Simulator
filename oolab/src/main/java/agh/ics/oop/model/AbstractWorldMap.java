@@ -9,8 +9,6 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
-    protected Vector2d lowerLeft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final List<MapChangeListener> observers = new ArrayList<>();
 
     protected final UUID uuid = UUID.randomUUID();
@@ -47,7 +45,8 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void move(Animal animal, MoveDirection direction) {
         Vector2d oldPosition = animal.getPosition();
-        animal.move(direction);
+        Vector2d next_pos = new Vector2d(0,0);
+        animal.move(direction,this);
         animals.remove(oldPosition);
         animals.put(animal.getPosition(), animal);
         notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
@@ -76,7 +75,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     abstract public boolean canMoveTo(Vector2d position);
 
-
+    @Override
     abstract public Boundary getCurrentBounds();
 
     @Override

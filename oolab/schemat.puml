@@ -1,0 +1,181 @@
+@startuml
+class Simulation {
+    - canAddAnimal()
+    - Simulation()
+    - Animal()
+    + run()
+    + getAnimals()
+    + getEpoch()
+    + getDirections()
+}
+class World {
+    - main()
+    - Vector2d()
+    - GrassField()
+    - Simulation()
+    - Vector2d()
+    - RectangularMap()
+    - Simulation()
+    - Vector2d()
+    - RectangularMap()
+    - Simulation()
+    - GrassField()
+    - Simulation()
+    - SimulationEngine()
+    - Vector2d()
+    - RectangularMap()
+    - Simulation()
+    - GrassField()
+    - Simulation()
+    - SimulationEngine()
+}
+class OptionParser {
+    - getMoves()
+    - IllegalArgumentException()
+}
+class Animal {
+    - Animal()
+    - Vector2d()
+    - Animal()
+    + toString()
+    + isAt()
+    + move()
+    + getPosition()
+    + getDirection()
+}
+class MoveValidator {
+    - canMoveTo()
+}
+class RectangularMap {
+    - RectangularMap()
+    - Vector2d()
+    - Vector2d()
+    + canMoveTo()
+    + getCurrentBounds()
+    - Boundary()
+}
+class Vector2d {
+    - Vector2d()
+    + getX()
+    + getY()
+    + toString()
+    + precedes()
+    + follows()
+    + add()
+    - Vector2d()
+    + subtract()
+    - Vector2d()
+    + upperRight()
+    - Vector2d()
+    + lowerLeft()
+    - Vector2d()
+    + opposite()
+    - Vector2d()
+    + equals()
+    + hashCode()
+}
+class responsible {
+    - place()
+    - animal()
+    - move()
+    - isOccupied()
+    - objectAt()
+    - getCurrentBounds()
+    - getId()
+    - getUUID()
+}
+class AbstractWorldMap {
+    - Vector2d()
+    - Vector2d()
+    - MapVisualizer()
+    + addObserver()
+    + removeObserver()
+    # notifyObservers()
+    + canMoveTo()
+    + place()
+    - IncorrectPositionException()
+    + move()
+    + isOccupied()
+    - objectAt()
+    + objectAt()
+    + getElements()
+    + toString()
+    + getId()
+    + getUUID()
+}
+class GrassField {
+    - GrassField()
+    - Random()
+    - Vector2d()
+    - Grass()
+    + objectAt()
+    + toString()
+    - Vector2d()
+    - Vector2d()
+    + getElements()
+    + getCurrentBounds()
+    - Vector2d()
+    - Vector2d()
+    - Boundary()
+}
+class ConsoleMapDisplay {
+    + mapChanged()
+}
+class MapChangeListener {
+    - mapChanged()
+}
+class Grass {
+    - Grass()
+    + getPosition()
+    + toString()
+}
+class WorldElement {
+    - getPosition()
+}
+class SimulationEngine {
+    - SimulationEngine()
+    + runSync()
+    + runAsync()
+    - Thread()
+    + awaitSimulationEnd()
+    + runAsyncInThreadPool()
+}
+class MapVisualizer {
+    - MapVisualizer()
+    - characters()
+    + draw()
+    - StringBuilder()
+    - drawFrame()
+    - drawHeader()
+    - StringBuilder()
+    - drawObject()
+}
+class IncorrectPositionException {
+    - IncorrectPositionException()
+    + getPosition()
+}
+
+class WorldStats{
+}
+
+class AnimalObserver{
+}
+
+class GenomeManager{
+}
+
+class SimulationParams{
+}
+
+Runnable  <|.. Simulation
+WorldElement <|.. Animal
+WorldElement <|.. Fire
+AbstractWorldMap <|-- RectangularMap
+AbstractWorldMap <|-- FireMap
+MoveValidator <|-- responsible
+WorldMap  <|.. AbstractWorldMap
+AbstractWorldMap <|-- GrassField
+MapChangeListener <|.. ConsoleMapDisplay
+WorldElement <|.. Grass
+Exception <|-- IncorrectPositionException
+@enduml

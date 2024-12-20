@@ -41,9 +41,11 @@ public interface WorldMap extends MoveValidator {
     /**
      * Return an animal at a given position.
      *
-     * @param position The position of the animal.
+     * The position of the animal.
      * @return animal or null if the position is not occupied.
      */
+    Boundary getCurrentBounds();
+
     WorldElement objectAt(Vector2d position);
 
     UUID getId();
