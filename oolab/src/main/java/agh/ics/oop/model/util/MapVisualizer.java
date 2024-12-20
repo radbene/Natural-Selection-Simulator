@@ -35,6 +35,7 @@ public class MapVisualizer {
      */
     public String draw(Vector2d lowerLeft, Vector2d upperRight) {
         StringBuilder builder = new StringBuilder();
+        Boundary b = map.getCurrentBounds();
         for (int i = upperRight.getY() + 1; i >= lowerLeft.getY() - 1; i--) {
             if (i == upperRight.getY() + 1) {
                 builder.append(drawHeader(lowerLeft, upperRight));

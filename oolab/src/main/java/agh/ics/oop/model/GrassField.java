@@ -29,18 +29,15 @@ public class GrassField extends AbstractWorldMap{
         this.noOfGrassFields = n;
         animals = new HashMap<>();
         grasses = new HashMap<>();
-        Animal animal = new Animal();
-        animal.setBorder(lowerleft,upperright);
-        animal = null;
         this.addObserver(new ConsoleMapDisplay());
         this.visualizer = new MapVisualizer(this);
         this.GenerateGrassFields();
     }
     private void GenerateGrassFields() {
         int n = this.noOfGrassFields;
-        double upperlimit = Math.sqrt(n * 10);
+        int upperlimit = (int)Math.sqrt(n * 10);
         int i = 0;
-        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int)upperlimit, (int)upperlimit, n);
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(upperlimit, upperlimit, n);
         Iterator<Vector2d> positionsIterator = randomPositionGenerator.iterator();
 
         while(positionsIterator.hasNext()) {
@@ -67,28 +64,20 @@ public class GrassField extends AbstractWorldMap{
     }
     */
 
-    private void minMax(Map<Vector2d,Animal> animals,Map<Vector2d, Grass> grasses){
-        int xmin = Integer.MAX_VALUE;
-        int xmax = Integer.MIN_VALUE;
-        int ymin = Integer.MAX_VALUE;
-        int ymax = Integer.MIN_VALUE;
-        for(Vector2d v : animals.keySet()){
-             xmin = Math.min(v.getX(),xmin);
-             xmax = Math.max(v.getX(),xmax);
-             ymin = Math.min(v.getY(),ymin);
-             ymax = Math.max(v.getY(),ymax);
+    @Override
+    public Boundary getCurrentBounds(){
+        Vector2d bottom = new Vector2d(upperright.getX(), upperright.getY());
+        Vector2d top = new Vector2d(lowerleft.getX(), lowerleft.getY());
+        List<WorldElement> elements = getElements();
+        for (WorldElement element: elements) {
+            bottom = bottom.lowerLeft(element.getPosition());
+            top = top.upperRight(element.getPosition());
         }
-
-        for(Vector2d v : grasses.keySet()){
-            if(v.getX() < xmin) xmin = v.getX();
-            if(v.getX() > xmax) xmax = v.getX();
-            if(v.getY() < ymin) ymin = v.getY();
-            if(v.getY() > ymax) ymax = v.getY();
-        }
-        this.lowerleft = new Vector2d(xmin,ymin);
-        this.upperright = new Vector2d(xmax,ymax);
+        return new Boundary(bottom, top);
     }
 
+
+    @Override
     public boolean canMoveTo(Vector2d position) {
         return position.follows(lowerleft)  && !(objectAt(position) instanceof Animal);
     }
@@ -99,13 +88,6 @@ public class GrassField extends AbstractWorldMap{
         return grasses.get(position);
     }
 
-
-
-    @Override
-    public Boundary getCurrentBounds() {
-        minMax(animals,grasses);
-        return new Boundary(this.lowerleft,this.upperright);
-    }
 
    /* @Override
     public String toString() {

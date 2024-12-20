@@ -58,8 +58,14 @@ public class Simulation implements Runnable{
         int m = 0;
         while (m < this.moves.size()){
             map.move(this.animals.get(a % this.animals.size()), this.moves.get(m));
+            map.getCurrentBounds();
             a++;
             m++;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

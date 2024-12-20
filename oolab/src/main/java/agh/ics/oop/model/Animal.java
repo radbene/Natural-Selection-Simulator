@@ -14,14 +14,6 @@ public class Animal implements WorldElement{
 
     private int index = 0;
 
-    static private Vector2d border_lowerleft;
-    static private Vector2d border_upperright;
-
-    public void setBorder(Vector2d lowerleft, Vector2d upperright) {
-        border_lowerleft = lowerleft;
-        border_upperright = upperright;
-    }
-
     public void setIndex(int index) {
         this.index = index;
     }
@@ -55,17 +47,17 @@ public class Animal implements WorldElement{
     //    return position.follows(border_lowerleft) && position.precedes(border_upperright);
     //}
 
-    public void move(MoveDirection dir){
+    public void move(MoveDirection dir, WorldMap map){
         switch (dir){
             case FORWARD:
                 Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
-                if(validator.canMoveTo(new_position1)){
+                if(map.canMoveTo(new_position1)){
                     this.position = new_position1;
                 }
                 break;
             case BACKWARD:
                 Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
-                if(validator.canMoveTo(new_position2)) {
+                if(map.canMoveTo(new_position2)) {
                     this.position = new_position2;
                 }
                 break;
