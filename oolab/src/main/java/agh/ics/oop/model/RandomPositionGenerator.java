@@ -1,66 +1,56 @@
 package agh.ics.oop.model;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Random;
 
-public class RandomPositionGenerator implements Iterable<Vector2d> {
+public class RandomPositionGenerator {
+    private final Random random;
 
-    private final int[] listOfNumbers;
-    private final int numberOfGrass;
-    private final int width;
-    private final int height;
-
-    public RandomPositionGenerator(int maxWidth, int maxHeight, int GrassCount) {
-        numberOfGrass = GrassCount;
-        listOfNumbers = new int[maxWidth * maxHeight];
-        width = maxWidth;
-        height = maxHeight;
-
-        for(int i = 0; i < maxWidth * maxHeight; i++) {
-            listOfNumbers[i] = i;
-        }
+    public RandomPositionGenerator() {
+        this.random = new Random();
     }
 
-    @Override
-    public Iterator<Vector2d> iterator() {
-        return new VectorIterator<Vector2d>(listOfNumbers, numberOfGrass, width, height);
-    }
-}
+    public Iterator<Vector2d> generateInEquator(Equator equator) {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return true;
+            }
 
-class VectorIterator<V> implements Iterator<Vector2d> {
-
-    private int howManyElements = 0;
-    private final Random random = new Random();
-
-    private final int[] listOfNumbers;
-    private final int numberOfGrass;
-    private final int width;
-    private final int height;
-
-    public VectorIterator(int[] listOfNumbers, int numberOfGrass, int width, int height) {
-
-        this.listOfNumbers = listOfNumbers;
-        this.numberOfGrass = numberOfGrass;
-        this.width = width;
-        this.height = height;
+            @Override
+            public Vector2d next() {
+                Vector2d lowerLeft = equator.getLowerLeft();
+                Vector2d upperRight = equator.getUpperRight();
+                return generateRandomPosition(lowerLeft, upperRight);
+            }
+        };
     }
 
-    @Override
-    public boolean hasNext() {
-        return howManyElements < numberOfGrass;
+    public Iterator<Vector2d> generateOutsideEquator(AbstractWorldMap map, Equator equator) {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return true;
+            }
+
+            @Override
+            public Vector2d next() {
+                Vector2d mapLowerLeft = map.getCurrentBounds().lowerLeft();
+                Vector2d mapUpperRight = map.getCurrentBounds().upperRight();
+
+                while (true) {
+                    Vector2d position = generateRandomPosition(mapLowerLeft, mapUpperRight);
+                    if (!equator.contains(position)) {
+                        return position;
+                    }
+                }
+            }
+        };
     }
 
-    @Override
-    public Vector2d next() {
-
-        int index = random.nextInt((height * width) - howManyElements);
-        int element = listOfNumbers[index];
-
-        int x = element / width;
-        int y = element % width;
-
-        listOfNumbers[index] = listOfNumbers[(height * width) - howManyElements - 1];
-
-        howManyElements++;
+    private Vector2d generateRandomPosition(Vector2d lowerLeft, Vector2d upperRight) {
+        int x = random.nextInt(upperRight.getX() - lowerLeft.getX() + 1) + lowerLeft.getX();
+        int y = random.nextInt(upperRight.getY() - lowerLeft.getY() + 1) + lowerLeft.getY();
         return new Vector2d(x, y);
     }
 }
