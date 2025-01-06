@@ -19,14 +19,13 @@ public class Simulation implements Runnable{
     private final MapBuilder mapBuilder = new MapBuilder();
 
     public List<Animal> getAnimals() {
-        return animals;
+        return map.getAllAnimals();
     }
-    private List<Animal> animals = new ArrayList<>();
 
     public Simulation(List<Vector2d> starting_positions, WorldConfig config) {
-        this.starting_positions = starting_positions;
-        this.simulationHelper = new SimulationHelper(this.map, this, config);
+        this.simulationHelper = new SimulationHelper(this.map, config);
         this.config = config;
+        this.starting_positions = this.simulationHelper.generateStartingPositions(this.config.getInitialAnimalCount());
         init();
     }
 
@@ -36,7 +35,6 @@ public class Simulation implements Runnable{
             Animal animal = new Animal(position);
             try {
                 this.map.place(animal);
-                this.animals.add(animal);
             } catch (IncorrectPositionException e) {
                 e.printStackTrace();
             }

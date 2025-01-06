@@ -14,11 +14,10 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final List<MapChangeListener> observers = new ArrayList<>();
     protected WorldObserver wObserver;
-    protected final Map<Vector2d,Grass> grasses = new HashMap<>();
+    protected final Map<Vector2d, Grass> grasses = new HashMap<>();
     protected final GrassSpawner grassSpawner = new GrassSpawner(this, this.equator, new RandomPositionGenerator());
     protected final Equator equator = new Equator(new Vector2d(0, (int)(this.upperRight.getY() * 0.4)), new Vector2d(this.upperRight.getX(), (int)(this.upperRight.getY() * 0.6)));
-    protected int noOfGrassFields;
-
+    protected List<Animal> deadAnimals = new ArrayList<>();
     protected final UUID uuid = UUID.randomUUID();
 
     public void addObserver(MapChangeListener observer) {
@@ -33,6 +32,33 @@ public abstract class AbstractWorldMap implements WorldMap {
         for (MapChangeListener observer : observers) {
             observer.mapChanged(this, message);
         }
+        if (wObserver != null) {
+            wObserver.update();
+        }
+    }
+
+    public Vector2d getLowerleft() {
+        return lowerLeft;
+    }
+
+    public Vector2d getUpperright() {
+        return upperRight;
+    }
+
+    public List<Animal> getAllAnimals() {
+        return this.animals.values().stream().flatMap(List::stream).toList();
+    }
+
+    public List<Grass> getGrass() {
+        return new ArrayList<>(this.grasses.values());
+    }
+
+    public void addDeadAnimal(Animal animal) {
+        this.deadAnimals.add(animal);
+    }
+
+    public List<Animal> getDeadAnimals() {
+        return this.deadAnimals;
     }
 
     @Override
@@ -76,56 +102,61 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public List<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>();
-        for (ArrayList<Animal> animalList : animals.values()) {
-            elements.addAll(animalList);
-        }
+        animals.values().forEach(elements::addAll);
+        elements.addAll(grasses.values());
         return elements;
     }
 
     @Override
     abstract public boolean canMoveTo(Vector2d position);
 
-    abstract public Boundary getCurrentBounds();
-
     public void spawnGrass(int n) {
         grassSpawner.spawnGrass(n);
+        notifyObservers("Grass spawned");
     }
 
-    protected void minMax(Map<Vector2d,ArrayList<Animal>> animals,Map<Vector2d, Grass> grasses){
+    protected void minMax(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
         int xmin = Integer.MAX_VALUE;
         int xmax = Integer.MIN_VALUE;
         int ymin = Integer.MAX_VALUE;
         int ymax = Integer.MIN_VALUE;
-        for(Vector2d v : animals.keySet()){
-             xmin = Math.min(v.getX(),xmin);
-             xmax = Math.max(v.getX(),xmax);
-             ymin = Math.min(v.getY(),ymin);
-             ymax = Math.max(v.getY(),ymax);
+        for (Vector2d v : animals.keySet()) {
+            xmin = Math.min(v.getX(), xmin);
+            xmax = Math.max(v.getX(), xmax);
+            ymin = Math.min(v.getY(), ymin);
+            ymax = Math.max(v.getY(), ymax);
         }
 
-        for(Vector2d v : grasses.keySet()){
-            if(v.getX() < xmin) xmin = v.getX();
-            if(v.getX() > xmax) xmax = v.getX();
-            if(v.getY() < ymin) ymin = v.getY();
-            if(v.getY() > ymax) ymax = v.getY();
+        for (Vector2d v : grasses.keySet()) {
+            xmin = Math.min(v.getX(), xmin);
+            xmax = Math.max(v.getX(), xmax);
+            ymin = Math.min(v.getY(), ymin);
+            ymax = Math.max(v.getY(), ymax);
         }
-        this.lowerLeft = new Vector2d(xmin,ymin);
-        this.upperRight = new Vector2d(xmax,ymax);
+        this.lowerLeft = new Vector2d(xmin, ymin);
+        this.upperRight = new Vector2d(xmax, ymax);
     }
 
-    // TODO: notify observers
-    void addGrass(Grass grass){
-        grasses.put(grass.getPosition(),grass);
+    public void addGrass(Grass grass) {
+        grasses.put(grass.getPosition(), grass);
+        notifyObservers("Grass added at " + grass.getPosition());
+    }
+
+    public boolean contains(Vector2d position) {
+        return position.follows(lowerLeft) && position.precedes(upperRight);
     }
 
     @Override
     public String toString() {
-        System.out.println(getCurrentBounds().lowerLeft());
         return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
     }
 
     @Override
     public UUID getId() {
         return this.uuid;
+    }
+
+    public Boundary getCurrentBounds() {
+        return new Boundary(this.lowerLeft, this.upperRight);
     }
 }

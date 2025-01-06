@@ -22,6 +22,10 @@ public class Fire implements WorldElement{
         return this.age++;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public String toString() {
         return "^";
     }

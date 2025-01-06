@@ -4,28 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import agh.ics.oop.Simulation;
-
 public class SimulationHelper {
 
     private final AbstractWorldMap map;
-    private final Simulation simulation;
     private final WorldConfig config;
     private int epoch = 0;
-    
-    public SimulationHelper(AbstractWorldMap map, Simulation simulation, WorldConfig config){
+
+    public SimulationHelper(AbstractWorldMap map, WorldConfig config) {
         this.map = map;
-        // TODO: remove simulation from this class, implement world observer as standard observer
-        this.simulation = simulation;
         this.config = config;
-        map.wObserver = new WorldObserver(map, simulation);
+        map.wObserver = new WorldObserver(map);
     }
 
-    public void runEpoch(){
+    public void runEpoch() {
         newEpoch();
         removeDeadAnimals();
-        if(map.getClass().getName().equals("FireWorldMap")){
-            ((FireWorldMap) map).spreadFire();
+        if (map.getClass().getName().equals("FireWorldMap")) {
+            ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge());
         }
         moveAnimals();
         eatGrass(map.animals);
@@ -35,53 +30,55 @@ public class SimulationHelper {
         map.notifyObservers("Epoch " + this.epoch + " ended");
     }
 
-    private void newEpoch(){
+    private void newEpoch() {
         this.epoch++;
     }
 
-    private void removeDeadAnimals(){
+    private void removeDeadAnimals() {
         (map.animals.values()).forEach(a -> {
             a.removeIf(animal -> animal.isDead());
         });
     }
 
-    private void moveAnimals(){
+    private void moveAnimals() {
         List<Animal> allAnimals = map.animals.values().stream().flatMap(List::stream).toList();
-        allAnimals.forEach(Animal::move); 
+        allAnimals.forEach(Animal::move);
     }
 
-    private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals){
+    private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals) {
         // TODO: Implement eating grass logic
     }
 
-    private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals){
+    private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
         // TODO: Implement reproducing animals logic
     }
 
-    private void spawnGrass(int n){
+    private void spawnGrass(int n) {
         map.spawnGrass(n);
     }
 
-    private void gatherStats(){
+    private void gatherStats() {
         map.wObserver.update();
     }
 
-    // FIXME: This is a placeholder implementing old logic
-    public List<Vector2d> generateStartingPositions(int animalsCount){
+    public List<Vector2d> generateStartingPositions(int animalsCount) {
         Vector2d lowerLeft = map.getCurrentBounds().lowerLeft();
         Vector2d upperRight = map.getCurrentBounds().upperRight();
         int width = upperRight.getX() - lowerLeft.getX();
         int height = upperRight.getY() - lowerLeft.getY();
-        List<Vector2d> startingPositions = new java.util.ArrayList<>();
+        List<Vector2d> startingPositions = new ArrayList<>();
+
         for (int i = 0; i < animalsCount; i++) {
-            Vector2d position = new Vector2d((int)(Math.random() * width), (int)(Math.random() * height));
-            if(!map.isOccupied(position)){
-                ArrayList<Animal> animalsAtPosition = new ArrayList<>();
-                animalsAtPosition.add(new Animal(position));
-                map.animals.put(position, animalsAtPosition);
-                startingPositions.add(position);
-            }
+            Vector2d position = new Vector2d(
+                    lowerLeft.getX() + (int) (Math.random() * width),
+                    lowerLeft.getY() + (int) (Math.random() * height));
+
+            map.animals.computeIfAbsent(position, _ -> new ArrayList<>());
+            Animal animal = new Animal(position);
+            map.animals.get(position).add(animal);
+            startingPositions.add(position);
         }
+
         return startingPositions;
     }
 }

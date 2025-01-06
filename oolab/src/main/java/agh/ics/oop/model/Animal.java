@@ -5,6 +5,8 @@ import static agh.ics.oop.model.RectangularMap.*;
 public class Animal implements WorldElement {
     private Vector2d position;
     private static MoveValidator validator = new RectangularMap(5, 5);
+    private Genome genome;
+    private int energy;
 
     private MapDirection direction;
 
@@ -108,7 +110,24 @@ public class Animal implements WorldElement {
         return new Animal();
     }
 
+    Genome getGenome() {
+        return this.genome;
+    }
 
+    int getEnergy() {
+        return this.energy;
+    }
+
+    int getLifespan() {
+        // TODO: Implement
+        return 0;
+    }
+
+    int getChildren() {
+        // TODO: Implement
+        return 0;
+    }
+    
     @Override
     public String toString() {
         return switch (this.direction) {

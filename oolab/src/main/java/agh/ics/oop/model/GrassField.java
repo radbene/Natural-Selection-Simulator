@@ -1,32 +1,21 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.Boundary;
-import java.util.*;
 
 public class GrassField extends AbstractWorldMap {
 
-    public Vector2d getLowerleft() {
-        return lowerleft;
-    }
-
-    public Vector2d getUpperright() {
-        return upperright;
-    }
-
-    private Vector2d lowerleft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    private Vector2d upperright = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-    public GrassField(int n) {
-        this.noOfGrassFields = n;
+    public GrassField(int width, int height, int n) {
         Animal animal = new Animal();
-        animal.setBorder(lowerleft, upperright);
+        this.lowerLeft = new Vector2d(0, 0);
+        this.upperRight = new Vector2d(width, height);
+        animal.setBorder(lowerLeft, upperRight);
         animal = null;
         this.addObserver(new ConsoleMapDisplay());
         this.grassSpawner.spawnGrass(n);
     }
 
     public boolean canMoveTo(Vector2d position) {
-        return position.follows(lowerleft) && !(objectAt(position) instanceof Animal);
+        return position.follows(lowerLeft) && !(objectAt(position) instanceof Animal);
     }
 
     public WorldElement objectAt(Vector2d position) {
@@ -39,7 +28,7 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public Boundary getCurrentBounds() {
         minMax(animals, grasses);
-        return new Boundary(this.lowerleft, this.upperright);
+        return new Boundary(this.lowerLeft, this.upperRight);
     }
 
 }
