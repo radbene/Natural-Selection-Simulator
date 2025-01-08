@@ -32,7 +32,7 @@ public class Simulation implements Runnable{
     private void init(){
         this.map = this.mapBuilder.createMap(this.config);
         for(Vector2d position: starting_positions){
-            Animal animal = new Animal(position);
+            Animal animal = new Animal(position,this.config);
             try {
                 this.map.place(animal);
             } catch (IncorrectPositionException e) {

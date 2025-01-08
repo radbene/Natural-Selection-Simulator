@@ -74,7 +74,7 @@ public class SimulationHelper {
                     lowerLeft.getY() + (int) (Math.random() * height));
 
             map.animals.computeIfAbsent(position, _ -> new ArrayList<>());
-            Animal animal = new Animal(position);
+            Animal animal = new Animal(position,config);
             map.animals.get(position).add(animal);
             startingPositions.add(position);
         }

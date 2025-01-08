@@ -4,6 +4,7 @@ import static agh.ics.oop.model.RectangularMap.*;
 
 public class Animal implements WorldElement {
     private Vector2d position;
+    private WorldConfig config;
     private static MoveValidator validator = new RectangularMap(5, 5);
     private Genome genome;
     private int energy;
@@ -15,9 +16,15 @@ public class Animal implements WorldElement {
     }
 
     private int index = 0;
+    private int childrenCount = 0;
+    private int daysLived = 0;
 
     static private Vector2d border_lowerleft;
     static private Vector2d border_upperright;
+
+    public void setGenome(Genome genome) {
+        this.genome = genome;
+    }
 
     public void setBorder(Vector2d lowerleft, Vector2d upperright) {
         border_lowerleft = lowerleft;
@@ -28,23 +35,21 @@ public class Animal implements WorldElement {
         this.index = index;
     }
 
-    public Animal() {
-        this(new Vector2d(2, 2), MapDirection.NORTH);
+    public Animal(Vector2d position, WorldConfig config) {
+        this(position,MapDirection.NORTH, config );
     }
 
-    public Animal(Vector2d position) {
-        this(position, MapDirection.NORTH);
+    public Animal(Vector2d position, MapDirection direction,WorldConfig config) {
+        this(position,direction,config,Genome.randomGenome(config));
     }
 
-    public Animal(Vector2d position, MapDirection direction) {
-        /*
-         * if (position.getX() < 0 || position.getY() < 0 || position.getX() > 4 ||
-         * position.getY() > 4) {
-         * throw new IllegalArgumentException("Position must be between 0 and 4");
-         * }
-         */
+    public Animal(Vector2d position, MapDirection direction,WorldConfig config,Genome genome) {
         this.position = position;
         this.direction = direction;
+        this.config = config;
+        this.genome = genome;
+
+        this.energy = config.getInitialAnimalEnergy();
     }
 
     public Vector2d getPosition() {
@@ -61,53 +66,55 @@ public class Animal implements WorldElement {
     // }
 
     public void move() {
-        // TODO: Implement
+        //TODO: implement
+
+        daysLived++;
+        energy--;
         return;
     }
 
-    // TODO: Remove this method
-    public void move(MoveDirection dir) {
-        switch (dir) {
-            case FORWARD:
-                Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
-                if (validator.canMoveTo(new_position1)) {
-                    this.position = new_position1;
-                }
-                break;
-            case BACKWARD:
-                Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
-                if (validator.canMoveTo(new_position2)) {
-                    this.position = new_position2;
-                }
-                break;
-            case RIGHT:
-                this.direction = this.direction.next(this.direction);
-                break;
-            case LEFT:
-                this.direction = this.direction.previous(this.direction);
-                break;
-
-        }
-    }
+//    public void move(MoveDirection dir) {
+//        switch (dir) {
+//            case FORWARD:
+//                Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
+//                if (validator.canMoveTo(new_position1)) {
+//                    this.position = new_position1;
+//                }
+//                break;
+//            case BACKWARD:
+//                Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
+//                if (validator.canMoveTo(new_position2)) {
+//                    this.position = new_position2;
+//                }
+//                break;
+//            case RIGHT:
+//                this.direction = this.direction.next(this.direction);
+//                break;
+//            case LEFT:
+//                this.direction = this.direction.previous(this.direction);
+//                break;
+//
+//        }
+//    }
 
     public boolean isDead() {
-        // TODO: Implement
-        return false;
+        return energy <= 0;
     }
 
     public void eatGrass(Grass grass) {
-        // TODO: Implement
+        energy += config.getPlantEnergy();
         return;
     }
 
     public boolean canReproduce() {
-        // TODO: Implement
-        return false;
+        return energy >= config.getEnergyToReproduce();
     }
 
     Animal reproduce(Animal partner) {
-        // TODO: Implement
-        return new Animal();
+        Genome childGenome = new Genome(config).reproductionGenome(this,partner);
+        Animal child = new Animal(position,config);
+        child.setGenome(childGenome);
+        return child;
     }
 
     Genome getGenome() {
@@ -119,13 +126,11 @@ public class Animal implements WorldElement {
     }
 
     int getLifespan() {
-        // TODO: Implement
-        return 0;
+        return daysLived;
     }
 
     int getChildren() {
-        // TODO: Implement
-        return 0;
+        return childrenCount;
     }
     
     @Override
