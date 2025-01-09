@@ -17,6 +17,11 @@ public class Animal implements WorldElement {
 
     private int index = 0;
     private int childrenCount = 0;
+
+    public int getDaysLived() {
+        return daysLived;
+    }
+
     private int daysLived = 0;
 
     static private Vector2d border_lowerleft;

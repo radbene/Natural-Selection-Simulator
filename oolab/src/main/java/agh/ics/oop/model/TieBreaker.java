@@ -1,7 +1,9 @@
 package agh.ics.oop.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TieBreaker {
 
@@ -12,8 +14,12 @@ public class TieBreaker {
     }
 
     public List<Animal> breakTheTie() {
-        //TODO: implement tie logic
-        //priorities: 1.energy, 2.number of children, 3.age, 4.random
-        return animals;
+        return animals.stream()
+                .sorted(Comparator.comparingInt(Animal::getEnergy).reversed() // 1. Energy
+                        .thenComparingInt(Animal::getChildren).reversed() // 2. Number of children
+                        .thenComparingInt(Animal::getDaysLived).reversed() // 3. Age
+                        .thenComparing(a -> Math.random())) // 4. Random (if all above are equal)
+                .limit(2)
+                .collect(Collectors.toList());
     }
 }
