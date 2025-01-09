@@ -41,21 +41,21 @@ public class Animal implements WorldElement {
     }
 
     // TODO: Add MoveValidator according to config, you can use MapBuilder
-    public Animal(Vector2d position, WorldConfig config) {
-        this(position,MapDirection.NORTH, config );
+    public Animal(Vector2d position, WorldConfig config, Globe globe) {
+        this(position,MapDirection.NORTH, config, globe);
     }
 
-    public Animal(Vector2d position, MapDirection direction,WorldConfig config) {
-        this(position,direction,config,Genome.randomGenome(config));
+    public Animal(Vector2d position, MapDirection direction,WorldConfig config, Globe globe) {
+        this(position,direction,config,Genome.randomGenome(config), globe);
     }
 
-    public Animal(Vector2d position, MapDirection direction,WorldConfig config,Genome genome) {
+    public Animal(Vector2d position, MapDirection direction,WorldConfig config,Genome genome, Globe globe) {
         this.position = position;
         this.direction = direction;
         this.config = config;
         this.genome = genome;
 
-        this.globe = new Globe(new Vector2d(config.getMapWidth(), config.getMapHeight()));  //used to correct going out of bounds
+        this.globe = globe;  //used to correct going out of bounds
         this.energy = config.getInitialAnimalEnergy();
     }
 
@@ -123,7 +123,7 @@ public class Animal implements WorldElement {
 
     Animal reproduce(Animal partner) {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
-        Animal child = new Animal(position,config);
+        Animal child = new Animal(position,config, globe);
         child.setGenome(childGenome);
         return child;
     }
@@ -143,18 +143,9 @@ public class Animal implements WorldElement {
     int getChildren() {
         return childrenCount;
     }
-    
+
     @Override
     public String toString() {
-        return switch (this.direction) {
-            case NORTH -> "N";
-            case NORTHEAST -> "NE";
-            case EAST -> "E";
-            case SOUTHEAST -> "SE";
-            case SOUTH -> "S";
-            case SOUTHWEST -> "SW";
-            case WEST -> "W";
-            case NORTHWEST -> "NW";
-        };
+        return this.direction.toString();
     }
 }

@@ -14,7 +14,13 @@ public class GrassSpawner {
     }
 
     public void spawnGrass(int n) {
+
+        int availableInEquator = map.calculateFreeFieldsInsideEquator();
         int equatorGrass = (int) Math.round(n * 0.8);
+        if((int) Math.round(n * 0.8) > availableInEquator){
+            equatorGrass = availableInEquator;
+        }
+
         int otherGrass = n - equatorGrass;
 
         spawnGrassFromIterator(equatorGrass, randomPositionGenerator.generateInEquator(equator));

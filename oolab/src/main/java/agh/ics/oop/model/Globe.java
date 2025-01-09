@@ -4,6 +4,11 @@ public abstract class Globe implements WorldMap {
     // FIXME: This class should be abstract
     private Vector2d lowerLeft, upperRight; // 0,0 to size.x, size.y
 
+    public Globe(Vector2d upperRight) {
+        this.lowerLeft = new Vector2d(0, 0);
+        this.upperRight = upperRight;
+    }
+    
     public Move nextPosition(Move mv) {
         Vector2d newPos = mv.getPosition().add(mv.getOrientation());
         MapDirection newDir = mv.getDirection();

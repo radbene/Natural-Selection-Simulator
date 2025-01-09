@@ -81,7 +81,8 @@ public class MapVisualizer {
         if (this.map.isOccupied(currentPosition)) {
             ArrayList<WorldElement> obj = this.map.objectAt(currentPosition);
             if (obj.stream().anyMatch(o -> o instanceof Animal)) {
-                return obj.stream().filter(o -> o instanceof Animal).map(o -> o.toString()).findFirst().get();
+                Animal animal = (Animal) obj.stream().filter(o -> o instanceof Animal).findFirst().get();
+                return animal.toString();
             }
             return obj.stream().filter(o -> o instanceof Animal == false).map(o -> o.toString()).findFirst().get();
         }

@@ -19,13 +19,16 @@ public class SimulationHelper {
     }
 
     public void runEpoch() {
+        if (this.epoch > 10) {
+            throw new RuntimeException("Epoch limit reached");
+        }
         newEpoch();
         removeDeadAnimals();
         if (map.getClass().getName().equals("FireWorldMap")) {
             ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
         }
         moveAnimals();
-        eatGrass(map.animals,map.grasses);
+        eatGrass(map.animals, map.grasses);
         reproduceAnimals(map.animals);
         spawnGrass(config.getDailyGrassGrowth());
         gatherStats();
@@ -58,7 +61,6 @@ public class SimulationHelper {
                 TieBreaker tb = new TieBreaker(animalList);
                 Animal strongestAnimal = tb.breakTheTie().getFirst();
                 strongestAnimal.eatGrass();
-
                 grasses.remove(vector);
             }
         }
@@ -107,7 +109,7 @@ public class SimulationHelper {
                     lowerLeft.getY() + (int) (Math.random() * height));
 
             map.animals.computeIfAbsent(position, _ -> new ArrayList<>());
-            Animal animal = new Animal(position,config);
+            Animal animal = new Animal(position, config, this.map);
             map.animals.get(position).add(animal);
             startingPositions.add(position);
         }

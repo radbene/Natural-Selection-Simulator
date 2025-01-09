@@ -9,14 +9,14 @@ class MapDirectionTest {
     @Test
     @DisplayName("Test toString method for all directions")
     void testToString() {
-        assertEquals("Północ", MapDirection.NORTH.toString(), "NORTH should return 'Północ'");
-        assertEquals("Północny wschód", MapDirection.NORTHEAST.toString(), "NORTHEAST should return 'Północny wschód'");
-        assertEquals("Wschód", MapDirection.EAST.toString(), "EAST should return 'Wschód'");
-        assertEquals("Południowy wschód", MapDirection.SOUTHEAST.toString(), "SOUTHEAST should return 'Południowy wschód'");
-        assertEquals("Południe", MapDirection.SOUTH.toString(), "SOUTH should return 'Południe'");
-        assertEquals("Południowy zachód", MapDirection.SOUTHWEST.toString(), "SOUTHWEST should return 'Południowy zachód'");
-        assertEquals("Zachód", MapDirection.WEST.toString(), "WEST should return 'Zachód'");
-        assertEquals("Północny zachód", MapDirection.NORTHWEST.toString(), "NORTHWEST should return 'Północny zachód'");
+        assertEquals("N", MapDirection.NORTH.toString(), "NORTH should return 'Północ'");
+        assertEquals("NE", MapDirection.NORTHEAST.toString(), "NORTHEAST should return 'Północny wschód'");
+        assertEquals("E", MapDirection.EAST.toString(), "EAST should return 'Wschód'");
+        assertEquals("SE", MapDirection.SOUTHEAST.toString(), "SOUTHEAST should return 'Południowy wschód'");
+        assertEquals("S", MapDirection.SOUTH.toString(), "SOUTH should return 'Południe'");
+        assertEquals("SW", MapDirection.SOUTHWEST.toString(), "SOUTHWEST should return 'Południowy zachód'");
+        assertEquals("W", MapDirection.WEST.toString(), "WEST should return 'Zachód'");
+        assertEquals("NW", MapDirection.NORTHWEST.toString(), "NORTHWEST should return 'Północny zachód'");
     }
 
     @Test

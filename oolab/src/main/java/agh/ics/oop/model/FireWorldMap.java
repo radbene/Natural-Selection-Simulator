@@ -52,6 +52,8 @@ public class FireWorldMap extends AbstractWorldMap {
         }
         Fire fire = new Fire(position);
         fires.put(position, fire);
+        grasses.remove(position);
+        // TODO: Kill all animals at this spot
         notifyObservers("Fire added at " + position);
     }
 

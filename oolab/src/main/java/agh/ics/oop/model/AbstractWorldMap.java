@@ -22,6 +22,7 @@ public abstract class AbstractWorldMap extends Globe {
     protected final UUID uuid = UUID.randomUUID();
 
     public AbstractWorldMap(int width, int height) {
+        super(new Vector2d(width, height));
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width, height);
         this.equator= new Equator(new Vector2d(0, (int)(this.upperRight.getY() * 0.4)), new Vector2d(this.upperRight.getX(), (int)(this.upperRight.getY() * 0.6)));
@@ -75,7 +76,7 @@ public abstract class AbstractWorldMap extends Globe {
             ArrayList<Animal> animalsAtPosition = animals.get(animal.getPosition());
             animalsAtPosition.add(animal);
             animals.put(animal.getPosition(), animalsAtPosition);
-            notifyObservers("Animal placed at " + animal.getPosition());
+            // notifyObservers("Animal placed at " + animal.getPosition());
             return true;
         } else {
             throw new IncorrectPositionException(animal.getPosition());
@@ -126,7 +127,7 @@ public abstract class AbstractWorldMap extends Globe {
 
     public void spawnGrass(int n) {
         grassSpawner.spawnGrass(n);
-        notifyObservers("Grass spawned");
+        // notifyObservers("Grass spawned");
     }
 
     public boolean hasGrass(Vector2d position) {
@@ -135,7 +136,7 @@ public abstract class AbstractWorldMap extends Globe {
 
     public void addGrass(Grass grass) {
         grasses.put(grass.getPosition(), grass);
-        notifyObservers("Grass added at " + grass.getPosition());
+        // notifyObservers("Grass added at " + grass.getPosition());
     }
 
     public boolean contains(Vector2d position) {
