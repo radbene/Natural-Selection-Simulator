@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SimulationHelper {
@@ -47,18 +48,42 @@ public class SimulationHelper {
     }
 
     private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
-        // TODO: Implement eating grass logic
-        List<Vector2d> result = animals.keySet().stream()
+        List<Vector2d> matchingFields = animals.keySet().stream()
                 .filter(grasses::containsKey)
                 .toList();
+
+        for (Vector2d vector : matchingFields) {
+            ArrayList<Animal> animalList = animals.get(vector);
+            if (animalList != null && !animalList.isEmpty()) {
+                TieBreaker tb = new TieBreaker(animalList);
+                Animal strongestAnimal = tb.breakTheTie().getFirst();
+                strongestAnimal.eatGrass();
+
+                grasses.remove(vector);
+            }
+        }
     }
 
     private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
-        // TODO: Implement reproducing animals logic
-        List<Vector2d> result = animals.entrySet().stream()
+        List<Vector2d> matchingFields = animals.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
                 .map(Map.Entry::getKey)
                 .toList();
+
+        List<ArrayList<Animal>> animalsToReproduce = matchingFields.stream()
+                .map(animals::get)
+                .filter(Objects::nonNull)
+                .toList();
+
+        // Now you can process the animals in animalsToEatGrass
+        for (ArrayList<Animal> animalList : animalsToReproduce) {
+            TieBreaker tb = new TieBreaker(animalList);
+            List<Animal> strongestAnimals = tb.breakTheTie();
+            if (strongestAnimals.size() > 1 && strongestAnimals.get(1).canReproduce()) {
+                strongestAnimals.get(0).reproduce(strongestAnimals.get(1));
+            }
+        }
+
     }
 
     private void spawnGrass(int n) {

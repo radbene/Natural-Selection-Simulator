@@ -112,7 +112,7 @@ public class Animal implements WorldElement {
         return energy <= 0;
     }
 
-    public void eatGrass(Grass grass) {
+    public void eatGrass() {
         energy += config.getPlantEnergy();
         return;
     }
