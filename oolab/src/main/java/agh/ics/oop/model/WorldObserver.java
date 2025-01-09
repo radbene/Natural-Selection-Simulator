@@ -35,8 +35,7 @@ public class WorldObserver {
     }
 
     private int calculateEmptySquares() {
-        // TODO: implement
-        return 0;
+        return map.calculateEmptyFields();
     }
 
     private int countGrass() {

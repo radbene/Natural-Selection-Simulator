@@ -21,7 +21,7 @@ public class SimulationHelper {
         newEpoch();
         removeDeadAnimals();
         if (map.getClass().getName().equals("FireWorldMap")) {
-            ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge());
+            ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
         }
         moveAnimals();
         eatGrass(map.animals,map.grasses);

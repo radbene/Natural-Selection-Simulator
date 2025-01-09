@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OptionsParser  {
-    //public static MoveDirections[] parse(String[] args) {
     public static List<MoveDirection> parse(String[] args) {
             MoveDirection[] Moves = new MoveDirection[args.length];
             int i = 0;
@@ -33,7 +32,6 @@ public class OptionsParser  {
                 }
                 i++;
             }
-            //return Arrays.copyOfRange(Moves, 0, a);
         List<MoveDirection> list_of_moves = Arrays.asList(Arrays.copyOfRange(Moves, 0, a));
             return list_of_moves;
     }

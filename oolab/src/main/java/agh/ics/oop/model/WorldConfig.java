@@ -185,20 +185,20 @@ public class WorldConfig {
     }
 
     public static class Builder {
-        private int mapWidth = 100;
-        private int mapHeight = 100;
+        private int mapWidth = 10;
+        private int mapHeight = 10;
         private EMapVariant mapVariant = EMapVariant.STANDARD;
-        private int initialPlantCount = 50;
+        private int initialPlantCount = 10;
         private int plantEnergy = 10;
         private int dailyGrassGrowth = 5;
-        private int initialAnimalCount = 20;
+        private int initialAnimalCount = 6;
         private int initialAnimalEnergy = 50;
         private int energyToReproduce = 30;
         private int parentEnergyCost = 20;
         private int minMutations = 0;
         private int maxMutations = 2;
         private EMutationVariant mutationVariant = EMutationVariant.STANDARD;
-        private int genomeLength = 64;
+        private int genomeLength = 5;
         private int fireMaxAge = 0;
         private int fireFreq = 0;
 

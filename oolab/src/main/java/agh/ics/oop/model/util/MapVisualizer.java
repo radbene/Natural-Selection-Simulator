@@ -1,7 +1,11 @@
 package agh.ics.oop.model.util;
 
+import java.util.ArrayList;
+
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.WorldElement;
 import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.Animal;
 
 /**
  * The map visualizer converts the {@link WorldMap} map into a string
@@ -75,10 +79,11 @@ public class MapVisualizer {
 
     private String drawObject(Vector2d currentPosition) {
         if (this.map.isOccupied(currentPosition)) {
-            Object object = this.map.objectAt(currentPosition);
-            if (object != null) {
-                return object.toString();
+            ArrayList<WorldElement> obj = this.map.objectAt(currentPosition);
+            if (obj.stream().anyMatch(o -> o instanceof Animal)) {
+                return obj.stream().filter(o -> o instanceof Animal).map(o -> o.toString()).findFirst().get();
             }
+            return obj.stream().filter(o -> o instanceof Animal == false).map(o -> o.toString()).findFirst().get();
         }
         return EMPTY_CELL;
     }
