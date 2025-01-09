@@ -37,31 +37,28 @@ public class SimulationHelper {
     }
 
     private void removeDeadAnimals() {
+        //TODO: add dead animals to map.deadAnimals
         (map.animals.values()).forEach(a -> {
             a.removeIf(animal -> animal.isDead());
         });
     }
 
     private void moveAnimals() {
-        Map<Vector2d, List<Animal>> mapCopy = new HashMap<>();
+        Map<Vector2d, ArrayList<Animal>> updatedMap = new HashMap<>();
+
         for (Map.Entry<Vector2d, ArrayList<Animal>> entry : map.animals.entrySet()) {
-            mapCopy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
-        }
+            List<Animal> animalsAtCurrentPosition = entry.getValue();
 
-        for (Vector2d vector : mapCopy.keySet()) {
-            List<Animal> animalsAtPosition = mapCopy.get(vector);
-            List<Animal> animalsToRemove = new ArrayList<>();
-
-            for (Animal animal : animalsAtPosition) {
+            for (Animal animal : animalsAtCurrentPosition) {
                 animal.move();
-                animalsToRemove.add(animal);
-
                 Vector2d newPosition = animal.getPosition();
-                map.animals.computeIfAbsent(newPosition, _ -> new ArrayList<>()).add(animal);
+
+                updatedMap.computeIfAbsent(newPosition, k -> new ArrayList<>()).add(animal);
             }
-            map.animals.get(vector).removeAll(animalsToRemove);
         }
+        map.animals = updatedMap;
     }
+
 
 
     private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {

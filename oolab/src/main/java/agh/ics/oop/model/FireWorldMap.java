@@ -53,7 +53,8 @@ public class FireWorldMap extends AbstractWorldMap {
         Fire fire = new Fire(position);
         fires.put(position, fire);
         grasses.remove(position);
-        if
+        //TODO: add killed animals to deadAnimals
+
         animals.remove(position);
         animals.put(position,new ArrayList<>());
         notifyObservers("Fire added at " + position);
@@ -61,7 +62,7 @@ public class FireWorldMap extends AbstractWorldMap {
 
     public void startFire(){
         ArrayList<Vector2d> grassPositions = new ArrayList<>(grasses.keySet());
-        if(grassPositions.size() == 0){
+        if(grassPositions.isEmpty()){
             return;
         }
         Vector2d randomPosition = grassPositions.get(new Random().nextInt(grassPositions.size()));
