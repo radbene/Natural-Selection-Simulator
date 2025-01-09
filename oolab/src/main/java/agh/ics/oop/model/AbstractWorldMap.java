@@ -74,18 +74,18 @@ public abstract class AbstractWorldMap implements WorldMap {
         }
     }
 
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        Vector2d oldPosition = animal.getPosition();
-        animal.move(direction);
-        ArrayList<Animal> animalsAtOldPosition = animals.get(oldPosition);
-        animalsAtOldPosition.remove(animal);
-        animals.put(oldPosition, animalsAtOldPosition);
-        ArrayList<Animal> animalsAtNewPosition = animals.get(animal.getPosition());
-        animalsAtNewPosition.add(animal);
-        animals.put(animal.getPosition(), animalsAtNewPosition);
-        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
-    }
+//    @Override
+//    public void move(Animal animal, MoveDirection direction) {
+//        Vector2d oldPosition = animal.getPosition();
+//        animal.move(direction);
+//        ArrayList<Animal> animalsAtOldPosition = animals.get(oldPosition);
+//        animalsAtOldPosition.remove(animal);
+//        animals.put(oldPosition, animalsAtOldPosition);
+//        ArrayList<Animal> animalsAtNewPosition = animals.get(animal.getPosition());
+//        animalsAtNewPosition.add(animal);
+//        animals.put(animal.getPosition(), animalsAtNewPosition);
+//        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
+//    }
 
     @Override
     public boolean isOccupied(Vector2d position) {

@@ -8,6 +8,7 @@ public class Animal implements WorldElement {
     private static MoveValidator validator = new RectangularMap(5, 5);
     private Genome genome;
     private int energy;
+    private Globe globe;
 
     private MapDirection direction;
 
@@ -50,6 +51,7 @@ public class Animal implements WorldElement {
         this.genome = genome;
 
         this.energy = config.getInitialAnimalEnergy();
+        this.globe = new Globe(new Vector2d(config.getMapWidth(), config.getMapHeight()));  //used to correct going out of bounds
     }
 
     public Vector2d getPosition() {
@@ -66,7 +68,11 @@ public class Animal implements WorldElement {
     // }
 
     public void move() {
-        //TODO: implement
+        Move mv = new Move(position, direction);
+        Move finalMove = globe.nextPosition(mv);
+
+        position = finalMove.getPosition();
+        direction = finalMove.getDirection();
 
         daysLived++;
         energy--;

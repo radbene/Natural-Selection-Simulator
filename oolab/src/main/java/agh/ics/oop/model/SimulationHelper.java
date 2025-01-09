@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SimulationHelper {
 
@@ -23,7 +24,7 @@ public class SimulationHelper {
             ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge());
         }
         moveAnimals();
-        eatGrass(map.animals);
+        eatGrass(map.animals,map.grasses);
         reproduceAnimals(map.animals);
         spawnGrass(config.getDailyGrassGrowth());
         gatherStats();
@@ -45,8 +46,12 @@ public class SimulationHelper {
         allAnimals.forEach(Animal::move);
     }
 
-    private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals) {
+    private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
         // TODO: Implement eating grass logic
+        List<Vector2d> result = animals.entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {

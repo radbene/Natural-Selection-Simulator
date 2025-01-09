@@ -2,28 +2,28 @@ package agh.ics.oop.model;
 
 public class Move {
     private final Vector2d position;
-    private final Vector2d direction;
-    private final MapDirection orientation;
+    private final Vector2d orientation;
+    private final MapDirection direction;
 
-    public Move(Vector2d position, Vector2d direction, MapDirection orientation) {
+    public Move(Vector2d position, MapDirection direction) {
         this.position = position;
         this.direction = direction;
-        this.orientation = orientation;
+        this.orientation = direction.toUnitVector();
     }
 
     public Vector2d getPosition() {
         return position;
     }
 
-    public Vector2d getDirection() {
+    public MapDirection getDirection() {
         return direction;
     }
 
-    public MapDirection getOrientation() {
+    public Vector2d getOrientation() {
         return orientation;
     }
 
     public Vector2d getNewPosition() {
-        return this.position.add(this.direction);
+        return this.position.add(this.orientation);
     }
 }

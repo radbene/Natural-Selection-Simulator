@@ -11,17 +11,17 @@ public class Globe {
         Vector2d newPos = mv.getPosition().add(mv.getDirection());
         MapDirection newDir = mv.getOrientation();
         if(newPos.getY() < 0) {
-            return new Move(new Vector2d(newPos.getX(), 0), new Vector2d(0, 0), newDir.opposite());
+            return new Move(new Vector2d(newPos.getX(), 0), newDir.opposite());
         }
         if(newPos.getY() > size.getY()) {
-            return new Move(new Vector2d(newPos.getX(), size.getY()), new Vector2d(0, 0), newDir.opposite());
+            return new Move(new Vector2d(newPos.getX(), size.getY()), newDir.opposite());
         }
         if(newPos.getX() < 0) {
-            return new Move(new Vector2d(size.getX(), newPos.getY()), new Vector2d(0, 0), newDir);
+            return new Move(new Vector2d(size.getX(), newPos.getY()), newDir);
         }
         if(newPos.getX() > size.getX()) {
-            return new Move(new Vector2d(0, newPos.getY()), new Vector2d(0, 0), newDir);
+            return new Move(new Vector2d(0, newPos.getY()), newDir);
         }
-        return new Move(newPos, new Vector2d(0, 0), newDir);
+        return new Move(newPos, newDir);
     }
 }
