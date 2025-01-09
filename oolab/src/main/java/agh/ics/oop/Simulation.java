@@ -14,7 +14,8 @@ import java.util.List;
 public class Simulation implements Runnable{
     private List<Vector2d> starting_positions;
     private AbstractWorldMap map;
-    protected final SimulationHelper simulationHelper;
+    // TODO: make SimulationHelper final
+    protected SimulationHelper simulationHelper;
     private final WorldConfig config;
     private final MapBuilder mapBuilder = new MapBuilder();
 
@@ -22,15 +23,15 @@ public class Simulation implements Runnable{
         return map.getAllAnimals();
     }
 
-    public Simulation(List<Vector2d> starting_positions, WorldConfig config) {
-        this.simulationHelper = new SimulationHelper(this.map, config);
+    public Simulation(WorldConfig config) {
         this.config = config;
-        this.starting_positions = this.simulationHelper.generateStartingPositions(this.config.getInitialAnimalCount());
         init();
     }
-
+    
     private void init(){
         this.map = this.mapBuilder.createMap(this.config);
+        this.simulationHelper = new SimulationHelper(this.map, config);
+        this.starting_positions = this.simulationHelper.generateStartingPositions(this.config.getInitialAnimalCount());
         for(Vector2d position: starting_positions){
             Animal animal = new Animal(position,this.config);
             try {

@@ -1,13 +1,12 @@
 package agh.ics.oop.model;
 
-import static agh.ics.oop.model.RectangularMap.*;
-
 public class Animal implements WorldElement {
     private Vector2d position;
     private WorldConfig config;
-    private static MoveValidator validator = new RectangularMap(5, 5);
+    private static MoveValidator validator;
     private Genome genome;
     private int energy;
+    private AnimalStats stats;
 
     private MapDirection direction;
 
@@ -35,6 +34,7 @@ public class Animal implements WorldElement {
         this.index = index;
     }
 
+    // TODO: Add MoveValidator according to config, you can use MapBuilder
     public Animal(Vector2d position, WorldConfig config) {
         this(position,MapDirection.NORTH, config );
     }

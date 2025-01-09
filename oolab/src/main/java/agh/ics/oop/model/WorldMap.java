@@ -4,6 +4,7 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.IncorrectPositionException;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ import java.util.UUID;
  *
  * @author apohllo, idzik
  */
-public interface WorldMap extends MoveValidator {
+public interface WorldMap extends MoveValidator{
 
     /**
      * Place a animal on the map.
@@ -44,7 +45,7 @@ public interface WorldMap extends MoveValidator {
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
-    WorldElement objectAt(Vector2d position);
+    List<WorldElement> objectAt(Vector2d position);
 
     UUID getId();
 

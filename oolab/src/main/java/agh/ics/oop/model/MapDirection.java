@@ -1,68 +1,43 @@
 package agh.ics.oop.model;
 
-// TODO: rework enum to work on indexes
-
 public enum MapDirection {
-    NORTH,
-    NORTHEAST,
-    EAST,
-    SOUTHEAST,
-    SOUTH,
-    SOUTHWEST,
-    WEST,
-    NORTHWEST;
-    public String toString(){
-        return switch(this){
-            case NORTH -> "Północ";
-            case NORTHWEST -> "Północny zachód";
-            case EAST -> "Wschód";
-            case NORTHEAST -> "Północny wschód";
-            case SOUTH -> "Południe";
-            case SOUTHEAST -> "Południowy wschód";
-            case WEST -> "Zachód";
-            case SOUTHWEST -> "Południowy zachód";
-        };
+    NORTH("Północ", new Vector2d(0, 1)),
+    NORTHEAST("Północny wschód", new Vector2d(1, 1)),
+    EAST("Wschód", new Vector2d(1, 0)),
+    SOUTHEAST("Południowy wschód", new Vector2d(1, -1)),
+    SOUTH("Południe", new Vector2d(0, -1)),
+    SOUTHWEST("Południowy zachód", new Vector2d(-1, -1)),
+    WEST("Zachód", new Vector2d(-1, 0)),
+    NORTHWEST("Północny zachód", new Vector2d(-1, 1));
+
+    private final String name;
+    private final Vector2d unitVector;
+
+    MapDirection(String name, Vector2d unitVector) {
+        this.name = name;
+        this.unitVector = unitVector;
     }
 
-    public MapDirection next(MapDirection direction){
-            return MapDirection.values()[(direction.ordinal() + 1) % MapDirection.values().length];
+    @Override
+    public String toString() {
+        return name;
     }
 
-    public MapDirection previous(MapDirection direction) {
-        return MapDirection.values()[(direction.ordinal() + MapDirection.values().length-1) % MapDirection.values().length];
+    public MapDirection next() {
+        MapDirection[] directions = MapDirection.values();
+        return directions[(this.ordinal() + 1) % directions.length];
     }
 
-    public Vector2d toUnitVector(){
-        Vector2d vector2d_north = new Vector2d(0, 1);
-        Vector2d vector2d_east = new Vector2d(1, 0);
-        Vector2d vector2d_south = new Vector2d(0, -1);
-        Vector2d vector2d_west = new Vector2d(-1, 0);
-        Vector2d vector2d_NE = new Vector2d(1, 1);
-        Vector2d vector2d_SE = new Vector2d(1, -1);
-        Vector2d vector2d_SW = new Vector2d(-1, -1);
-        Vector2d vector2d_NW = new Vector2d(-1, 1);
-        return switch (this) {
-            case NORTH -> vector2d_north;
-            case EAST -> vector2d_east;
-            case SOUTH -> vector2d_south;
-            case WEST -> vector2d_west;
-            case NORTHEAST -> vector2d_NE;
-            case SOUTHEAST -> vector2d_SE;
-            case SOUTHWEST -> vector2d_SW;
-            case NORTHWEST -> vector2d_NW;
-        };
+    public MapDirection previous() {
+        MapDirection[] directions = MapDirection.values();
+        return directions[(this.ordinal() + directions.length - 1) % directions.length];
     }
 
-    public MapDirection opposite(){
-        return switch (this) {
-            case NORTH -> SOUTH;
-            case EAST -> WEST;
-            case SOUTH -> NORTH;
-            case WEST -> EAST;
-            case NORTHEAST -> SOUTHWEST;
-            case SOUTHEAST -> NORTHWEST;
-            case SOUTHWEST -> NORTHEAST;
-            case NORTHWEST -> SOUTHEAST;
-        };
+    public Vector2d toUnitVector() {
+        return unitVector;
+    }
+
+    public MapDirection opposite() {
+        return MapDirection.values()[(this.ordinal() + 4) % MapDirection.values().length];
     }
 }

@@ -25,7 +25,7 @@ public class GrassSpawner {
         int attempts = 0;
         while (count > 0 && attempts < 10 * count) {
             Vector2d position = iterator.next();
-            if (!map.isOccupied(position)) {
+            if (!map.hasGrass(position)) {
                 map.addGrass(new Grass(position));
                 count--;
             }
