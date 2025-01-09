@@ -8,6 +8,7 @@ public class Animal implements WorldElement {
     private int energy;
     private AnimalStats stats;
 
+    private Globe globe;
     private MapDirection direction;
 
     public MapDirection getDirection() {
@@ -49,6 +50,7 @@ public class Animal implements WorldElement {
         this.config = config;
         this.genome = genome;
 
+        this.globe = new Globe(new Vector2d(config.getMapWidth(), config.getMapHeight()));  //used to correct going out of bounds
         this.energy = config.getInitialAnimalEnergy();
     }
 
@@ -66,7 +68,11 @@ public class Animal implements WorldElement {
     // }
 
     public void move() {
-        //TODO: implement
+        Move mv = new Move(position, direction);
+        Move finalMove = globe.nextPosition(mv);
+
+        position = finalMove.getPosition();
+        direction = finalMove.getDirection();
 
         daysLived++;
         energy--;

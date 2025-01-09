@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/TieBreaker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AbstractWorldMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Globe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Globe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/SimulationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/SimulationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/GrassFieldTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/RectangularMapTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,64 +82,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.World.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AnimalTest.InvalidAnimalStartingPosition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build oolab.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MapDirectionTest.NextTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MapDirectionTest.PreviousTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.InvalidCharacters.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.NoCharacters.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.RandomCharacters.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.SomeValidSomeInvalidCharacters.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.ValidCharacters.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTests.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTests.testCannotMoveToOccupiedPosition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTests.testPlaceAnimalOnOccupiedPosition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTests.testPlaceAnimalOutOfBounds.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTests.testToString.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.EmptyMovesTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.EmptyStartingPositionsTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.EmptyStarting_positionsAndMoves.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.GoingOutOfBoundsTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.RotatingLeftTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.RotatingRightTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.SameStartingPosition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.StartingPositionsOutOfBoundsTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.AddingVectors.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.DifferentVectorsEquals.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.FollowingVectors.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.LowerLeftTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.PrecedingVectors.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.SameVectorsEquals.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.StringFormat.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.UpperRightTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.oolab [:agh.ics.oop.World.main()].executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.agh.ics.oop in oolab.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Radek/IdeaProjects/oolab/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.World.executor": "Run",
+    "Gradle.AnimalTest.InvalidAnimalStartingPosition.executor": "Run",
+    "Gradle.Build oolab.executor": "Run",
+    "Gradle.MapDirectionTest.NextTest.executor": "Run",
+    "Gradle.MapDirectionTest.PreviousTest.executor": "Run",
+    "Gradle.OptionsParserTest.InvalidCharacters.executor": "Run",
+    "Gradle.OptionsParserTest.NoCharacters.executor": "Run",
+    "Gradle.OptionsParserTest.RandomCharacters.executor": "Run",
+    "Gradle.OptionsParserTest.SomeValidSomeInvalidCharacters.executor": "Run",
+    "Gradle.OptionsParserTest.ValidCharacters.executor": "Run",
+    "Gradle.OptionsParserTest.executor": "Run",
+    "Gradle.RectangularMapTests.executor": "Run",
+    "Gradle.RectangularMapTests.testCannotMoveToOccupiedPosition.executor": "Run",
+    "Gradle.RectangularMapTests.testPlaceAnimalOnOccupiedPosition.executor": "Run",
+    "Gradle.RectangularMapTests.testPlaceAnimalOutOfBounds.executor": "Run",
+    "Gradle.RectangularMapTests.testToString.executor": "Run",
+    "Gradle.SimulationTest.EmptyMovesTest.executor": "Run",
+    "Gradle.SimulationTest.EmptyStartingPositionsTest.executor": "Run",
+    "Gradle.SimulationTest.EmptyStarting_positionsAndMoves.executor": "Run",
+    "Gradle.SimulationTest.GoingOutOfBoundsTest.executor": "Run",
+    "Gradle.SimulationTest.RotatingLeftTest.executor": "Run",
+    "Gradle.SimulationTest.RotatingRightTest.executor": "Run",
+    "Gradle.SimulationTest.SameStartingPosition.executor": "Run",
+    "Gradle.SimulationTest.StartingPositionsOutOfBoundsTest.executor": "Run",
+    "Gradle.SimulationTest.executor": "Run",
+    "Gradle.Vector2dTest.AddingVectors.executor": "Run",
+    "Gradle.Vector2dTest.DifferentVectorsEquals.executor": "Run",
+    "Gradle.Vector2dTest.FollowingVectors.executor": "Run",
+    "Gradle.Vector2dTest.LowerLeftTest.executor": "Run",
+    "Gradle.Vector2dTest.PrecedingVectors.executor": "Run",
+    "Gradle.Vector2dTest.SameVectorsEquals.executor": "Run",
+    "Gradle.Vector2dTest.StringFormat.executor": "Run",
+    "Gradle.Vector2dTest.UpperRightTest.executor": "Run",
+    "Gradle.oolab [:agh.ics.oop.World.main()].executor": "Run",
+    "JUnit.agh.ics.oop in oolab.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Radek/GitHub/PO_2024_PT1130_BENEDYKCINSKI/oolab",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Radek/IdeaProjects/oolab/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -321,6 +316,7 @@
       <workItem from="1736260846198" duration="6894000" />
       <workItem from="1736333658075" duration="4489000" />
       <workItem from="1736414722044" duration="3094000" />
+      <workItem from="1736425846033" duration="956000" />
     </task>
     <servers />
   </component>

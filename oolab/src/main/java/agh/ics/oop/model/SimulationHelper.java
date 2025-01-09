@@ -48,14 +48,14 @@ public class SimulationHelper {
 
     private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
         // TODO: Implement eating grass logic
-        List<Vector2d> result = animals.entrySet().stream()
-                .filter(entry -> entry.getValue().size() > 1)
-                .map(Map.Entry::getKey)
-                .toList();
     }
 
     private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
         // TODO: Implement reproducing animals logic
+        List<Vector2d> result = animals.entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     private void spawnGrass(int n) {
