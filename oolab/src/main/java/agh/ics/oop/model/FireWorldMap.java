@@ -21,7 +21,7 @@ public class FireWorldMap extends AbstractWorldMap {
         return (ArrayList<WorldElement>)new ArrayList<>(List.of(objects, fireObjects)).stream().flatMap(List::stream).toList();
     }
 
-    public void spreadFire(int maxAge) {
+    public void spreadFire(int maxAge, boolean start) {
         List<Vector2d> neighbours = Arrays.asList(
             new Vector2d(1, 0),
             new Vector2d(-1, 0),
@@ -38,17 +38,43 @@ public class FireWorldMap extends AbstractWorldMap {
                 }
             }
         });
+        if(start){
+            startFire();
+        }
     }
 
     public void addFire(Vector2d position) {
         if (!contains(position)) {
             return;
         }
-        if (fires.get(position) != null) {
+        if (fires.get(position) != null || grasses.get(position) == null) {
             return;
         }
         Fire fire = new Fire(position);
         fires.put(position, fire);
         notifyObservers("Fire added at " + position);
+    }
+
+    public void startFire(){
+        ArrayList<Vector2d> grassPositions = new ArrayList<>(grasses.keySet());
+        if(grassPositions.size() == 0){
+            return;
+        }
+        Vector2d randomPosition = grassPositions.get(new Random().nextInt(grassPositions.size()));
+        addFire(randomPosition);
+    }
+
+    @Override
+    public int calculateFreeFieldsOutsideEquator() {
+        int freeFields = super.calculateFreeFieldsOutsideEquator();
+        freeFields -= (int)fires.keySet().stream().filter(position -> !this.equator.contains(position)).count();
+        return freeFields;
+    }
+
+    @Override
+    public int calculateFreeFieldsInsideEquator() {
+        int freeFields = super.calculateFreeFieldsInsideEquator();
+        freeFields -= (int)fires.keySet().stream().filter(this.equator::contains).count();
+        return freeFields;
     }
 }

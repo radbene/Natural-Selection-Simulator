@@ -142,6 +142,42 @@ public abstract class AbstractWorldMap extends Globe {
         return position.follows(lowerLeft) && position.precedes(upperRight);
     }
 
+    public int calculateFreeFieldsOutsideEquator(){
+        int freeFields = 0;
+        for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
+            for (int j = lowerLeft.getY(); j <= upperRight.getY(); j++) {
+                if (grasses.get(new Vector2d(i, j)) == null && !this.equator.contains(new Vector2d(i, j))) {
+                    freeFields++;
+                }
+            }
+        }
+        return freeFields;
+    }
+
+    public int calculateFreeFieldsInsideEquator(){
+        int freeFields = 0;
+        for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
+            for (int j = lowerLeft.getY(); j <= upperRight.getY(); j++) {
+                if (grasses.get(new Vector2d(i, j)) == null && this.equator.contains(new Vector2d(i, j))) {
+                    freeFields++;
+                }
+            }
+        }
+        return freeFields;
+    }
+
+    public int calculateEmptyFields(){
+        int emptyFields = 0;
+        for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
+            for (int j = lowerLeft.getY(); j <= upperRight.getY(); j++) {
+                if (this.objectAt(new Vector2d(i, j)).size() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+        return emptyFields;
+    }
+    
     @Override
     public String toString() {
         return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
