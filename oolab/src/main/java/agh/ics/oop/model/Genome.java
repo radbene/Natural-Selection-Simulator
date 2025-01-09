@@ -8,7 +8,9 @@ public class Genome {
     private int length = 0;
 
     public int getCurrentGene() {
-        return currentGene;
+        int r = genome[currentGene];
+        currentGene = (currentGene + 1) % length;
+        return r;
     }
 
     public int getLength() {

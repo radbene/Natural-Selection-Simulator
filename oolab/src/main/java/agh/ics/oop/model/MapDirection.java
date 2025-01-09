@@ -28,6 +28,11 @@ public enum MapDirection {
         return directions[(this.ordinal() + 1) % directions.length];
     }
 
+    public MapDirection useGene(int x) {
+        MapDirection[] directions = MapDirection.values();
+        return directions[(this.ordinal() + x) % directions.length];
+    }
+
     public MapDirection previous() {
         MapDirection[] directions = MapDirection.values();
         return directions[(this.ordinal() + directions.length - 1) % directions.length];

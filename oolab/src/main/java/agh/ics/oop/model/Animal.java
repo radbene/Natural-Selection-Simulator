@@ -73,6 +73,8 @@ public class Animal implements WorldElement {
     // }
 
     public void move() {
+        int gene = this.genome.getCurrentGene();
+        direction = direction.useGene(gene);
         Move mv = new Move(position, direction);
         Move finalMove = globe.nextPosition(mv);
 
