@@ -15,7 +15,13 @@ public class Animal implements WorldElement {
         return direction;
     }
 
-    private int index = 0;
+    private static int idCounter = 0;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
     private int childrenCount = 0;
 
     public int getDaysLived() {
@@ -36,10 +42,6 @@ public class Animal implements WorldElement {
         border_upperright = upperright;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     // TODO: Add MoveValidator according to config, you can use MapBuilder
     public Animal(Vector2d position, WorldConfig config, Globe globe) {
         this(position,MapDirection.NORTH, config, globe);
@@ -54,6 +56,7 @@ public class Animal implements WorldElement {
         this.direction = direction;
         this.config = config;
         this.genome = genome;
+        this.id = idCounter++;
 
         this.globe = globe;  //used to correct going out of bounds
         this.energy = config.getInitialAnimalEnergy();

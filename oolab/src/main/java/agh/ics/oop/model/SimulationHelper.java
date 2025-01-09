@@ -1,9 +1,6 @@
 package agh.ics.oop.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SimulationHelper {
@@ -46,9 +43,26 @@ public class SimulationHelper {
     }
 
     private void moveAnimals() {
-        List<Animal> allAnimals = map.animals.values().stream().flatMap(List::stream).toList();
-        allAnimals.forEach(Animal::move);
+        Map<Vector2d, List<Animal>> mapCopy = new HashMap<>();
+        for (Map.Entry<Vector2d, ArrayList<Animal>> entry : map.animals.entrySet()) {
+            mapCopy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+
+        for (Vector2d vector : mapCopy.keySet()) {
+            List<Animal> animalsAtPosition = mapCopy.get(vector);
+            List<Animal> animalsToRemove = new ArrayList<>();
+
+            for (Animal animal : animalsAtPosition) {
+                animal.move();
+                animalsToRemove.add(animal);
+
+                Vector2d newPosition = animal.getPosition();
+                map.animals.computeIfAbsent(newPosition, _ -> new ArrayList<>()).add(animal);
+            }
+            map.animals.get(vector).removeAll(animalsToRemove);
+        }
     }
+
 
     private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
         List<Vector2d> matchingFields = animals.keySet().stream()
@@ -77,7 +91,6 @@ public class SimulationHelper {
                 .filter(Objects::nonNull)
                 .toList();
 
-        // Now you can process the animals in animalsToEatGrass
         for (ArrayList<Animal> animalList : animalsToReproduce) {
             TieBreaker tb = new TieBreaker(animalList);
             List<Animal> strongestAnimals = tb.breakTheTie();
@@ -113,7 +126,7 @@ public class SimulationHelper {
             map.animals.get(position).add(animal);
             startingPositions.add(position);
         }
-
+        System.out.println(map.animals);
         return startingPositions;
     }
 }
