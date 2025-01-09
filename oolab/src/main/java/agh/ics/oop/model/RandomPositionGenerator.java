@@ -49,7 +49,6 @@ public class RandomPositionGenerator {
     }
 
     private Vector2d generateRandomPosition(Vector2d lowerLeft, Vector2d upperRight) {
-        System.out.println("lowerLeft: " + lowerLeft + " upperRight: " + upperRight);
         int x = random.nextInt(upperRight.getX() - lowerLeft.getX() + 1) + lowerLeft.getX();
         int y = random.nextInt(upperRight.getY() - lowerLeft.getY() + 1) + lowerLeft.getY();
         return new Vector2d(x, y);

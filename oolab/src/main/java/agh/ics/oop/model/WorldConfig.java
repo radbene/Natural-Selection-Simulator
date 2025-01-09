@@ -185,8 +185,8 @@ public class WorldConfig {
     }
 
     public static class Builder {
-        private int mapWidth = 20;
-        private int mapHeight = 20;
+        private int mapWidth = 10;
+        private int mapHeight = 10;
         private EMapVariant mapVariant = EMapVariant.STANDARD;
         private int initialPlantCount = 10;
         private int plantEnergy = 10;

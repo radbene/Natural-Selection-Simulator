@@ -5,6 +5,7 @@ import agh.ics.oop.model.util.IncorrectPositionException;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractWorldMap extends Globe {
 
@@ -15,14 +16,16 @@ public abstract class AbstractWorldMap extends Globe {
     protected final List<MapChangeListener> observers = new ArrayList<>();
     protected WorldObserver wObserver;
     protected final Map<Vector2d, Grass> grasses = new HashMap<>();
-    protected final Equator equator = new Equator(new Vector2d(0, (int)(this.upperRight.getY() * 0.4)), new Vector2d(this.upperRight.getX(), (int)(this.upperRight.getY() * 0.6)));
-    protected final GrassSpawner grassSpawner = new GrassSpawner(this, this.equator, new RandomPositionGenerator());
+    protected final Equator equator;
+    protected final GrassSpawner grassSpawner;
     protected List<Animal> deadAnimals = new ArrayList<>();
     protected final UUID uuid = UUID.randomUUID();
 
     public AbstractWorldMap(int width, int height) {
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width, height);
+        this.equator= new Equator(new Vector2d(0, (int)(this.upperRight.getY() * 0.4)), new Vector2d(this.upperRight.getX(), (int)(this.upperRight.getY() * 0.6)));
+        this.grassSpawner = new GrassSpawner(this, this.equator, new RandomPositionGenerator());
     }
 
     public void addObserver(MapChangeListener observer) {
@@ -94,7 +97,7 @@ public abstract class AbstractWorldMap extends Globe {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return objectAt(position) != null;
+        return objectAt(position).size() > 0;
     }
 
     @Override
@@ -105,7 +108,8 @@ public abstract class AbstractWorldMap extends Globe {
             animalObjects.addAll(animals.get(position));
         if (grasses.get(position) != null)
             grassObjects.add(grasses.get(position));
-        return (ArrayList<WorldElement>) new ArrayList<>(List.of(animalObjects, grassObjects)).stream().flatMap(List::stream).toList();
+        return List.of(animalObjects, grassObjects).stream().flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new));
+
     }
 
     public List<WorldElement> getElements() {
