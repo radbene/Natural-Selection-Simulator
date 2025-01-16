@@ -20,4 +20,8 @@ public class Grass implements WorldElement {
         this.position = position;
     }
 
+    @Override
+    public String getResourceName() {
+        return "grass.png";
+    }
 }

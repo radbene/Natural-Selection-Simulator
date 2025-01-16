@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group = 'org.example'
@@ -13,6 +14,12 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.15.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.15.2'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+//    implementation 'org.openjfx:javafx-controls:21'
+//    implementation 'org.openjfx:javafx-fxml:21'
+
 }
 
 test {
@@ -25,6 +32,20 @@ application {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(23))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
+}
+
+javafx {
+    version = "17"
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += '--enable-preview'
+    options.release = 21
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
 }

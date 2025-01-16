@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FireWorldMap extends AbstractWorldMap {
 
@@ -9,6 +11,7 @@ public class FireWorldMap extends AbstractWorldMap {
     public FireWorldMap(int width, int height, int n) {
         super(width, height);
         this.addObserver(new ConsoleMapDisplay());
+        this.addObserver(new FileMapDisplay(this.uuid));
         this.grassSpawner.spawnGrass(n);
     }
 
@@ -18,7 +21,7 @@ public class FireWorldMap extends AbstractWorldMap {
         if(fires.get(position) != null) {
             fireObjects.add(fires.get(position));
         }
-        return (ArrayList<WorldElement>)new ArrayList<>(List.of(objects, fireObjects)).stream().flatMap(List::stream).toList();
+        return Stream.concat(objects.stream(), fireObjects.stream()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void spreadFire(int maxAge, boolean start) {
@@ -53,8 +56,7 @@ public class FireWorldMap extends AbstractWorldMap {
         Fire fire = new Fire(position);
         fires.put(position, fire);
         grasses.remove(position);
-        //TODO: add killed animals to deadAnimals
-
+        this.deadAnimals.addAll(animals.get(position));
         animals.remove(position);
         animals.put(position,new ArrayList<>());
         notifyObservers("Fire added at " + position);

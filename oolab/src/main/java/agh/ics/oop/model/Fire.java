@@ -29,4 +29,9 @@ public class Fire implements WorldElement{
     public String toString() {
         return "^ ";
     }
+
+    @Override
+    public String getResourceName() {
+        return "fire.png";
+    }
 }

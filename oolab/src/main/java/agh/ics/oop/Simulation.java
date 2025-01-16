@@ -7,6 +7,7 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldConfig;
 import agh.ics.oop.model.util.IncorrectPositionException;
 import agh.ics.oop.model.SimulationHelper;
+import agh.ics.oop.model.MapChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,11 @@ public class Simulation implements Runnable{
         this.config = config;
         init();
     }
-    
+
+    public void addObserver(MapChangeListener observer) {
+        this.map.addObserver(observer);
+    }
+
     private void init(){
         this.map = this.mapBuilder.createMap(this.config);
         this.simulationHelper = new SimulationHelper(this.map, config);

@@ -189,6 +189,7 @@ public abstract class AbstractWorldMap extends Globe {
         return this.uuid;
     }
 
+    @Override
     public Boundary getCurrentBounds() {
         return new Boundary(this.lowerLeft, this.upperRight);
     }

@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldElement;
+import agh.ics.oop.model.WorldElementBox;
 import agh.ics.oop.model.WorldMap;
 import agh.ics.oop.model.Animal;
+import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * The map visualizer converts the {@link WorldMap} map into a string
@@ -18,6 +22,7 @@ public class MapVisualizer {
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
     private final WorldMap map;
+    private final GridPane gridPane;
 
     /**
      * Initializes the MapVisualizer with an instance of map to visualize.
@@ -26,8 +31,29 @@ public class MapVisualizer {
      */
     public MapVisualizer(WorldMap map) {
         this.map = map;
+        this.gridPane = new GridPane();
     }
 
+    public void addElementToGrid(WorldElement element, int x, int y) {
+        String positionText = "(" + x + ", " + y + ")";
+        WorldElementBox elementBox = new WorldElementBox(element, positionText);
+
+        gridPane.add(elementBox.getContainer(), x, y);
+    }
+
+
+    public void addImageToGrid(String imagePath, int x, int y) {
+        ImageView imageView = new ImageView(new Image(imagePath));
+        imageView.setFitWidth(40); // Adjust as needed
+        imageView.setFitHeight(40);
+        gridPane.add(imageView, x, y);
+    }
+
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+    
     /**
      * Convert selected region of the map into a string. It is assumed that the
      * indices of the map will have no more than two characters (including the

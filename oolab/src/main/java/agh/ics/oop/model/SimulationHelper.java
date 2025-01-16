@@ -37,9 +37,14 @@ public class SimulationHelper {
     }
 
     private void removeDeadAnimals() {
-        //TODO: add dead animals to map.deadAnimals
         (map.animals.values()).forEach(a -> {
-            a.removeIf(animal -> animal.isDead());
+            a.removeIf(animal -> {
+                if (animal.isDead()) {
+                    map.deadAnimals.add(animal);
+                    return true;
+                }
+                return false;
+            });
         });
     }
 
@@ -52,8 +57,13 @@ public class SimulationHelper {
             for (Animal animal : animalsAtCurrentPosition) {
                 animal.move();
                 Vector2d newPosition = animal.getPosition();
-
                 updatedMap.computeIfAbsent(newPosition, k -> new ArrayList<>()).add(animal);
+//                Sleep for 1s
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         map.animals = updatedMap;
