@@ -30,6 +30,7 @@ public class Simulation implements Runnable{
     
     private void init(){
         this.map = this.mapBuilder.createMap(this.config);
+        map.addFileMapDisplayObserver();
         this.simulationHelper = new SimulationHelper(this.map, config);
         this.starting_positions = this.simulationHelper.generateStartingPositions(this.config.getInitialAnimalCount());
         for(Vector2d position: starting_positions){
@@ -43,8 +44,8 @@ public class Simulation implements Runnable{
     }
 
     public void run() {
-        while(true){
-            this.simulationHelper.runEpoch();;
+        while(simulationHelper.getEpoch() < 100){
+            this.simulationHelper.runEpoch();
         }
     }
 }

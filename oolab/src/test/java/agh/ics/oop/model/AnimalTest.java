@@ -63,7 +63,7 @@ class AnimalTest {
     @Test
     void testReproduce() {
         Animal partner = new Animal(new Vector2d(0, 0), MapDirection.NORTH, config, map);
-        animal.eatGrass(); 
+        animal.eatGrass();
         partner.eatGrass();
 
         assertTrue(animal.canReproduce(), "Animal should be able to reproduce");

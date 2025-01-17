@@ -1,6 +1,8 @@
 package agh.ics.oop.model.util;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldElement;
@@ -78,15 +80,37 @@ public class MapVisualizer {
     }
 
     private String drawObject(Vector2d currentPosition) {
-        if (this.map.isOccupied(currentPosition)) {
-            ArrayList<WorldElement> obj = this.map.objectAt(currentPosition);
-            if (obj.stream().anyMatch(o -> o instanceof Animal)) {
-                Animal animal = (Animal) obj.stream().filter(o -> o instanceof Animal).findFirst().get();
-                return animal.toString();
+        // Get the Optional containing the list of WorldElement objects at the position
+        Optional<List<WorldElement>> objectsAtPosition = this.map.objectAt(currentPosition);
+
+        // Check if the Optional is present and contains elements
+        if (objectsAtPosition.isPresent()) {
+            List<WorldElement> obj = objectsAtPosition.get();  // Get the list of objects at that position
+
+            // Look for an animal in the list
+            Optional<Animal> animal = obj.stream()
+                    .filter(o -> o instanceof Animal)
+                    .map(o -> (Animal) o)
+                    .findFirst();
+
+            if (animal.isPresent()) {
+                return animal.get().toString();  // Return the animal's string representation
             }
-            return obj.stream().filter(o -> o instanceof Animal == false).map(o -> o.toString()).findFirst().get();
+
+            // If no animal is found, return the first non-animal object's string representation
+            return obj.stream()
+                    .filter(o -> !(o instanceof Animal))
+                    .map(WorldElement::toString)
+                    .findFirst()
+                    .orElse(EMPTY_CELL);  // If no non-animal object, return EMPTY_CELL
         }
+
+        // If the position is not occupied (Optional is empty), return EMPTY_CELL
         return EMPTY_CELL;
     }
+
+
+
+
 
 }

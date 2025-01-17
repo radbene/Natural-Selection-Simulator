@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class GrassField extends AbstractWorldMap {
 
@@ -10,7 +12,7 @@ public class GrassField extends AbstractWorldMap {
         this.grassSpawner.spawnGrass(n);
     }
 
-    public ArrayList<WorldElement> objectAt(Vector2d position) {
+    public Optional<List<WorldElement>> objectAt(Vector2d position) {
         return super.objectAt(position);   
     }
 

@@ -7,6 +7,11 @@ public class SimulationHelper {
 
     private final AbstractWorldMap map;
     private final WorldConfig config;
+
+    public int getEpoch() {
+        return epoch;
+    }
+
     private int epoch = 0;
 
     public SimulationHelper(AbstractWorldMap map, WorldConfig config) {
@@ -16,7 +21,7 @@ public class SimulationHelper {
     }
 
     public void runEpoch() {
-        if (this.epoch > 10) {
+        if (this.epoch > 1000) {
             throw new RuntimeException("Epoch limit reached");
         }
         newEpoch();
@@ -37,11 +42,19 @@ public class SimulationHelper {
     }
 
     private void removeDeadAnimals() {
-        //TODO: add dead animals to map.deadAnimals
-        (map.animals.values()).forEach(a -> {
-            a.removeIf(animal -> animal.isDead());
+        // Iterate over all animals in the map
+        map.animals.values().forEach(animalList -> {
+            // Collect dead animals in a separate list
+            List<Animal> deadAnimals = animalList.stream()
+                    .filter(Animal::isDead)
+                    .toList();
+            // Add dead animals to map.deadAnimals
+            map.deadAnimals.addAll(deadAnimals);
+            // Remove dead animals from the original list
+            animalList.removeAll(deadAnimals);
         });
     }
+
 
     private void moveAnimals() {
         Map<Vector2d, ArrayList<Animal>> updatedMap = new HashMap<>();

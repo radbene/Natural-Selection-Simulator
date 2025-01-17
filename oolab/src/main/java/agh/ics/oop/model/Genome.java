@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.variants.EMutationVariant;
+
 import static java.lang.Math.round;
 
 public class Genome {
@@ -87,6 +89,13 @@ public class Genome {
         Genome genome = new Genome(config);
         for (int i = 0; i < genome.length; i++){
             genome.genome[i] = (int) ((Math.random() * (genome.maxGeneValue - genome.minGeneValue)) + genome.minGeneValue);
+        }
+        return genome;
+    }
+
+    private Genome mutation(Genome genome){
+        if (config.getMutationVariant() == EMutationVariant.STANDARD){
+
         }
         return genome;
     }

@@ -6,6 +6,9 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 public abstract class AbstractWorldMap extends Globe {
 
@@ -33,13 +36,21 @@ public abstract class AbstractWorldMap extends Globe {
         observers.add(observer);
     }
 
+    public void addFileMapDisplayObserver() {
+        FileMapDisplay fileMapDisplay = new FileMapDisplay(this.uuid);
+        addObserver(fileMapDisplay); // Rejestracja obserwatora
+    }
+
+
     public void removeObserver(MapChangeListener observer) {
         observers.remove(observer);
     }
 
     protected void notifyObservers(String message) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (MapChangeListener observer : observers) {
-            observer.mapChanged(this, message);
+            String currentTime = LocalDateTime.now().format(formatter);
+            observer.mapChanged(this, currentTime + message);
         }
         if (wObserver != null) {
             wObserver.update();
@@ -98,27 +109,39 @@ public abstract class AbstractWorldMap extends Globe {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return objectAt(position).size() > 0;
+        return objectAt(position).map(elements -> !elements.isEmpty()).orElse(false);
     }
 
     @Override
-    public ArrayList<WorldElement> objectAt(Vector2d position) {
-        ArrayList<WorldElement> animalObjects = new ArrayList<>();
-        ArrayList<WorldElement> grassObjects = new ArrayList<>();
-        if (animals.get(position) != null)
-            animalObjects.addAll(animals.get(position));
-        if (grasses.get(position) != null)
-            grassObjects.add(grasses.get(position));
-        return List.of(animalObjects, grassObjects).stream().flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new));
+    public Optional<List<WorldElement>> objectAt(Vector2d position) {
+        List<WorldElement> elements = new ArrayList<>();
 
+        // Przykład: sprawdzamy, czy na pozycji są zwierzęta
+        if (animals.containsKey(position)) {
+            elements.addAll(animals.get(position)); // Dodajemy wszystkie zwierzęta
+        }
+
+        // Sprawdzamy, czy na pozycji jest trawa
+        if (grasses.containsKey(position)) {
+            elements.add(grasses.get(position)); // Dodajemy trawę
+        }
+
+        // Zwracamy wynik jako Optional
+        if (elements.isEmpty()) {
+            return Optional.empty(); // Brak elementów na pozycji
+        } else {
+            return Optional.of(elements); // Zwracamy listę w Optional
+        }
     }
+
 
     public List<WorldElement> getElements() {
-        List<WorldElement> elements = new ArrayList<>();
-        animals.values().forEach(elements::addAll);
-        elements.addAll(grasses.values());
-        return elements;
+        return Stream.concat(
+                animals.values().stream().flatMap(Collection::stream), // Strumień wszystkich zwierząt
+                grasses.values().stream()                             // Strumień wszystkich obiektów grasses
+        ).collect(Collectors.toList());                               // Zbieramy do listy
     }
+
 
     @Override
     public boolean canMoveTo(Vector2d position){
@@ -167,18 +190,37 @@ public abstract class AbstractWorldMap extends Globe {
         return freeFields;
     }
 
-    public int calculateEmptyFields(){
+    public int calculateEmptyFields() {
         int emptyFields = 0;
         for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
             for (int j = lowerLeft.getY(); j <= upperRight.getY(); j++) {
-                if (this.objectAt(new Vector2d(i, j)).size() == 0) {
+                // Check if the position contains an empty list (i.e., no WorldElement)
+                if (this.objectAt(new Vector2d(i, j)).map(List::isEmpty).orElse(true)) {
                     emptyFields++;
                 }
             }
         }
         return emptyFields;
     }
-    
+
+
+    @Override
+    public Collection<Animal> getOrderedAnimals() {
+        // Tworzymy listę wszystkich zwierząt na mapie
+        List<Animal> allAnimals = animals.values().stream()
+                .flatMap(List::stream) // Spłaszczamy listy w HashMap
+                .collect(Collectors.toList());
+
+        // Sortujemy listę zwierząt na podstawie ich pozycji
+        Collections.sort(allAnimals, Comparator
+                .comparing((Animal a) -> a.getPosition().getX()) // Najpierw po X
+                .thenComparing(a -> a.getPosition().getY()));    // Potem po Y
+
+        // Zwracamy jako kolekcję
+        return allAnimals;
+    }
+
+
     @Override
     public String toString() {
         return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());

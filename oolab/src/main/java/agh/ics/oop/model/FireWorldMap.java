@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FireWorldMap extends AbstractWorldMap {
 
@@ -12,14 +14,24 @@ public class FireWorldMap extends AbstractWorldMap {
         this.grassSpawner.spawnGrass(n);
     }
 
-    public ArrayList<WorldElement> objectAt(Vector2d position) {
-        List<WorldElement> objects = super.objectAt(position);
-        List<WorldElement> fireObjects = new ArrayList<>();
-        if(fires.get(position) != null) {
-            fireObjects.add(fires.get(position));
-        }
-        return (ArrayList<WorldElement>)new ArrayList<>(List.of(objects, fireObjects)).stream().flatMap(List::stream).toList();
+    public Optional<List<WorldElement>> objectAt(Vector2d position) {
+        // Get objects at the given position using the superclass method
+        Optional<List<WorldElement>> objects = super.objectAt(position);
+
+        // Use Optional to handle the fires and return an empty list if no fire is present
+        List<Fire> fireObjects = Optional.ofNullable(fires.get(position))
+                .map(Collections::singletonList) // If fire exists, wrap it in a singleton list
+                .orElse(Collections.emptyList()); // If no fire, return an empty list
+
+        // Combine both lists into one and return an Optional containing the combined list
+        return objects.map(objList ->
+                Stream.concat(objList.stream(), fireObjects.stream())  // Concatenate the two streams
+                        .collect(Collectors.toList())  // Collect the combined stream into a List
+        );
     }
+
+
+
 
     public void spreadFire(int maxAge, boolean start) {
         List<Vector2d> neighbours = Arrays.asList(

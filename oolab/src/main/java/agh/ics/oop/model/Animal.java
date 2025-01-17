@@ -130,6 +130,8 @@ public class Animal implements WorldElement {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
         Animal child = new Animal(position,config, globe);
         child.setGenome(childGenome);
+        energy -= config.getEnergyToReproduce();
+        partner.energy -= config.getEnergyToReproduce();
         return child;
     }
 

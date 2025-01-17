@@ -4,35 +4,22 @@ import agh.ics.oop.model.MoveDirection;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OptionsParser  {
     public static List<MoveDirection> parse(String[] args) {
-            MoveDirection[] Moves = new MoveDirection[args.length];
-            int i = 0;
-            int a = 0;
-            while(i < args.length) {
-                switch(args[i]){
-                    case "f":
-                        Moves[a] = MoveDirection.FORWARD;
-                        a++;
-                        break;
-                    case "b":
-                        Moves[a] = MoveDirection.BACKWARD;
-                        a++;
-                        break;
-                    case "l":
-                        Moves[a] = MoveDirection.LEFT;
-                        a++;
-                        break;
-                    case "r":
-                        Moves[a] = MoveDirection.RIGHT;
-                        a++;
-                        break;
-                    default: throw new IllegalArgumentException(args[i] + " is not legal move specification");
-                }
-                i++;
-            }
-        List<MoveDirection> list_of_moves = Arrays.asList(Arrays.copyOfRange(Moves, 0, a));
-            return list_of_moves;
+        return Stream.of(args) // Tworzymy strumień z tablicy
+                .map(arg -> { // Mapujemy każdą wartość wejściową na MoveDirection
+                    switch (arg) {
+                        case "f": return MoveDirection.FORWARD;
+                        case "b": return MoveDirection.BACKWARD;
+                        case "l": return MoveDirection.LEFT;
+                        case "r": return MoveDirection.RIGHT;
+                        default: throw new IllegalArgumentException(arg + " is not a legal move specification");
+                    }
+                })
+                .collect(Collectors.toList()); // Zbieramy wyniki do listy
     }
+
 }
