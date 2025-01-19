@@ -106,7 +106,7 @@ public class FireWorldMapTest {
             }
         }
 
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+//        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 //        verify(mockObserver, atLeast(1)).mapChanged(fireWorldMap, captor.capture());
 //        List<String> allMessages = captor.getAllValues();
 //

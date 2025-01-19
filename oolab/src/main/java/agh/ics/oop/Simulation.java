@@ -9,13 +9,12 @@ import agh.ics.oop.model.util.IncorrectPositionException;
 import agh.ics.oop.model.SimulationHelper;
 import agh.ics.oop.model.MapChangeListener;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Simulation implements Runnable{
     private List<Vector2d> starting_positions;
     private AbstractWorldMap map;
-    // TODO: make SimulationHelper final
     protected SimulationHelper simulationHelper;
     private final WorldConfig config;
     private final MapBuilder mapBuilder = new MapBuilder();
@@ -51,5 +50,13 @@ public class Simulation implements Runnable{
         while(true){
             this.simulationHelper.runEpoch();;
         }
+    }
+
+    public void step(){
+        this.simulationHelper.runEpoch();
+    }
+
+    public Map<String, Object> getStats(){
+        return this.simulationHelper.getStats();
     }
 }

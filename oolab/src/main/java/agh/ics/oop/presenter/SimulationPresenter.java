@@ -1,30 +1,52 @@
 package agh.ics.oop.presenter;
 
-import agh.ics.oop.OptionsParser;
 import agh.ics.oop.Simulation;
 import agh.ics.oop.SimulationApp;
 import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.model.*;
-import javafx.application.Application;
+import agh.ics.oop.model.variants.EMapVariant;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.util.List;
+import java.util.Map;
 
 public class SimulationPresenter implements MapChangeListener {
     private WorldMap map;
+    private Simulation simulation;
+    private SimulationEngine engine;
+    private boolean isPaused = false;
+
     @FXML
     private GridPane mapGrid;
+
     @FXML
     private TextField moveListTextField;
+
     @FXML
     private Label moveDescriptionLabel;
+
+    @FXML
+    private VBox statsContainer; // Stats container for formatted stats
+
+    @FXML
+    private LineChart<Number, Number> animalsGrassChart; // Chart for Animals vs Grass
+
+    @FXML
+    private LineChart<Number, Number> energyLifespanChart; // Chart for Avg Energy vs Lifespan
+
     private int xMin;
     private int yMin;
     private int xMax;
@@ -34,20 +56,115 @@ public class SimulationPresenter implements MapChangeListener {
     private final int width = 50;
     private final int height = 50;
 
+    // Chart Series
+    private XYChart.Series<Number, Number> animalsSeries;
+    private XYChart.Series<Number, Number> grassSeries;
+    private XYChart.Series<Number, Number> energySeries;
+    private XYChart.Series<Number, Number> lifespanSeries;
+
+    // Maximum number of data points to display
+    private static final int MAX_DATA_POINTS = 100;
+
+    @FXML
+    private void initialize() {
+        initializeCharts();
+    }
+
+    @FXML
+    private Button pauseResumeButton;
+
+    @FXML
+    public void handlePauseSimulation() {
+        if (engine == null) {
+            System.err.println("SimulationEngine is not initialized.");
+            return;
+        }
+        isPaused = !isPaused;
+        if (isPaused) {
+            engine.pause();
+            pauseResumeButton.setText("Resume Simulation");
+            System.out.println("Simulation paused.");
+        } else {
+            engine.resume();
+            pauseResumeButton.setText("Pause Simulation");
+            System.out.println("Simulation resumed.");
+        }
+    }
+
     public void setWorldMap(WorldMap map) {
         this.map = map;
     }
 
-    public void xyLabel() {
-        mapGrid.getColumnConstraints().add(new ColumnConstraints(width));
-        mapGrid.getRowConstraints().add(new RowConstraints(height));
-        Label label = new Label("y/x");
-        mapGrid.add(label, 0, 0);
-        GridPane.setHalignment(label, HPos.CENTER);
+    private void initializeCharts() {
+        // Configure Animals vs Grass Chart
+        animalsGrassChart.getXAxis().setLabel("Day");
+        animalsGrassChart.getYAxis().setLabel("Number of Animals/Grass");
+        animalsGrassChart.setTitle("Animals vs Grass");
+        // The stylesheet will handle additional styles
+
+        // Initialize Series
+        animalsSeries = new XYChart.Series<>();
+        animalsSeries.setName("Animals");
+        grassSeries = new XYChart.Series<>();
+        grassSeries.setName("Grass");
+
+        // Add Series to Chart
+        animalsGrassChart.getData().addAll(animalsSeries, grassSeries);
+
+        // Configure Energy vs Lifespan Chart
+        energyLifespanChart.getXAxis().setLabel("Day");
+        energyLifespanChart.getYAxis().setLabel("Avg Energy/Average Lifespan");
+        energyLifespanChart.setTitle("Avg Energy vs Avg Lifespan");
+
+        // Initialize Series
+        energySeries = new XYChart.Series<>();
+        energySeries.setName("Avg Animal Energy");
+        lifespanSeries = new XYChart.Series<>();
+        lifespanSeries.setName("Avg Animal Lifespan");
+
+        // Add Series to Chart
+        energyLifespanChart.getData().addAll(energySeries, lifespanSeries);
+    }
+
+    private void updateCharts(int day, int animals, int grass, double avgEnergy, double avgLifespan) {
+        // Add data to Animals vs Grass Chart
+        animalsSeries.getData().add(new XYChart.Data<>(day, animals));
+        grassSeries.getData().add(new XYChart.Data<>(day, grass));
+
+        // Add data to Energy vs Lifespan Chart
+        energySeries.getData().add(new XYChart.Data<>(day, avgEnergy));
+        lifespanSeries.getData().add(new XYChart.Data<>(day, avgLifespan));
+
+        // Limit the number of data points to MAX_DATA_POINTS
+        if (animalsSeries.getData().size() > MAX_DATA_POINTS) {
+            animalsSeries.getData().remove(0);
+            grassSeries.getData().remove(0);
+            energySeries.getData().remove(0);
+            lifespanSeries.getData().remove(0);
+        }
+    }
+
+    private void updateStatsDisplay(Simulation simulation) {
+        Map<String, Object> stats = simulation.getStats();
+        statsContainer.getChildren().clear();
+        statsContainer.setSpacing(5);
+
+        for (Map.Entry<String, Object> entry : stats.entrySet()) {
+            HBox statLine = new HBox();
+            statLine.setSpacing(10);
+
+            Label keyLabel = new Label(entry.getKey() + ":");
+            keyLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+            Label valueLabel = new Label(entry.getValue().toString());
+            valueLabel.setStyle("-fx-font-size: 14px;");
+
+            statLine.getChildren().addAll(keyLabel, valueLabel);
+            statsContainer.getChildren().add(statLine);
+        }
     }
 
     public void updateBounds() {
-        System.out.println("Updating bounds");
         xMin = map.getCurrentBounds().lowerLeft().getX();
         yMin = map.getCurrentBounds().lowerLeft().getY();
         xMax = map.getCurrentBounds().upperRight().getX();
@@ -96,7 +213,6 @@ public class SimulationPresenter implements MapChangeListener {
 
     private void drawMap() {
         updateBounds();
-        xyLabel();
         columnsFunction();
         rowsFunction();
         addElements();
@@ -104,7 +220,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void clearGrid() {
-        mapGrid.getChildren().retainAll(mapGrid.getChildren().getFirst()); // hack to retain visible grid lines
+        mapGrid.getChildren().clear();
         mapGrid.getColumnConstraints().clear();
         mapGrid.getRowConstraints().clear();
     }
@@ -116,17 +232,29 @@ public class SimulationPresenter implements MapChangeListener {
             clearGrid();
             drawMap();
             moveDescriptionLabel.setText(message);
+            updateStatsDisplay(simulation);
+
+            if (simulation != null) {
+                int currentDay = (Integer) simulation.getStats().get("Epoch");
+                int animals = (Integer) simulation.getStats().get("Total Animals");
+                int grass = (Integer) simulation.getStats().get("Total Grass");
+                double avgEnergy = (Double) simulation.getStats().get("Average Energy");
+                double avgLifespan = (Double) simulation.getStats().get("Average Lifespan");
+
+                updateCharts(currentDay, animals, grass, avgEnergy, avgLifespan);
+            }
         });
     }
 
     @FXML
     private void startSimulation() {
         WorldConfig.Builder builder = new WorldConfig.Builder();
-        WorldConfig config = builder.build();
+        WorldConfig config = builder.mapVariant(EMapVariant.FIRE).fireFreq(2).fireMaxAge(5).build();
         Simulation sim = new Simulation(config);
+        this.simulation = sim;
         sim.addObserver(this);
-        SimulationEngine engine = new SimulationEngine(List.of(sim));
-        new Thread(engine::runSync).start();
+        this.engine = new SimulationEngine(List.of(sim));;
+        new Thread(engine::run).start();
     }
 
     @FXML

@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
-            fx:controller="agh.ics.oop.presenter.SimulationPresenter">
+            fx:controller="agh.ics.oop.presenter.SimulationPresenter"
+            stylesheets="@chartStyles.css">
+
+    <left>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <LineChart fx:id="animalsGrassChart" animated="false" createSymbols="true">
+                <xAxis>
+                    <NumberAxis label="Day" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Number of Animals/Grass" />
+                </yAxis>
+            </LineChart>
+            <LineChart fx:id="energyLifespanChart" animated="false" createSymbols="true">
+                <xAxis>
+                    <NumberAxis label="Day" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Avg Energy/Average Lifespan" />
+                </yAxis>
+            </LineChart>
+        </VBox>
+    </left>
 
     <center>
         <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
@@ -19,11 +42,19 @@
             <Label fx:id="moveDescriptionLabel" text="Map description"/>
         </VBox>
     </top>
-    <bottom>
-        <VBox spacing="10" alignment="CENTER">
+
+    <right>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Label text="Simulation Stats:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <VBox fx:id="statsContainer" spacing="10" alignment="CENTER"
+                  style="-fx-padding: 10; -fx-background-color: #f0f0f0;
+                         -fx-border-color: #cccccc; -fx-border-radius: 5;
+                         -fx-border-width: 1;"/>
             <Button text="Start" onAction="#startSimulation"/>
+            <!-- Add fx:id to the Pause/Resume button -->
+            <Button fx:id="pauseResumeButton" text="Pause Simulation" onAction="#handlePauseSimulation"/>
             <Button text="New Simulation" onAction="#newGame"/>
         </VBox>
-    </bottom>
+    </right>
 
 </BorderPane>

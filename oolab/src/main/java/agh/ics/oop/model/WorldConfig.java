@@ -193,8 +193,8 @@ public class WorldConfig {
         private int dailyGrassGrowth = 5;
         private int initialAnimalCount = 6;
         private int initialAnimalEnergy = 50;
-        private int energyToReproduce = 30;
-        private int parentEnergyCost = 20;
+        private int energyToReproduce = 20;
+        private int parentEnergyCost = 10;
         private int minMutations = 0;
         private int maxMutations = 2;
         private EMutationVariant mutationVariant = EMutationVariant.STANDARD;

@@ -90,6 +90,14 @@ public class Genome {
         }
         return genome;
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(genome[i]);
+        }
+        return sb.toString();
+    }
 }
 
 

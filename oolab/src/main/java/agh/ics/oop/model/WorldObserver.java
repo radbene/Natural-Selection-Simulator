@@ -19,6 +19,10 @@ public class WorldObserver {
         collectStats();
     }
 
+    private double round2(double value) {
+        return (double) Math.round(value * 100) / 100;
+    }
+
     private void collectStats() {
         stats.put("Epoch", epoch);
         stats.put("Total Animals", countAnimals());
@@ -43,24 +47,24 @@ public class WorldObserver {
     }
 
     private double calculateAverageEnergy() {
-        return map.getAllAnimals().stream()
+        return round2(map.getAllAnimals().stream()
                 .mapToInt(Animal::getEnergy)
                 .average()
-                .orElse(0);
+                .orElse(0));
     }
 
     private double calculateAverageLifespan() {
-        return map.getDeadAnimals().stream()
+        return round2(map.getDeadAnimals().stream()
                 .mapToInt(Animal::getLifespan)
                 .average()
-                .orElse(0);
+                .orElse(0));
     }
 
     private double calculateAverageChildren() {
-        return map.getDeadAnimals().stream()
+        return round2(map.getDeadAnimals().stream()
                 .mapToInt(Animal::getChildren)
                 .average()
-                .orElse(0);
+                .orElse(0));
     }
 
     private Genome findDominantGenome() {

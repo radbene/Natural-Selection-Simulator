@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-
 import agh.ics.oop.model.WorldElement;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -17,21 +16,18 @@ public class WorldElementBox {
     private final VBox container;
 
     public WorldElementBox(WorldElement element, String positionText) {
-
-        // print imageCache
-        System.out.println("XD");
         String resourceName = element.getResourceName();
         Image image = imageCache.computeIfAbsent(resourceName, key -> 
             new Image(Objects.requireNonNull(getClass().getResourceAsStream("/" + key)))
         );
 
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(20);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
 
         Label positionLabel = new Label(positionText);
 
-        container = new VBox(5, imageView, positionLabel);
+        container = new VBox(5, imageView);
         container.setAlignment(Pos.CENTER);
     }
 

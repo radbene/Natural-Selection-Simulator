@@ -19,17 +19,16 @@ public class WorldElementBox {
             if (stream == null) {
                 throw new IllegalArgumentException("Resource not found: " + key);
             }
-            System.out.println("Loading image: " + key);
-            return new Image(stream);
+            return new Image(stream, 50, 50, true, true);
         });
 
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(20);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
 
         Label positionLabel = new Label(positionText);
 
-        container = new VBox(5, imageView, positionLabel);
+        container = new VBox(5, imageView);
         container.setAlignment(Pos.CENTER);
     }
 

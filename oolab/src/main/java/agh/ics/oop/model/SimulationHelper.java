@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.variants.EMapVariant;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,12 +18,12 @@ public class SimulationHelper {
     }
 
     public void runEpoch() {
-        if (this.epoch > 10) {
+        if (this.epoch > 100) {
             throw new RuntimeException("Epoch limit reached");
         }
         newEpoch();
         removeDeadAnimals();
-        if (map.getClass().getName().equals("FireWorldMap")) {
+        if (config.getMapVariant()== EMapVariant.FIRE) {
             ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
         }
         moveAnimals();
@@ -56,11 +58,11 @@ public class SimulationHelper {
 
             for (Animal animal : animalsAtCurrentPosition) {
                 animal.move();
+//                map.notifyObservers("Animal moved at " + animal.getPosition());
                 Vector2d newPosition = animal.getPosition();
                 updatedMap.computeIfAbsent(newPosition, k -> new ArrayList<>()).add(animal);
-//                Sleep for 1s
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -114,6 +116,10 @@ public class SimulationHelper {
 
     private void gatherStats() {
         map.wObserver.update();
+    }
+
+    public Map<String, Object> getStats() {
+        return map.wObserver.getStats();
     }
 
     public List<Vector2d> generateStartingPositions(int animalsCount) {

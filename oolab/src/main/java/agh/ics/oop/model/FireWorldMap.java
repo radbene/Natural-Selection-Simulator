@@ -26,22 +26,28 @@ public class FireWorldMap extends AbstractWorldMap {
 
     public void spreadFire(int maxAge, boolean start) {
         List<Vector2d> neighbours = Arrays.asList(
-            new Vector2d(1, 0),
-            new Vector2d(-1, 0),
-            new Vector2d(0, 1),
-            new Vector2d(0, -1)
+                new Vector2d(1, 0),
+                new Vector2d(-1, 0),
+                new Vector2d(0, 1),
+                new Vector2d(0, -1)
         );
+        List<Vector2d> positionsToRemove = new ArrayList<>();
+        List<Vector2d> positionsToAdd = new ArrayList<>();
+
         fires.forEach((position, fire) -> {
-            if (fire.burn() >= maxAge) {
-                fires.remove(position);
-                notifyObservers("Fire at " + position + " has burned out");
+            if (fire.burn() > maxAge) {
+                positionsToRemove.add(position);
             } else {
                 for (Vector2d neighbour : neighbours) {
-                    addFire(position.add(neighbour));
+                    positionsToAdd.add(position.add(neighbour));
+//                notifyObservers("Fire at " + position + " has burned out");
                 }
             }
         });
-        if(start){
+
+        positionsToRemove.forEach(fires::remove);
+        positionsToAdd.forEach(this::addFire);
+        if (start) {
             startFire();
         }
     }
@@ -56,10 +62,12 @@ public class FireWorldMap extends AbstractWorldMap {
         Fire fire = new Fire(position);
         fires.put(position, fire);
         grasses.remove(position);
-        this.deadAnimals.addAll(animals.get(position));
-        animals.remove(position);
-        animals.put(position,new ArrayList<>());
-        notifyObservers("Fire added at " + position);
+        if(animals.get(position) != null && !animals.get(position).isEmpty()){
+            this.deadAnimals.addAll(animals.get(position));
+            animals.remove(position);
+            animals.put(position,new ArrayList<>());
+        }
+//        notifyObservers("Fire added at " + position);
     }
 
     public void startFire(){

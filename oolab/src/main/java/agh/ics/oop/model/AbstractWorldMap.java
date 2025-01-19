@@ -41,9 +41,9 @@ public abstract class AbstractWorldMap extends Globe {
         for (MapChangeListener observer : observers) {
             observer.mapChanged(this, message);
         }
-        if (wObserver != null) {
-            wObserver.update();
-        }
+//        if (wObserver != null) {
+//            wObserver.update();
+//        }
     }
 
     public Vector2d getLowerleft() {
@@ -76,7 +76,7 @@ public abstract class AbstractWorldMap extends Globe {
             ArrayList<Animal> animalsAtPosition = animals.get(animal.getPosition());
             animalsAtPosition.add(animal);
             animals.put(animal.getPosition(), animalsAtPosition);
-            // notifyObservers("Animal placed at " + animal.getPosition());
+//            notifyObservers("Animal placed at " + animal.getPosition());
             return true;
         } else {
             throw new IncorrectPositionException(animal.getPosition());
@@ -93,7 +93,7 @@ public abstract class AbstractWorldMap extends Globe {
         ArrayList<Animal> animalsAtNewPosition = animals.get(animal.getPosition());
         animalsAtNewPosition.add(animal);
         animals.put(animal.getPosition(), animalsAtNewPosition);
-        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
+//        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
     }
 
     @Override
