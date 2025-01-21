@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter"
-            stylesheets="@chartStyles.css">
+            stylesheets="@style.css">
 
     <left>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
@@ -50,8 +50,21 @@
                   style="-fx-padding: 10; -fx-background-color: #f0f0f0;
                          -fx-border-color: #cccccc; -fx-border-radius: 5;
                          -fx-border-width: 1;"/>
+            
+            <Label text="Tracked Animal:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <VBox fx:id="trackedAnimalContainer" spacing="10" alignment="CENTER"
+                  style="-fx-padding: 10; -fx-background-color: #e0f7fa;
+                         -fx-border-color: #00acc1; -fx-border-radius: 5;
+                         -fx-border-width: 1;">
+                <Label fx:id="trackedAnimalIdLabel" text="ID: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalEnergyLabel" text="Energy: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalLifespanLabel" text="Lifespan: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalChildrenLabel" text="Children: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalPositionLabel" text="Position: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalDirectionLabel" text="Direction: " style="-fx-font-size: 14px;"/>
+            </VBox>
+            
             <Button text="Start" onAction="#startSimulation"/>
-            <!-- Add fx:id to the Pause/Resume button -->
             <Button fx:id="pauseResumeButton" text="Pause Simulation" onAction="#handlePauseSimulation"/>
             <Button text="New Simulation" onAction="#newGame"/>
         </VBox>

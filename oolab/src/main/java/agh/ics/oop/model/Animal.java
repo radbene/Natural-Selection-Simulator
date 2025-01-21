@@ -1,15 +1,20 @@
 package agh.ics.oop.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Animal implements WorldElement {
     private Vector2d position;
     private WorldConfig config;
     private static MoveValidator validator;
     private Genome genome;
-    private int energy;
+    // private int energy;
     private AnimalStats stats;
 
     private Globe globe;
     private MapDirection direction;
+
+    private IntegerProperty energy;
 
     public MapDirection getDirection() {
         return direction;
@@ -26,6 +31,10 @@ public class Animal implements WorldElement {
 
     public int getDaysLived() {
         return daysLived;
+    }
+
+    public IntegerProperty energyProperty() {
+        return energy;
     }
 
     private int daysLived = 0;
@@ -59,7 +68,8 @@ public class Animal implements WorldElement {
         this.id = idCounter++;
 
         this.globe = globe;  //used to correct going out of bounds
-        this.energy = config.getInitialAnimalEnergy();
+        // this.energy = config.getInitialAnimalEnergy();
+        this.energy = new SimpleIntegerProperty(config.getInitialAnimalEnergy());
     }
 
     public Vector2d getPosition() {
@@ -85,7 +95,8 @@ public class Animal implements WorldElement {
         direction = finalMove.getDirection();
 
         daysLived++;
-        energy--;
+        // energy--;
+        energy.set(energy.get() - 1);
         return;
     }
 
@@ -114,16 +125,19 @@ public class Animal implements WorldElement {
 //    }
 
     public boolean isDead() {
-        return energy <= 0;
+        // return energy <= 0;
+        return energy.get() <= 0;
     }
 
     public void eatGrass() {
-        energy += config.getPlantEnergy();
+        // energy += config.getPlantEnergy();
+        energy.set(energy.get() + config.getPlantEnergy());
         return;
     }
 
     public boolean canReproduce() {
-        return energy >= config.getEnergyToReproduce();
+        // return energy >= config.getEnergyToReproduce();
+        return energy.get() >= config.getEnergyToReproduce();
     }
 
     Animal reproduce(Animal partner) {
@@ -137,11 +151,12 @@ public class Animal implements WorldElement {
         return this.genome;
     }
 
-    int getEnergy() {
-        return this.energy;
+    public int getEnergy() {
+        // return this.energy;
+        return energy.get();
     }
 
-    int getLifespan() {
+    public int getLifespan() {
         return daysLived;
     }
 

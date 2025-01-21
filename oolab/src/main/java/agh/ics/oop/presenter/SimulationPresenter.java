@@ -10,14 +10,9 @@ import javafx.geometry.HPos;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -39,13 +34,34 @@ public class SimulationPresenter implements MapChangeListener {
     private Label moveDescriptionLabel;
 
     @FXML
-    private VBox statsContainer; // Stats container for formatted stats
+    private VBox statsContainer;
 
     @FXML
-    private LineChart<Number, Number> animalsGrassChart; // Chart for Animals vs Grass
+    private LineChart<Number, Number> animalsGrassChart;
 
     @FXML
-    private LineChart<Number, Number> energyLifespanChart; // Chart for Avg Energy vs Lifespan
+    private LineChart<Number, Number> energyLifespanChart;
+
+    @FXML
+    private VBox trackedAnimalContainer;
+
+    @FXML
+    private Label trackedAnimalIdLabel;
+
+    @FXML
+    private Label trackedAnimalEnergyLabel;
+
+    @FXML
+    private Label trackedAnimalLifespanLabel;
+
+    @FXML
+    private Label trackedAnimalChildrenLabel;
+
+    @FXML
+    private Label trackedAnimalPositionLabel;
+
+    @FXML
+    private Label trackedAnimalDirectionLabel;
 
     private int xMin;
     private int yMin;
@@ -65,13 +81,30 @@ public class SimulationPresenter implements MapChangeListener {
     // Maximum number of data points to display
     private static final int MAX_DATA_POINTS = 100;
 
-    @FXML
-    private void initialize() {
-        initializeCharts();
-    }
+    // Tracked Animal Reference
+    private Animal trackedAnimal = null;
 
     @FXML
     private Button pauseResumeButton;
+
+    @FXML
+    private void initialize() {
+        initializeCharts();
+        initializeTrackedAnimalUI();
+    }
+
+    private void initializeTrackedAnimalUI() {
+        clearTrackedAnimalUI();
+    }
+
+    private void clearTrackedAnimalUI() {
+        trackedAnimalIdLabel.setText("ID: ");
+        trackedAnimalEnergyLabel.setText("Energy: ");
+        trackedAnimalLifespanLabel.setText("Lifespan: ");
+        trackedAnimalChildrenLabel.setText("Children: ");
+        trackedAnimalPositionLabel.setText("Position: ");
+        trackedAnimalDirectionLabel.setText("Direction: ");
+    }
 
     @FXML
     public void handlePauseSimulation() {
@@ -197,11 +230,28 @@ public class SimulationPresenter implements MapChangeListener {
                 Vector2d pos = new Vector2d(i, j);
 
                 if (map.isOccupied(pos)) {
-                    WorldElement element = map.objectAt(pos).getFirst();
-                    WorldElementBox elementBox = new WorldElementBox(element, pos.toString());
-                    mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
+                    List<WorldElement> elementsAtPos = map.objectAt(pos);
+                    for (WorldElement element : elementsAtPos) {
+                        WorldElementBox elementBox = new WorldElementBox(element, pos.toString());
+
+                        elementBox.getContainer().setOnMouseClicked(event -> {
+                            if (isPaused && event.getButton() == MouseButton.PRIMARY) {
+                                if (element instanceof Animal) {
+                                    setTrackedAnimal((Animal) element);
+                                }
+                            }
+                        });
+
+                        mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
+                    }
                 } else {
-                    mapGrid.add(new Label(" "), i - xMin + 1, yMax - j + 1);
+                    Label emptyLabel = new Label(" ");
+                    emptyLabel.setOnMouseClicked(event -> {
+                        if (isPaused && event.getButton() == MouseButton.PRIMARY) {
+                            clearTrackedAnimal();
+                        }
+                    });
+                    mapGrid.add(emptyLabel, i - xMin + 1, yMax - j + 1);
                 }
                 GridPane.setHalignment(
                         mapGrid.getChildren().getLast(),
@@ -243,6 +293,15 @@ public class SimulationPresenter implements MapChangeListener {
 
                 updateCharts(currentDay, animals, grass, avgEnergy, avgLifespan);
             }
+
+            if (trackedAnimal != null) {
+                if (!trackedAnimal.isDead()) {
+                    updateTrackedAnimalUI(trackedAnimal);
+                } else {
+                    showTrackedAnimalDeathNotification();
+                    clearTrackedAnimal();
+                }
+            }
         });
     }
 
@@ -265,5 +324,33 @@ public class SimulationPresenter implements MapChangeListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setTrackedAnimal(Animal animal) {
+        this.trackedAnimal = animal;
+        updateTrackedAnimalUI(animal);
+    }
+
+    private void clearTrackedAnimal() {
+        this.trackedAnimal = null;
+        clearTrackedAnimalUI();
+    }
+
+    private void updateTrackedAnimalUI(Animal animal) {
+        trackedAnimalIdLabel.setText("ID: " + animal.getId());
+        trackedAnimalEnergyLabel.setText("Energy: " + animal.getEnergy());
+        trackedAnimalLifespanLabel.setText("Lifespan: " + animal.getDaysLived());
+        // FIXME: Add method
+        trackedAnimalChildrenLabel.setText("Children: " + animal.getEnergy());
+        trackedAnimalPositionLabel.setText("Position: " + animal.getPosition().toString());
+        trackedAnimalDirectionLabel.setText("Direction: " + animal.getDirection().toString());
+    }
+
+    private void showTrackedAnimalDeathNotification() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Animal Died");
+        alert.setHeaderText(null);
+        alert.setContentText("The tracked animal has died.");
+        alert.showAndWait();
     }
 }

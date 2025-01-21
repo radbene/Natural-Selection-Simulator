@@ -1,0 +1,86 @@
+/* styles.css */
+
+.progress-bar.low-energy .bar {
+    -fx-accent: #FF0000;
+}
+
+.progress-bar.medium-energy .bar {
+    -fx-accent: #FFFF00;
+}
+
+.progress-bar.high-energy .bar {
+    -fx-accent: #00FF00;
+}
+
+.chart {
+    -fx-background-color: #ffffff;
+}
+
+.chart-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-text-fill: #34495e;
+    -fx-font-size: 12px;
+}
+
+.line-chart .chart-series-line.series0 {
+    -fx-stroke: #e74c3c; /* Red for Animals */
+}
+
+.line-chart .chart-series-line.series1 {
+    -fx-stroke: #27ae60; /* Green for Grass */
+}
+
+.line-chart .chart-series-line.series2 {
+    -fx-stroke: #2980b9; /* Blue for Avg Animal Energy */
+}
+
+.line-chart .chart-series-line.series3 {
+    -fx-stroke: #8e44ad; /* Purple for Avg Animal Lifespan */
+}
+
+/* Symbols */
+.chart-symbol {
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 2;
+}
+
+.series0.chart-line-symbol {
+    -fx-background-color: #e74c3c, white; /* Red */
+}
+
+.series1.chart-line-symbol {
+    -fx-background-color: #27ae60, white; /* Green */
+}
+
+.series2.chart-line-symbol {
+    -fx-background-color: #2980b9, white; /* Blue */
+}
+
+.series3.chart-line-symbol {
+    -fx-background-color: #8e44ad, white; /* Purple */
+}
+
+/* Grid Lines */
+.chart-grid-line {
+    -fx-stroke: #bdc3c7;
+}
+
+/* Legend Styling */
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+/* Tooltip Styles */
+.tooltip {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
