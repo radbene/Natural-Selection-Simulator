@@ -21,6 +21,10 @@ import javafx.stage.Stage;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -266,6 +270,9 @@ public class SimulationPresenter implements MapChangeListener {
 
     private void updateStatsDisplay(Simulation simulation) {
         Map<String, Object> stats = simulation.getStats();
+
+        saveStatsToCSV(simulation);
+
         statsContainer.getChildren().clear();
         statsContainer.setSpacing(5);
 
@@ -367,7 +374,6 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(() -> {
             clearGrid();
             drawMap();
-            saveStatsToCSV(simulation);
             moveDescriptionLabel.setText(message);
             updateStatsDisplay(simulation);
 
@@ -395,6 +401,16 @@ public class SimulationPresenter implements MapChangeListener {
 
     @FXML
     private void startSimulation() {
+
+        String csvFile = "simulation_stats.csv";
+        try {
+            if (Files.exists(Paths.get(csvFile))) {
+                Files.delete(Paths.get(csvFile));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         WorldConfig.Builder builder = new WorldConfig.Builder();
         WorldConfig config = builder.build();
         Simulation sim = new Simulation(config);
@@ -438,10 +454,10 @@ public class SimulationPresenter implements MapChangeListener {
         String csvFile = "simulation_stats.csv";
         boolean fileExists = new java.io.File(csvFile).exists();
 
-        try (FileWriter writer = new FileWriter(csvFile, true)) {
+        try (FileWriter writer = new FileWriter(csvFile, true)) { // true = append mode
             Map<String, Object> stats = simulation.getStats();
 
-            // Write header if file is newly created
+            // Write header only if the file is newly created
             if (!fileExists) {
                 writer.append("Timestamp,"); // Add timestamp column
 
@@ -460,7 +476,11 @@ public class SimulationPresenter implements MapChangeListener {
                         .append("\n");
             }
 
-            // Write timestamp and stats values
+            // Write timestamp
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            writer.append(timestamp).append(",");
+
+            // Write simulation stats values
             for (Object value : stats.values()) {
                 writer.append(value != null ? value.toString() : "").append(",");
             }
@@ -471,11 +491,11 @@ public class SimulationPresenter implements MapChangeListener {
                         .append(String.valueOf(trackedAnimal.getEnergy())).append(",") // TrackedAnimalEnergy
                         .append(String.valueOf(trackedAnimal.getDaysLived())).append(",") // TrackedAnimalLifespan
                         .append(String.valueOf(trackedAnimal.getChildren())).append(",") // TrackedAnimalChildren
-                        .append(trackedAnimal.getPosition().toString()).append(",") // TrackedAnimalPosition
+                        .append("\"").append(trackedAnimal.getPosition().toString()).append("\"").append(",") // TrackedAnimalPosition (enclosed in quotes)
                         .append(trackedAnimal.getDirection().toString()); // TrackedAnimalDirection
             } else {
-                // If no tracked animal, append empty values for tracked animal columns
-                writer.append(",,,,");
+                // If no tracked animal, append 6 empty fields (one for each tracked animal column)
+                writer.append(",,,,,,");
             }
             writer.append("\n");
 
