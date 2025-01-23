@@ -1,0 +1,16 @@
+Map Width: 100
+Map Height: 100
+Map Variant: FIRE
+Initial Plant Count: 50
+Plant Energy: 50
+Daily Grass Growth: 15
+Initial Animal Count: 20
+Initial Animal Energy: 50
+Energy to Reproduce: 40
+Parent Energy Cost: 25
+Min Mutations: 3
+Max Mutations: 6
+Mutation Variant: SMALL_SHIFT
+Genome Length: 8
+Fire Max Age: 5
+Fire Frequency: 10

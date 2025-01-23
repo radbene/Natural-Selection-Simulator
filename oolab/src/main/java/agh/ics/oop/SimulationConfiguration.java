@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.WorldConfig;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +17,7 @@ import agh.ics.oop.model.variants.EMutationVariant;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import agh.ics.oop.model.WorldConfig.Builder;
 
 public class SimulationConfiguration extends Application {
 
@@ -321,6 +323,26 @@ public class SimulationConfiguration extends Application {
                 showError("Invalid Input", "Max Mutations must be less than Genome Length.");
                 return;
             }
+
+            //Change WorldConfig Builder values
+            Builder builder = new Builder();
+            builder.mapWidth(mapWidth);
+            builder.mapHeight(mapHeight);
+            builder.initialPlantCount(initialPlantCount);
+            builder.plantEnergy(plantEnergy);
+            builder.dailyGrassGrowth(dailyGrassGrowth);
+            builder.initialAnimalCount(initialAnimalCount);
+            builder.initialAnimalEnergy(initialAnimalEnergy);
+            builder.energyToReproduce(energyToReproduce);
+            builder.parentEnergyCost(parentEnergyCost);
+            builder.minMutations(minMutations);
+            builder.maxMutations(maxMutations);
+            builder.genomeLength(genomeLength);
+            builder.fireMaxAge(fireMaxAge);
+            builder.fireFreq(fireFreq);
+            builder.mutationVariant(mutationVariantComboBox.getValue());
+            builder.mapVariant(mapVariantComboBox.getValue());
+
 
             // Close the configuration window
             primaryStage.close();

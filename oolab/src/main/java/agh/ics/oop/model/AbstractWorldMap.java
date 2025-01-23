@@ -6,6 +6,7 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractWorldMap extends Globe {
 
@@ -98,7 +99,7 @@ public abstract class AbstractWorldMap extends Globe {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return objectAt(position).size() > 0;
+        return !objectAt(position).isEmpty();
     }
 
     @Override
@@ -109,7 +110,7 @@ public abstract class AbstractWorldMap extends Globe {
             animalObjects.addAll(animals.get(position));
         if (grasses.get(position) != null)
             grassObjects.add(grasses.get(position));
-        return List.of(animalObjects, grassObjects).stream().flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new));
+        return Stream.of(animalObjects, grassObjects).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new));
 
     }
 
