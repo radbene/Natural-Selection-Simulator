@@ -274,7 +274,8 @@ public class SimulationPresenter implements MapChangeListener {
             Label keyLabel = new Label(entry.getKey() + ":");
             keyLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
 
-            Label valueLabel = new Label(entry.getValue().toString());
+            String value = (entry.getValue() != null) ? entry.getValue().toString() : "Brak danych";
+            Label valueLabel = new Label(value);
             valueLabel.setStyle("-fx-font-size: 14px;");
 
             statLine.getChildren().addAll(keyLabel, valueLabel);
@@ -434,6 +435,6 @@ public class SimulationPresenter implements MapChangeListener {
         alert.setTitle("Animal Died");
         alert.setHeaderText(null);
         alert.setContentText("The tracked animal has died.");
-        alert.showAndWait();
+        alert.show();
     }
 }

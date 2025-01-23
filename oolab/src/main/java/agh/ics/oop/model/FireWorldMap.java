@@ -61,10 +61,13 @@ public class FireWorldMap extends AbstractWorldMap {
         Fire fire = new Fire(position);
         fires.put(position, fire);
         grasses.remove(position);
-        if(animals.get(position) != null && !animals.get(position).isEmpty()){
+        if (animals.get(position) != null && !animals.get(position).isEmpty()) {
+            for (Animal animal : animals.get(position)) {
+                animal.setEnergy(-1);
+            }
             this.deadAnimals.addAll(animals.get(position));
-            animals.remove(position);
-            animals.put(position,new ArrayList<>());
+            animals.remove(position); // Remove the existing entry
+            animals.put(position, new ArrayList<>()); // Add an empty list for the position
         }
 //        notifyObservers("Fire added at " + position);
     }

@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
  * @author apohllo, idzik
  */
 public class MapVisualizer {
-    private static final String EMPTY_CELL = "  ";
+    private static final String EMPTY_CELL = " ";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
     private final WorldMap map;

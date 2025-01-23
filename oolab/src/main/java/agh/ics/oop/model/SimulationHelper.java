@@ -45,9 +45,13 @@ public class SimulationHelper {
 
 
     public void runEpoch() {
-        if (this.epoch > 100) {
-            throw new RuntimeException("Epoch limit reached");
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
         logExecutionTime("newEpoch", this::newEpoch);
         logExecutionTime("removeDeadAnimals", this::removeDeadAnimals);
 

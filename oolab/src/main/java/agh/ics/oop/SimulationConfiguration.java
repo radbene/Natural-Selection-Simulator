@@ -161,6 +161,7 @@ public class SimulationConfiguration extends Application {
         Scene scene = new Scene(gridPane, 700, 500); // Adjusted window size
         primaryStage.setScene(scene);
 
+        loadConfigurationFromFile("configs/default.txt");
         // Show the stage
         primaryStage.show();
     }
@@ -525,7 +526,6 @@ public class SimulationConfiguration extends Application {
                     }
                 }
             }
-            showError("Success", "Configuration loaded from " + fileName);
         } catch (IOException e) {
             showError("Error", "Failed to load configuration: " + e.getMessage());
         } catch (IllegalArgumentException e) {

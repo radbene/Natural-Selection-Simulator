@@ -27,7 +27,7 @@ public class Fire implements WorldElement{
     }
 
     public String toString() {
-        return "^ ";
+        return "^";
     }
 
     @Override

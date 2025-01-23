@@ -130,6 +130,10 @@ public class Animal implements WorldElement {
         return energy.get();
     }
 
+    public void setEnergy(int x){
+        this.energy.set(x);
+    }
+
     public int getLifespan() {
         return daysLived;
     }

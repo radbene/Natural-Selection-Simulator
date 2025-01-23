@@ -199,8 +199,8 @@ public class WorldConfig {
         private static int maxMutations = 2;
         private static EMutationVariant mutationVariant = EMutationVariant.STANDARD;
         private static int genomeLength = 5;
-        private static int fireMaxAge = 0;
-        private static int fireFreq = 0;
+        private static int fireMaxAge = 1;
+        private static int fireFreq = 1;
 
         public Builder mapWidth(int mapWidth) {
             validatePositive(mapWidth, "Map Width");
@@ -292,7 +292,7 @@ public class WorldConfig {
 
         public Builder fireMaxAge(int fireMaxAge) {
             if(this.mapVariant != EMapVariant.FIRE) {
-                this.fireMaxAge = 0;
+                this.fireMaxAge = 1;
                 return this;
             }
             validatePositive(fireMaxAge, "Fire Max Age");
@@ -302,7 +302,7 @@ public class WorldConfig {
 
         public Builder fireFreq(int fireFreq) {
             if(this.mapVariant != EMapVariant.FIRE) {
-                this.fireFreq = 0;
+                this.fireFreq = 1;
                 return this;
             }
             validatePositive(fireFreq, "Fire Frequency");
