@@ -17,6 +17,8 @@ import agh.ics.oop.model.variants.EMutationVariant;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import agh.ics.oop.model.WorldConfig.Builder;
 
 public class SimulationConfiguration extends Application {
@@ -44,10 +46,17 @@ public class SimulationConfiguration extends Application {
         // Set the title of the window
         primaryStage.setTitle("Simulation Configuration");
 
+        // Enable fullscreen mode
+        primaryStage.setFullScreen(true);
+
         // Create a GridPane layout
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10); // Horizontal spacing between columns
         gridPane.setVgap(10); // Vertical spacing between rows
+
+        // Load the CSS file
+        gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/configStyles.css")).toExternalForm());
+        gridPane.getStyleClass().add("grid-pane"); // Apply the grid-pane style
 
         // Initialize UI components
         mapWidthField = new TextField();
@@ -565,6 +574,7 @@ public class SimulationConfiguration extends Application {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 
     public static void main(String[] args) {
         // Launch the JavaFX application

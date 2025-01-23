@@ -19,6 +19,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -365,6 +367,7 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(() -> {
             clearGrid();
             drawMap();
+            saveStatsToCSV(simulation);
             moveDescriptionLabel.setText(message);
             updateStatsDisplay(simulation);
 
@@ -376,6 +379,7 @@ public class SimulationPresenter implements MapChangeListener {
                 double avgLifespan = (Double) simulation.getStats().get("Average Lifespan");
 
                 updateCharts(currentDay, animals, grass, avgEnergy, avgLifespan);
+
             }
 
             if (trackedAnimal != null) {
@@ -428,6 +432,56 @@ public class SimulationPresenter implements MapChangeListener {
         trackedAnimalChildrenLabel.setText("Children: " + animal.getChildren());
         trackedAnimalPositionLabel.setText("Position: " + animal.getPosition().toString());
         trackedAnimalDirectionLabel.setText("Direction: " + animal.getDirection().toString());
+    }
+
+    private void saveStatsToCSV(Simulation simulation) {
+        String csvFile = "simulation_stats.csv";
+        boolean fileExists = new java.io.File(csvFile).exists();
+
+        try (FileWriter writer = new FileWriter(csvFile, true)) {
+            Map<String, Object> stats = simulation.getStats();
+
+            // Write header if file is newly created
+            if (!fileExists) {
+                writer.append("Timestamp,"); // Add timestamp column
+
+                // Write simulation stats headers
+                for (String key : stats.keySet()) {
+                    writer.append(key).append(",");
+                }
+
+                // Add tracked animal stats headers
+                writer.append("TrackedAnimalID,")
+                        .append("TrackedAnimalEnergy,")
+                        .append("TrackedAnimalLifespan,")
+                        .append("TrackedAnimalChildren,")
+                        .append("TrackedAnimalPosition,")
+                        .append("TrackedAnimalDirection")
+                        .append("\n");
+            }
+
+            // Write timestamp and stats values
+            for (Object value : stats.values()) {
+                writer.append(value != null ? value.toString() : "").append(",");
+            }
+
+            // Write tracked animal stats if it exists
+            if (trackedAnimal != null) {
+                writer.append(String.valueOf(trackedAnimal.getId())).append(",") // TrackedAnimalID
+                        .append(String.valueOf(trackedAnimal.getEnergy())).append(",") // TrackedAnimalEnergy
+                        .append(String.valueOf(trackedAnimal.getDaysLived())).append(",") // TrackedAnimalLifespan
+                        .append(String.valueOf(trackedAnimal.getChildren())).append(",") // TrackedAnimalChildren
+                        .append(trackedAnimal.getPosition().toString()).append(",") // TrackedAnimalPosition
+                        .append(trackedAnimal.getDirection().toString()); // TrackedAnimalDirection
+            } else {
+                // If no tracked animal, append empty values for tracked animal columns
+                writer.append(",,,,");
+            }
+            writer.append("\n");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showTrackedAnimalDeathNotification() {
