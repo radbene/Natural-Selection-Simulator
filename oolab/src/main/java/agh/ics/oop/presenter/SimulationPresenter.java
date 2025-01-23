@@ -2,6 +2,7 @@ package agh.ics.oop.presenter;
 
 import agh.ics.oop.Simulation;
 import agh.ics.oop.SimulationApp;
+import agh.ics.oop.SimulationConfiguration;
 import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.variants.EMapVariant;
@@ -321,9 +322,9 @@ public class SimulationPresenter implements MapChangeListener {
 
     @FXML
     private void newGame() {
-        SimulationApp simulationApp = new SimulationApp();
+        SimulationConfiguration simulationConfig = new SimulationConfiguration();
         try {
-            simulationApp.start(new Stage());
+            simulationConfig.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }

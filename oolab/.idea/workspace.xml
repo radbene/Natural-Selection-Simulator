@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/AnimalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +120,7 @@
     "Gradle.Vector2dTest.StringFormat.executor": "Run",
     "Gradle.Vector2dTest.UpperRightTest.executor": "Run",
     "Gradle.oolab [:agh.ics.oop.World.main()].executor": "Run",
+    "Gradle.oolab [:agh.ics.oop.WorldGUI.main()].executor": "Run",
     "JUnit.agh.ics.oop in oolab.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -137,7 +139,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.editor",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -150,11 +152,10 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AnimalTest">
-    <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
+  <component name="RunManager" selected="Application.WorldGUI">
+    <configuration name="WorldGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="agh.ics.oop.WorldGUI" />
       <module name="oolab.main" />
-      <option name="PROGRAM_PARAMETERS" value="l b f b f b f b f b f b f b r r f f f f f f f f" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="agh.ics.oop.*" />
@@ -262,7 +263,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.World" />
+      <item itemvalue="Application.WorldGUI" />
       <item itemvalue="Gradle.AnimalTest" />
       <item itemvalue="Gradle.AnimalTest.testInitialization" />
       <item itemvalue="Gradle.AnimalTest.testMove" />
@@ -270,11 +271,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.WorldGUI" />
         <item itemvalue="Gradle.AnimalTest" />
         <item itemvalue="Gradle.AnimalTest.testMove" />
         <item itemvalue="Gradle.AnimalTest.testInitialization" />
         <item itemvalue="Gradle.RectangularMapTests" />
-        <item itemvalue="Application.World" />
       </list>
     </recent_temporary>
   </component>
