@@ -11,12 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SimulationPresenter implements MapChangeListener {
     private WorldMap map;
@@ -232,31 +235,34 @@ public class SimulationPresenter implements MapChangeListener {
                 if (map.isOccupied(pos)) {
                     List<WorldElement> elementsAtPos = map.objectAt(pos);
                     for (WorldElement element : elementsAtPos) {
-                        WorldElementBox elementBox = new WorldElementBox(element, pos.toString());
-
-                        elementBox.getContainer().setOnMouseClicked(event -> {
-                            if (isPaused && event.getButton() == MouseButton.PRIMARY) {
-                                if (element instanceof Animal) {
-                                    setTrackedAnimal((Animal) element);
-                                }
-                            }
-                        });
-
-                        mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
+                        if (element instanceof Grass) {
+                            // Load grass image
+                            Image grassImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trawa.png")));
+                            ImageView grassImageView = new ImageView(grassImage);
+                            grassImageView.setFitWidth(40); // Set image size
+                            grassImageView.setFitHeight(40);
+                            mapGrid.add(grassImageView, i - xMin + 1, yMax - j + 1);
+                        } else if (element instanceof Animal) {
+                            // Load animal image
+                            Image animalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/jaszczurka obrot " + ((Animal) element).getDirection() + ".png")));
+                            ImageView animalImageView = new ImageView(animalImage);
+                            animalImageView.setFitWidth(40); // Set image size
+                            animalImageView.setFitHeight(40);
+                            mapGrid.add(animalImageView, i - xMin + 1, yMax - j + 1);
+                        } else if (element instanceof Fire){
+                            Image fireImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/pozar.png")));
+                            ImageView fireImageView = new ImageView(fireImage);
+                            fireImageView.setFitWidth(40);
+                            fireImageView.setFitHeight(40);
+                            mapGrid.add(fireImageView, i - xMin + 1, yMax - j + 1);
+                        }
                     }
                 } else {
+                    // Add an empty label or placeholder
                     Label emptyLabel = new Label(" ");
-                    emptyLabel.setOnMouseClicked(event -> {
-                        if (isPaused && event.getButton() == MouseButton.PRIMARY) {
-                            clearTrackedAnimal();
-                        }
-                    });
                     mapGrid.add(emptyLabel, i - xMin + 1, yMax - j + 1);
                 }
-                GridPane.setHalignment(
-                        mapGrid.getChildren().getLast(),
-                        HPos.CENTER
-                );
+                GridPane.setHalignment(mapGrid.getChildren().getLast(), HPos.CENTER);
             }
         }
     }

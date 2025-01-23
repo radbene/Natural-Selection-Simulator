@@ -125,18 +125,14 @@ public class Animal implements WorldElement {
 //    }
 
     public boolean isDead() {
-        // return energy <= 0;
         return energy.get() <= 0;
     }
 
     public void eatGrass() {
-        // energy += config.getPlantEnergy();
         energy.set(energy.get() + config.getPlantEnergy());
-        return;
     }
 
     public boolean canReproduce() {
-        // return energy >= config.getEnergyToReproduce();
         return energy.get() >= config.getEnergyToReproduce();
     }
 
