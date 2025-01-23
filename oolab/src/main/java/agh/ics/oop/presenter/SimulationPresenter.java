@@ -39,9 +39,6 @@ public class SimulationPresenter implements MapChangeListener {
     private GridPane mapGrid;
 
     @FXML
-    private TextField moveListTextField;
-
-    @FXML
     private Label moveDescriptionLabel;
 
     @FXML
@@ -54,31 +51,40 @@ public class SimulationPresenter implements MapChangeListener {
     private LineChart<Number, Number> energyLifespanChart;
 
     @FXML
-    private VBox trackedAnimalContainer;
-
-    @FXML
     private Label trackedAnimalIdLabel;
 
     @FXML
     private Label trackedAnimalEnergyLabel;
 
     @FXML
-    private Label trackedAnimalLifespanLabel;
+    private Label trackedAnimalGenomeLabel;
+
+    @FXML
+    private Label trackedAnimalCurGenLabel;
+
+    @FXML
+    private Label trackedAnimalPlantsEatenLabel;
 
     @FXML
     private Label trackedAnimalChildrenLabel;
 
     @FXML
-    private Label trackedAnimalPositionLabel;
+    private Label trackedAnimalDescendantsLabel;
 
     @FXML
-    private Label trackedAnimalDirectionLabel;
+    private Label trackedAnimalAgeLabel;
+
+    @FXML
+    private Label trackedAnimalPositionLabel;
 
     @FXML
     private CheckBox dominantGenomeCheckBox;
 
     @FXML
     private CheckBox equatorCheckBox;
+
+    @FXML
+    private Button pauseResumeButton;
 
     private int xMin;
     private int yMin;
@@ -99,19 +105,18 @@ public class SimulationPresenter implements MapChangeListener {
     private Animal trackedAnimal = null;
 
     @FXML
-    private Button pauseResumeButton;
+    private ScrollPane mapScrollPane;
 
     @FXML
     private void initialize() {
         initializeCharts();
         initializeTrackedAnimalUI();
 
-
-        // Set a fixed size for the statsContainer
-        statsContainer.setMinHeight(200); // Set a minimum height
+        mapScrollPane.setPannable(true);
+        statsContainer.setMinHeight(200);
         statsContainer.setMinWidth(200);
-        statsContainer.setPrefWidth(200);
-        statsContainer.setPrefHeight(200); // Set a preferred height
+        statsContainer.setPrefWidth(500);
+        statsContainer.setPrefHeight(500);
     }
 
     private void initializeTrackedAnimalUI() {
@@ -121,10 +126,13 @@ public class SimulationPresenter implements MapChangeListener {
     private void clearTrackedAnimalUI() {
         trackedAnimalIdLabel.setText("ID: ");
         trackedAnimalEnergyLabel.setText("Energy: ");
-        trackedAnimalLifespanLabel.setText("Lifespan: ");
+        trackedAnimalGenomeLabel.setText("Genome: ");
+        trackedAnimalCurGenLabel.setText("Current Gen: ");
+        trackedAnimalPlantsEatenLabel.setText("Plants Eaten: ");
         trackedAnimalChildrenLabel.setText("Children: ");
+        trackedAnimalDescendantsLabel.setText("Descendants: ");
+        trackedAnimalAgeLabel.setText("Age: ");
         trackedAnimalPositionLabel.setText("Position: ");
-        trackedAnimalDirectionLabel.setText("Direction: ");
     }
 
     @FXML
@@ -167,36 +175,42 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-//    FIXME: elementBox is always null
     private void highlightDominantGenomes() {
-        String dominantGenome = map.wObserver.findDominantGenome().toString(); // Ensure this method exists in Simulation
+        String dominantGenome = map.wObserver.findDominantGenome().toString();
 
-        for (Region cell : getMapGridCells()) {
-            WorldElementBox elementBox = getWorldElementBox(cell);
-            if (elementBox != null && elementBox.getWorldElement() instanceof Animal animal) {
-                String cellGenome = animal.getGenome().toString(); // Adjust based on your Genome implementation
-                System.out.println("Cell Genome: " + cellGenome);
-                if (dominantGenome.equals(cellGenome)) {
-                    cell.getStyleClass().add("highlight-dominant-genome");
-                    System.out.println("Highlighting cell with dominant genome.");
+        Platform.runLater(() -> {
+            for (Region cell : getMapGridCells()) {
+                WorldElementBox elementBox = getWorldElementBox(cell);
+                if (elementBox == null) {
+                    continue;
+                }
+                if (elementBox.getWorldElement() instanceof Animal animal) {
+                    String cellGenome = animal.getGenome().toString();
+                    if (dominantGenome.equals(cellGenome)) {
+                        cell.getStyleClass().add("highlight-dominant-genome");
+                    }
                 }
             }
-        }
+        });
     }
 
     private void highlightEquator() {
-        for (Region cell : getMapGridCells()) {
-            Vector2d position = getCellPosition(cell);
-            if (isEquator(position)) { // Define what constitutes the equator
-                cell.getStyleClass().add("highlight-equator");
+        Platform.runLater(() -> {
+            for (Region cell : getMapGridCells()) {
+                Vector2d position = getCellPosition(cell);
+                if (isEquator(position) && position.getX() == 0) {
+                    cell.getStyleClass().add("highlight-equator");
+                }
             }
-        }
+        });
     }
 
     private void removeHighlight(String styleClass) {
-        for (Region cell : getMapGridCells()) {
-            cell.getStyleClass().remove(styleClass);
-        }
+        Platform.runLater(() -> {
+            for (Region cell : getMapGridCells()) {
+                cell.getStyleClass().remove(styleClass);
+            }
+        });
     }
 
     private List<Region> getMapGridCells() {
@@ -223,7 +237,7 @@ public class SimulationPresenter implements MapChangeListener {
         Integer rowIndex = GridPane.getRowIndex(cell);
         if (columnIndex == null) columnIndex = 0;
         if (rowIndex == null) rowIndex = 0;
-        int x = xMin + columnIndex - 1;
+        int x = xMin + columnIndex;
         int y = yMax - rowIndex + 1;
         return new Vector2d(x, y);
     }
@@ -267,12 +281,12 @@ public class SimulationPresenter implements MapChangeListener {
         energySeries.getData().add(new XYChart.Data<>(day, avgEnergy));
         lifespanSeries.getData().add(new XYChart.Data<>(day, avgLifespan));
 
-//        if (animalsSeries.getData().size() > MAX_DATA_POINTS) {
-//            animalsSeries.getData().remove(0);
-//            grassSeries.getData().remove(0);
-//            energySeries.getData().remove(0);
-//            lifespanSeries.getData().remove(0);
-//        }
+        // if (animalsSeries.getData().size() > MAX_DATA_POINTS) {
+        //     animalsSeries.getData().remove(0);
+        //     grassSeries.getData().remove(0);
+        //     energySeries.getData().remove(0);
+        //     lifespanSeries.getData().remove(0);
+        // }
     }
 
     private void updateStatsDisplay(Simulation simulation) {
@@ -334,18 +348,21 @@ public class SimulationPresenter implements MapChangeListener {
                 if (map.isOccupied(pos)) {
                     List<WorldElement> elementsAtPos = map.objectAt(pos);
 
-                    WorldElement representativeElement = elementsAtPos.getFirst();
-                    WorldElementBox elementBox = new WorldElementBox(representativeElement, pos.toString());
+                    if (elementsAtPos != null && !elementsAtPos.isEmpty()) {
+                        WorldElement representativeElement = elementsAtPos.get(0);
+                        WorldElementBox elementBox = new WorldElementBox(representativeElement, pos.toString());
+                        elementBox.getContainer().setUserData(elementBox);
 
-                    elementBox.getContainer().setOnMouseClicked(event -> {
-                        if (isPaused && event.getButton() == MouseButton.PRIMARY) {
-                            if (representativeElement instanceof Animal) {
-                                setTrackedAnimal((Animal) representativeElement);
+                        mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
+
+                        elementBox.getContainer().setOnMouseClicked(event -> {
+                            if (isPaused && event.getButton() == MouseButton.PRIMARY) {
+                                if (representativeElement instanceof Animal) {
+                                    setTrackedAnimal((Animal) representativeElement);
+                                }
                             }
-                        }
-                    });
-
-                    mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
+                        });
+                    }
                 } else {
                     Label emptyLabel = new Label(" ");
                     emptyLabel.setOnMouseClicked(event -> {
@@ -353,10 +370,11 @@ public class SimulationPresenter implements MapChangeListener {
                             clearTrackedAnimal();
                         }
                     });
+                    emptyLabel.setUserData(null);
                     mapGrid.add(emptyLabel, i - xMin + 1, yMax - j + 1);
                 }
 
-                GridPane.setHalignment(mapGrid.getChildren().getLast(), HPos.CENTER);
+                GridPane.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size() - 1), HPos.CENTER);
             }
         }
     }
@@ -449,12 +467,14 @@ public class SimulationPresenter implements MapChangeListener {
 
     private void updateTrackedAnimalUI(Animal animal) {
         trackedAnimalIdLabel.setText("ID: " + animal.getId());
+        trackedAnimalGenomeLabel.setText("Genome: " + animal.getGenome().toString());
+        trackedAnimalCurGenLabel.setText("Current Gen: " + animal.getCurrentGen());
         trackedAnimalEnergyLabel.setText("Energy: " + animal.getEnergy());
-        trackedAnimalLifespanLabel.setText("Lifespan: " + animal.getDaysLived());
-        // FIXME: Add method
+        trackedAnimalPlantsEatenLabel.setText("Plants Eaten: " + animal.getPlantsEaten());
         trackedAnimalChildrenLabel.setText("Children: " + animal.getChildren());
+        trackedAnimalDescendantsLabel.setText("Descendants: " + animal.getDescendants());
+        trackedAnimalAgeLabel.setText("Age: " + animal.getDaysLived());
         trackedAnimalPositionLabel.setText("Position: " + animal.getPosition().toString());
-        trackedAnimalDirectionLabel.setText("Direction: " + animal.getDirection().toString());
     }
 
     private void saveStatsToCSV(Simulation simulation) {
@@ -464,16 +484,13 @@ public class SimulationPresenter implements MapChangeListener {
         try (FileWriter writer = new FileWriter(csvFile, true)) { // true = append mode
             Map<String, Object> stats = simulation.getStats();
 
-            // Write header only if the file is newly created
             if (!fileExists) {
-                writer.append("Timestamp,"); // Add timestamp column
+                writer.append("Timestamp,");
 
-                // Write simulation stats headers
                 for (String key : stats.keySet()) {
                     writer.append(key).append(",");
                 }
 
-                // Add tracked animal stats headers
                 writer.append("TrackedAnimalID,")
                         .append("TrackedAnimalEnergy,")
                         .append("TrackedAnimalLifespan,")
@@ -483,16 +500,13 @@ public class SimulationPresenter implements MapChangeListener {
                         .append("\n");
             }
 
-            // Write timestamp
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             writer.append(timestamp).append(",");
 
-            // Write simulation stats values
             for (Object value : stats.values()) {
                 writer.append(value != null ? value.toString() : "").append(",");
             }
 
-            // Write tracked animal stats if it exists
             if (trackedAnimal != null) {
                 writer.append(String.valueOf(trackedAnimal.getId())).append(",") // TrackedAnimalID
                         .append(String.valueOf(trackedAnimal.getEnergy())).append(",") // TrackedAnimalEnergy
@@ -501,7 +515,6 @@ public class SimulationPresenter implements MapChangeListener {
                         .append("\"").append(trackedAnimal.getPosition().toString()).append("\"").append(",") // TrackedAnimalPosition (enclosed in quotes)
                         .append(trackedAnimal.getDirection().toString()); // TrackedAnimalDirection
             } else {
-                // If no tracked animal, append 6 empty fields (one for each tracked animal column)
                 writer.append(",,,,,,");
             }
             writer.append("\n");

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,8 +17,10 @@
             stylesheets="@style.css">
 
     <left>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-            <LineChart fx:id="animalsGrassChart" animated="false" createSymbols="true">
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;"
+              prefWidth="500">
+            <LineChart fx:id="animalsGrassChart" animated="false" createSymbols="true"
+                       prefWidth="480">
                 <xAxis>
                     <NumberAxis label="Day" />
                 </xAxis>
@@ -25,7 +28,8 @@
                     <NumberAxis label="Number of Animals/Grass" />
                 </yAxis>
             </LineChart>
-            <LineChart fx:id="energyLifespanChart" animated="false" createSymbols="true">
+            <LineChart fx:id="energyLifespanChart" animated="false" createSymbols="true"
+                       prefWidth="480">
                 <xAxis>
                     <NumberAxis label="Day" />
                 </xAxis>
@@ -37,7 +41,11 @@
     </left>
 
     <center>
-        <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
+        <ScrollPane fx:id="mapScrollPane" fitToWidth="true" fitToHeight="true">
+            <GridPane fx:id="mapGrid"
+                      gridLinesVisible="true"
+                      alignment="CENTER"/>
+        </ScrollPane>
     </center>
 
     <top>
@@ -47,37 +55,44 @@
     </top>
 
     <right>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+        <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 10;"
+              prefWidth="250" maxWidth="250">
             <Label text="Simulation Stats:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-            <VBox fx:id="statsContainer" spacing="10" alignment="CENTER"
+            <VBox fx:id="statsContainer" spacing="10" alignment="TOP_LEFT"
                   style="-fx-padding: 10; -fx-background-color: #f0f0f0;
                          -fx-border-color: #cccccc; -fx-border-radius: 5;
-                         -fx-border-width: 1;"/>
+                         -fx-border-width: 1;"
+                  prefWidth="230" maxWidth="230"/>
 
             <Label text="Tracked Animal:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-            <VBox fx:id="trackedAnimalContainer" spacing="10" alignment="CENTER"
+            <VBox fx:id="trackedAnimalContainer" spacing="5" alignment="TOP_LEFT"
                   style="-fx-padding: 10; -fx-background-color: #e0f7fa;
                          -fx-border-color: #00acc1; -fx-border-radius: 5;
-                         -fx-border-width: 1;">
+                         -fx-border-width: 1;"
+                  prefWidth="230" maxWidth="230">
                 <Label fx:id="trackedAnimalIdLabel" text="ID: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalGenomeLabel" text="Genome: " style="-fx-font-size: 14px;" wrapText="true"/>
+                <Label fx:id="trackedAnimalCurGenLabel" text="Current Gen: " style="-fx-font-size: 14px;"/>
                 <Label fx:id="trackedAnimalEnergyLabel" text="Energy: " style="-fx-font-size: 14px;"/>
-                <Label fx:id="trackedAnimalLifespanLabel" text="Lifespan: " style="-fx-font-size: 14px;"/>
                 <Label fx:id="trackedAnimalChildrenLabel" text="Children: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalDescendantsLabel" text="Descendants: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalPlantsEatenLabel" text="Plants eaten: " style="-fx-font-size: 14px;"/>
+                <Label fx:id="trackedAnimalAgeLabel" text="Age: " style="-fx-font-size: 14px;"/>
                 <Label fx:id="trackedAnimalPositionLabel" text="Position: " style="-fx-font-size: 14px;"/>
-                <Label fx:id="trackedAnimalDirectionLabel" text="Direction: " style="-fx-font-size: 14px;"/>
             </VBox>
 
-            <!-- New CheckBoxes -->
             <CheckBox fx:id="dominantGenomeCheckBox"
                       text="Show Dominant Genome"
-                      onAction="#toggleDominantGenome"/>
+                      onAction="#toggleDominantGenome"
+                      prefWidth="230"/>
             <CheckBox fx:id="equatorCheckBox"
                       text="Show Equator"
-                      onAction="#toggleEquator"/>
+                      onAction="#toggleEquator"
+                      prefWidth="230"/>
 
-            <Button text="Start" onAction="#startSimulation"/>
-            <Button fx:id="pauseResumeButton" text="Pause Simulation" onAction="#handlePauseSimulation"/>
-            <Button text="New Simulation" onAction="#newGame"/>
+            <Button text="Start" onAction="#startSimulation" prefWidth="230"/>
+            <Button fx:id="pauseResumeButton" text="Pause Simulation" onAction="#handlePauseSimulation" prefWidth="230"/>
+            <Button text="New Simulation" onAction="#newGame" prefWidth="230"/>
         </VBox>
     </right>
 

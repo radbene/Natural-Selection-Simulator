@@ -40,10 +40,6 @@ public class AnimalStats {
         this.dayOfDeath = day;
     }
 
-    public int getChildren() {
-        return children;
-    }
-
     public int getDescendants() {
         return descendants;
     }
@@ -52,22 +48,14 @@ public class AnimalStats {
         return grassEaten;
     }
 
-    public int getDayOfBirth() {
-        return dayOfBirth;
-    }
-
-    public int getDayOfDeath() {
-        return dayOfDeath;
-    }
-
-    // TODO: Add genome methods
 
     public void printAnimalStats(){
-        System.out.println("Day of birth: " + this.dayOfBirth);
-        System.out.println("Day of death: " + this.dayOfDeath);
+        System.out.println("Animal stats:");
         System.out.println("Children: " + this.children);
         System.out.println("Descendants: " + this.descendants);
         System.out.println("Grass eaten: " + this.grassEaten);
-        // TODO: Add genome printing
+        System.out.println("Day of birth: " + this.dayOfBirth);
+        System.out.println("Day of death: " + this.dayOfDeath);
     }
+
 }

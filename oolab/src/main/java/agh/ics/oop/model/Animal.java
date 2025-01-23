@@ -8,7 +8,6 @@ public class Animal implements WorldElement {
     private WorldConfig config;
     private static MoveValidator validator;
     private Genome genome;
-    // private int energy;
     private AnimalStats stats;
 
     private Globe globe;
@@ -41,6 +40,19 @@ public class Animal implements WorldElement {
         return energy;
     }
 
+    public int getCurrentGen() {
+        return genome.getCurrentGene();
+    }
+
+    public int getPlantsEaten() {
+        return stats.getGrassEaten();
+    }
+
+    public int getDescendants() {
+        return stats.getDescendants();
+    }
+
+
     private int daysLived = 0;
 
     static private Vector2d border_lowerleft;
@@ -55,13 +67,13 @@ public class Animal implements WorldElement {
         border_upperright = upperright;
     }
 
-    // TODO: Add MoveValidator according to config, you can use MapBuilder
     public Animal(Vector2d position, WorldConfig config, Globe globe) {
         this(position,MapDirection.NORTH, config, globe);
     }
 
     public Animal(Vector2d position, MapDirection direction,WorldConfig config, Globe globe) {
         this(position,direction,config,Genome.randomGenome(config), globe);
+        this.stats = new AnimalStats(null, null, 0);
     }
 
     public Animal(Vector2d position, MapDirection direction,WorldConfig config,Genome genome, Globe globe) {
@@ -71,9 +83,29 @@ public class Animal implements WorldElement {
         this.genome = genome;
         this.id = idCounter++;
 
-        this.globe = globe;  //used to correct going out of bounds
-        // this.energy = config.getInitialAnimalEnergy();
+        this.globe = globe;
         this.energy = new SimpleIntegerProperty(config.getInitialAnimalEnergy());
+    }
+
+    public Animal(Vector2d position,
+                  MapDirection direction,
+                  WorldConfig config,
+                  Genome genome,
+                  Globe globe,
+                  AnimalStats parent1Stats,
+                  AnimalStats parent2Stats,
+                  int dayOfBirth) {
+
+        this.position = position;
+        this.direction = direction;
+        this.config = config;
+        this.genome = genome;
+        this.id = idCounter++;
+        this.globe = globe;
+        this.energy = new SimpleIntegerProperty(config.getInitialAnimalEnergy());
+
+        this.stats = new AnimalStats(parent1Stats, parent2Stats, dayOfBirth);
+
     }
 
     public Vector2d getPosition() {
@@ -108,7 +140,11 @@ public class Animal implements WorldElement {
 
     public void eatGrass() {
         energy.set(energy.get() + config.getPlantEnergy());
+        if (this.stats != null) {
+            this.stats.eatGrass();
+        }
     }
+
 
     public boolean canReproduce() {
         return energy.get() >= config.getEnergyToReproduce();
@@ -118,10 +154,14 @@ public class Animal implements WorldElement {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
         Animal child = new Animal(position,config, globe);
         child.setGenome(childGenome);
-        this.setChildrenCount(this.getChildren() + 1);
-        partner.setChildrenCount(partner.getChildren() + 1);
-        //stats.addChild(this.id);
-        //stats.addChild(partner.getId());
+        if (this.stats != null) {
+            this.childrenCount++;
+            this.stats.addChild(child.getId());
+        }
+        if (partner.stats != null) {
+            partner.childrenCount++;
+            partner.stats.addChild(child.getId());
+        }
         return child;
     }
 
@@ -130,7 +170,6 @@ public class Animal implements WorldElement {
     }
 
     public int getEnergy() {
-        // return this.energy;
         return energy.get();
     }
 
@@ -144,6 +183,10 @@ public class Animal implements WorldElement {
 
     public int getChildren() {
         return childrenCount;
+    }
+
+    public AnimalStats getStats() {
+        return stats;
     }
 
     @Override
