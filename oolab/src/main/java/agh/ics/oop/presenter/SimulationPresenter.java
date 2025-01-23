@@ -235,18 +235,24 @@ public class SimulationPresenter implements MapChangeListener {
 
                 if (map.isOccupied(pos)) {
                     List<WorldElement> elementsAtPos = map.objectAt(pos);
-                    for (WorldElement element : elementsAtPos) {
-                        WorldElementBox elementBox = new WorldElementBox(element, pos.toString());
-                        elementBox.getContainer().setOnMouseClicked(event -> {
-                            if (isPaused && event.getButton() == MouseButton.PRIMARY) {
-                                if (element instanceof Animal) {
-                                    setTrackedAnimal((Animal) element);
-                                }
+
+                    // Use the first element as the representative for this position
+                    WorldElement representativeElement = elementsAtPos.getFirst();
+                    WorldElementBox elementBox = new WorldElementBox(representativeElement, pos.toString());
+
+                    // Set click event for the representative element
+                    elementBox.getContainer().setOnMouseClicked(event -> {
+                        if (isPaused && event.getButton() == MouseButton.PRIMARY) {
+                            if (representativeElement instanceof Animal) {
+                                setTrackedAnimal((Animal) representativeElement);
                             }
-                        });
-                        mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
-                    }
+                        }
+                    });
+
+                    // Add the representative element to the grid
+                    mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
                 } else {
+                    // Handle empty positions
                     Label emptyLabel = new Label(" ");
                     emptyLabel.setOnMouseClicked(event -> {
                         if (isPaused && event.getButton() == MouseButton.PRIMARY) {
@@ -255,10 +261,8 @@ public class SimulationPresenter implements MapChangeListener {
                     });
                     mapGrid.add(emptyLabel, i - xMin + 1, yMax - j + 1);
                 }
-                GridPane.setHalignment(
-                        mapGrid.getChildren().getLast(),
-                        HPos.CENTER
-                );
+
+                // Center the content in the grid cell
                 GridPane.setHalignment(mapGrid.getChildren().getLast(), HPos.CENTER);
             }
         }
@@ -311,12 +315,13 @@ public class SimulationPresenter implements MapChangeListener {
     @FXML
     private void startSimulation() {
         WorldConfig.Builder builder = new WorldConfig.Builder();
-        WorldConfig config = builder.mapVariant(EMapVariant.FIRE).fireFreq(2).fireMaxAge(5).build();
+        WorldConfig config = builder.build();
+        System.out.println("chu8j");
+        System.out.println(config.getMapWidth());
         Simulation sim = new Simulation(config);
         this.simulation = sim;
         sim.addObserver(this);
         this.engine = new SimulationEngine(List.of(sim));
-        ;
         new Thread(engine::run).start();
     }
 
@@ -345,7 +350,7 @@ public class SimulationPresenter implements MapChangeListener {
         trackedAnimalEnergyLabel.setText("Energy: " + animal.getEnergy());
         trackedAnimalLifespanLabel.setText("Lifespan: " + animal.getDaysLived());
         // FIXME: Add method
-        trackedAnimalChildrenLabel.setText("Children: " + animal.getEnergy());
+        trackedAnimalChildrenLabel.setText("Children: " + animal.getChildren());
         trackedAnimalPositionLabel.setText("Position: " + animal.getPosition().toString());
         trackedAnimalDirectionLabel.setText("Direction: " + animal.getDirection().toString());
     }

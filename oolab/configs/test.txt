@@ -1,0 +1,16 @@
+Map Width: 2
+Map Height: 2
+Map Variant: STANDARD
+Initial Plant Count: 1
+Plant Energy: 100
+Daily Grass Growth: 1
+Initial Animal Count: 2
+Initial Animal Energy: 100
+Energy to Reproduce: 1
+Parent Energy Cost: 1
+Min Mutations: 1
+Max Mutations: 3
+Mutation Variant: STANDARD
+Genome Length: 8
+Fire Max Age: 0
+Fire Frequency: 0

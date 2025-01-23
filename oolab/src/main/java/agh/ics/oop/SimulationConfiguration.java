@@ -308,12 +308,15 @@ public class SimulationConfiguration extends Application {
             int genomeLength = Integer.parseInt(genomeLengthField.getText());
             validateValue(genomeLength, "Genome Length");
 
-            int fireMaxAge = Integer.parseInt(fireMaxAgeField.getText());
-            validateValue(fireMaxAge, "Fire Max Age");
+            int fireMaxAge = 0;
+            int fireFreq = 0;
+            if (mapVariantComboBox.getValue() == EMapVariant.FIRE) {
+                fireMaxAge = Integer.parseInt(fireMaxAgeField.getText());
+                validateValue(fireMaxAge, "Fire Max Age");
 
-            int fireFreq = Integer.parseInt(fireFreqField.getText());
-            validateValue(fireFreq, "Fire Frequency");
-
+                fireFreq = Integer.parseInt(fireFreqField.getText());
+                validateValue(fireFreq, "Fire Frequency");
+            }
             // Additional validation for mutations and genome length
             if (minMutations > maxMutations) {
                 showError("Invalid Input", "Min Mutations must be less than or equal to Max Mutations.");
@@ -338,8 +341,10 @@ public class SimulationConfiguration extends Application {
             builder.minMutations(minMutations);
             builder.maxMutations(maxMutations);
             builder.genomeLength(genomeLength);
-            builder.fireMaxAge(fireMaxAge);
-            builder.fireFreq(fireFreq);
+            if (mapVariantComboBox.getValue() == EMapVariant.FIRE) {
+                builder.fireMaxAge(fireMaxAge);
+                builder.fireFreq(fireFreq);
+            }
             builder.mutationVariant(mutationVariantComboBox.getValue());
             builder.mapVariant(mapVariantComboBox.getValue());
 

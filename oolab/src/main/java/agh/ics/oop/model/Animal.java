@@ -95,34 +95,8 @@ public class Animal implements WorldElement {
         direction = finalMove.getDirection();
 
         daysLived++;
-        // energy--;
         energy.set(energy.get() - 1);
-        return;
     }
-
-//    public void move(MoveDirection dir) {
-//        switch (dir) {
-//            case FORWARD:
-//                Vector2d new_position1 = this.direction.toUnitVector().add(this.position);
-//                if (validator.canMoveTo(new_position1)) {
-//                    this.position = new_position1;
-//                }
-//                break;
-//            case BACKWARD:
-//                Vector2d new_position2 = this.position.subtract(this.direction.toUnitVector());
-//                if (validator.canMoveTo(new_position2)) {
-//                    this.position = new_position2;
-//                }
-//                break;
-//            case RIGHT:
-//                this.direction = this.direction.next(this.direction);
-//                break;
-//            case LEFT:
-//                this.direction = this.direction.previous(this.direction);
-//                break;
-//
-//        }
-//    }
 
     public boolean isDead() {
         return energy.get() <= 0;
@@ -140,6 +114,10 @@ public class Animal implements WorldElement {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
         Animal child = new Animal(position,config, globe);
         child.setGenome(childGenome);
+        this.childrenCount++;
+        partner.childrenCount++;
+        //stats.addChild(this.id);
+        //stats.addChild(partner.getId());
         return child;
     }
 
@@ -156,7 +134,7 @@ public class Animal implements WorldElement {
         return daysLived;
     }
 
-    int getChildren() {
+    public int getChildren() {
         return childrenCount;
     }
 

@@ -185,22 +185,22 @@ public class WorldConfig {
     }
 
     public static class Builder {
-        private int mapWidth = 10;
-        private int mapHeight = 10;
-        private EMapVariant mapVariant = EMapVariant.STANDARD;
-        private int initialPlantCount = 10;
-        private int plantEnergy = 10;
-        private int dailyGrassGrowth = 5;
-        private int initialAnimalCount = 6;
-        private int initialAnimalEnergy = 50;
-        private int energyToReproduce = 20;
-        private int parentEnergyCost = 10;
-        private int minMutations = 0;
-        private int maxMutations = 2;
-        private EMutationVariant mutationVariant = EMutationVariant.STANDARD;
-        private int genomeLength = 5;
-        private int fireMaxAge = 0;
-        private int fireFreq = 0;
+        private static int mapWidth = 10;
+        private static int mapHeight = 10;
+        private static EMapVariant mapVariant = EMapVariant.STANDARD;
+        private static int initialPlantCount = 10;
+        private static int plantEnergy = 10;
+        private static int dailyGrassGrowth = 5;
+        private static int initialAnimalCount = 6;
+        private static int initialAnimalEnergy = 50;
+        private static int energyToReproduce = 20;
+        private static int parentEnergyCost = 10;
+        private static int minMutations = 0;
+        private static int maxMutations = 2;
+        private static EMutationVariant mutationVariant = EMutationVariant.STANDARD;
+        private static int genomeLength = 5;
+        private static int fireMaxAge = 0;
+        private static int fireFreq = 0;
 
         public Builder mapWidth(int mapWidth) {
             validatePositive(mapWidth, "Map Width");

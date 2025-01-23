@@ -21,7 +21,7 @@ public class FireWorldMap extends AbstractWorldMap {
         if(fires.get(position) != null) {
             fireObjects.add(fires.get(position));
         }
-        return Stream.concat(objects.stream(), fireObjects.stream()).collect(Collectors.toCollection(ArrayList::new));
+        return Stream.concat(fireObjects.stream(),objects.stream()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void spreadFire(int maxAge, boolean start) {

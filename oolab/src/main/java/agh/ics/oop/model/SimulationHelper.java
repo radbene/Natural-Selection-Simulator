@@ -90,24 +90,33 @@ public class SimulationHelper {
     }
 
     private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
+        // Find fields with more than one animal
         List<Vector2d> matchingFields = animals.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
                 .map(Map.Entry::getKey)
                 .toList();
 
+        // Get the lists of animals on the matching fields
         List<ArrayList<Animal>> animalsToReproduce = matchingFields.stream()
                 .map(animals::get)
                 .filter(Objects::nonNull)
                 .toList();
 
+        // Iterate through the lists of animals and reproduce if conditions are met
         for (ArrayList<Animal> animalList : animalsToReproduce) {
             TieBreaker tb = new TieBreaker(animalList);
             List<Animal> strongestAnimals = tb.breakTheTie();
+
+            // Check if there are at least two animals and the second one can reproduce
             if (strongestAnimals.size() > 1 && strongestAnimals.get(1).canReproduce()) {
-                strongestAnimals.get(0).reproduce(strongestAnimals.get(1));
+                // Reproduce and get the offspring
+                Animal offspring = strongestAnimals.get(0).reproduce(strongestAnimals.get(1));
+
+                // Add the offspring to the same position in the map
+                Vector2d position = strongestAnimals.get(0).getPosition();
+                animals.get(position).add(offspring);
             }
         }
-
     }
 
     private void spawnGrass(int n) {
