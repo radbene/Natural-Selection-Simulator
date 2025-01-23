@@ -174,8 +174,8 @@ public class SimulationConfiguration extends Application {
      * @throws IllegalArgumentException If the value is invalid.
      */
     private void validateValue(int value, String fieldName) throws IllegalArgumentException {
-        if (value <= 0 || value >= 1000) {
-            throw new IllegalArgumentException(fieldName + " must be greater than 0 and less than 1000.");
+        if (value <= 0 || value > 100) {
+            throw new IllegalArgumentException(fieldName + " must be greater than 0 and less than 100.");
         }
     }
 
