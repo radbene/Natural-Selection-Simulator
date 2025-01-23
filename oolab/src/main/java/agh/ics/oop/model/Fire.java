@@ -32,6 +32,6 @@ public class Fire implements WorldElement{
 
     @Override
     public String getResourceName() {
-        return "fire.png";
+        return "pozar.png";
     }
 }

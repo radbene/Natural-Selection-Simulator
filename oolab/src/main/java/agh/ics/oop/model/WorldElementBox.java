@@ -1,17 +1,16 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.WorldElement;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+
+import java.util.Objects;
 
 public class WorldElementBox {
     private StackPane container;
@@ -21,7 +20,8 @@ public class WorldElementBox {
     private static final double LOW_ENERGY_THRESHOLD = 0.25;
     private static final double HIGH_ENERGY_THRESHOLD = 0.75;
 
-    private static final int MAX_ENERGY = 100; // TODO: change to sth dynamic
+    // TODO: change to config
+    private static final int MAX_ENERGY = 100;
 
     public WorldElementBox(WorldElement element, String position) {
         this.element = element;
@@ -37,30 +37,50 @@ public class WorldElementBox {
         rect.setFill(Color.WHITE);
         rect.setStroke(Color.BLACK);
 
-        Text text = new Text(element.getResourceName());
-
         if (element instanceof Animal) {
             Animal animal = (Animal) element;
+
+            ImageView imageView = createImageView(element.getResourceName());
             ProgressBar energyBar = createEnergyBar(animal);
 
             VBox vBox = new VBox();
             vBox.setAlignment(Pos.BOTTOM_CENTER);
             vBox.setSpacing(2);
-
-            vBox.getChildren().addAll(text, energyBar);
+            vBox.setMaxHeight(50);
+            vBox.setPrefWidth(50);
+            vBox.getChildren().addAll(imageView, energyBar);
 
             pane.getChildren().addAll(rect, vBox);
         } else {
-            pane.getChildren().addAll(rect, text);
+            ImageView imageView = createImageView(element.getResourceName());
+            pane.getChildren().addAll(rect, imageView);
         }
 
         return pane;
     }
 
+    private ImageView createImageView(String resourceName) {
+        ImageView imageView;
+        try {
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/" + resourceName)));
+            imageView = new ImageView(image);
+            imageView.setFitWidth(30);
+            imageView.setFitHeight(30);
+            imageView.setPreserveRatio(true);
+        } catch (Exception e) {
+            System.err.println("Image not found: " + resourceName);
+            imageView = new ImageView();
+            imageView.setFitWidth(30);
+            imageView.setFitHeight(30);
+            imageView.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
+        }
+        return imageView;
+    }
+
     private ProgressBar createEnergyBar(Animal animal) {
         ProgressBar progressBar = new ProgressBar();
         progressBar.setPrefWidth(40);
-        progressBar.setPrefHeight(5);
+        progressBar.setPrefHeight(10);
         progressBar.setProgress(calculateEnergyProgress(animal));
 
         setEnergyBarColor(progressBar, animal.getEnergy());
