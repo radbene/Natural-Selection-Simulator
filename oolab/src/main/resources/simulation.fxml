@@ -2,10 +2,13 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
@@ -50,7 +53,7 @@
                   style="-fx-padding: 10; -fx-background-color: #f0f0f0;
                          -fx-border-color: #cccccc; -fx-border-radius: 5;
                          -fx-border-width: 1;"/>
-            
+
             <Label text="Tracked Animal:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
             <VBox fx:id="trackedAnimalContainer" spacing="10" alignment="CENTER"
                   style="-fx-padding: 10; -fx-background-color: #e0f7fa;
@@ -63,7 +66,15 @@
                 <Label fx:id="trackedAnimalPositionLabel" text="Position: " style="-fx-font-size: 14px;"/>
                 <Label fx:id="trackedAnimalDirectionLabel" text="Direction: " style="-fx-font-size: 14px;"/>
             </VBox>
-            
+
+            <!-- New CheckBoxes -->
+            <CheckBox fx:id="dominantGenomeCheckBox"
+                      text="Show Dominant Genome"
+                      onAction="#toggleDominantGenome"/>
+            <CheckBox fx:id="equatorCheckBox"
+                      text="Show Equator"
+                      onAction="#toggleEquator"/>
+
             <Button text="Start" onAction="#startSimulation"/>
             <Button fx:id="pauseResumeButton" text="Pause Simulation" onAction="#handlePauseSimulation"/>
             <Button text="New Simulation" onAction="#newGame"/>

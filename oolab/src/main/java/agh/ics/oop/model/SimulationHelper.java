@@ -5,6 +5,8 @@ import agh.ics.oop.model.variants.EMapVariant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.min;
+
 public class SimulationHelper {
 
     private final AbstractWorldMap map;
@@ -17,22 +19,52 @@ public class SimulationHelper {
         map.wObserver = new WorldObserver(map);
     }
 
+//    public void runEpoch() {
+//        if (this.epoch > 100) {
+//            throw new RuntimeException("Epoch limit reached");
+//        }
+//        newEpoch();
+//        removeDeadAnimals();
+//        if (config.getMapVariant()== EMapVariant.FIRE) {
+//            ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
+//        }
+//        moveAnimals();
+//        eatGrass(map.animals, map.grasses);
+//        reproduceAnimals(map.animals);
+//        spawnGrass(config.getDailyGrassGrowth());
+//        gatherStats();
+//        map.notifyObservers("Epoch " + this.epoch + " ended");
+//    }
+
+    private void logExecutionTime(String methodName, Runnable method) {
+        long start = System.nanoTime();
+        method.run();
+        long end = System.nanoTime();
+        System.out.println("Execution time for " + methodName + ": " + (end - start) / 1_000_000 + " ms");
+    }
+
+
     public void runEpoch() {
         if (this.epoch > 100) {
             throw new RuntimeException("Epoch limit reached");
         }
-        newEpoch();
-        removeDeadAnimals();
-        if (config.getMapVariant()== EMapVariant.FIRE) {
-            ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
+        logExecutionTime("newEpoch", this::newEpoch);
+        logExecutionTime("removeDeadAnimals", this::removeDeadAnimals);
+
+        if (config.getMapVariant() == EMapVariant.FIRE) {
+            logExecutionTime("spreadFire", () ->
+                    ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0)
+            );
         }
-        moveAnimals();
-        eatGrass(map.animals, map.grasses);
-        reproduceAnimals(map.animals);
-        spawnGrass(config.getDailyGrassGrowth());
-        gatherStats();
+
+        logExecutionTime("moveAnimals", this::moveAnimals);
+        logExecutionTime("eatGrass", () -> eatGrass(map.animals, map.grasses));
+        logExecutionTime("reproduceAnimals", () -> reproduceAnimals(map.animals));
+        logExecutionTime("spawnGrass", () -> spawnGrass(config.getDailyGrassGrowth()));
+        logExecutionTime("gatherStats", this::gatherStats);
         map.notifyObservers("Epoch " + this.epoch + " ended");
     }
+
 
     private void newEpoch() {
         this.epoch++;
@@ -61,11 +93,11 @@ public class SimulationHelper {
 //                map.notifyObservers("Animal moved at " + animal.getPosition());
                 Vector2d newPosition = animal.getPosition();
                 updatedMap.computeIfAbsent(newPosition, k -> new ArrayList<>()).add(animal);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
         }
         map.animals = updatedMap;
@@ -149,6 +181,8 @@ public class SimulationHelper {
             startingPositions.add(position);
         }
         System.out.println(map.animals);
+        int map_size = config.getMapHeight() * config.getMapWidth();
+        map.grassSpawner.spawnGrass(min(config.getInitialPlantCount(), map_size - animalsCount));
         return startingPositions;
     }
 }

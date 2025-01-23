@@ -67,7 +67,7 @@ public class WorldObserver {
                 .orElse(0));
     }
 
-    private Genome findDominantGenome() {
+    public Genome findDominantGenome() {
         Map<Genome, Integer> genomeCounts = new HashMap<>();
         map.getAllAnimals().stream()
                 .map(Animal::getGenome)

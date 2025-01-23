@@ -1,10 +1,10 @@
 package agh.ics.oop.model;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,6 +27,14 @@ public class WorldElementBox {
         this.element = element;
         this.position = position;
         this.container = createBox();
+    }
+
+    public WorldElement getWorldElement() {
+        return element;
+    }
+
+    public Vector2d getPosition() {
+        return new Vector2d(Integer.parseInt(position.split(",")[0]), Integer.parseInt(position.split(",")[1]));
     }
 
     private StackPane createBox() {
@@ -112,7 +120,7 @@ public class WorldElementBox {
         }
     }
 
-    public Node getContainer() {
+    public Region getContainer() {
         return container;
     }
 }

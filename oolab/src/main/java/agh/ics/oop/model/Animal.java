@@ -121,7 +121,7 @@ public class Animal implements WorldElement {
         return child;
     }
 
-    Genome getGenome() {
+    public Genome getGenome() {
         return this.genome;
     }
 

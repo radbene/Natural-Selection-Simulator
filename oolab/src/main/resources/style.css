@@ -84,3 +84,21 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
+
+.cell-pane {
+    -fx-background-color: #FFFFFF; /* default white */
+}
+
+.highlight-dominant-genome {
+    -fx-background-color: rgba(255, 215, 0, 0.5); /* Gold with transparency */
+    -fx-border-color: gold;
+    -fx-border-width: 2px;
+}
+
+/* Highlight for Equator */
+.highlight-equator {
+    -fx-background-color: rgba(173, 216, 230, 0.5); /* Light Blue with transparency */
+    -fx-border-color: deepskyblue;
+    -fx-border-width: 2px;
+}
+

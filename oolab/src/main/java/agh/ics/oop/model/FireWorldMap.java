@@ -12,7 +12,6 @@ public class FireWorldMap extends AbstractWorldMap {
         super(width, height);
         this.addObserver(new ConsoleMapDisplay());
         this.addObserver(new FileMapDisplay(this.uuid));
-        this.grassSpawner.spawnGrass(n);
     }
 
     public ArrayList<WorldElement> objectAt(Vector2d position) {

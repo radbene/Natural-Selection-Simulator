@@ -7,6 +7,7 @@ import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.variants.EMapVariant;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -23,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SimulationPresenter implements MapChangeListener {
-    private WorldMap map;
+    private AbstractWorldMap map;
     private Simulation simulation;
     private SimulationEngine engine;
     private boolean isPaused = false;
@@ -67,6 +68,12 @@ public class SimulationPresenter implements MapChangeListener {
     @FXML
     private Label trackedAnimalDirectionLabel;
 
+    @FXML
+    private CheckBox dominantGenomeCheckBox;
+
+    @FXML
+    private CheckBox equatorCheckBox;
+
     private int xMin;
     private int yMin;
     private int xMax;
@@ -76,16 +83,13 @@ public class SimulationPresenter implements MapChangeListener {
     private final int width = 50;
     private final int height = 50;
 
-    // Chart Series
     private XYChart.Series<Number, Number> animalsSeries;
     private XYChart.Series<Number, Number> grassSeries;
     private XYChart.Series<Number, Number> energySeries;
     private XYChart.Series<Number, Number> lifespanSeries;
 
-    // Maximum number of data points to display
     private static final int MAX_DATA_POINTS = 100;
 
-    // Tracked Animal Reference
     private Animal trackedAnimal = null;
 
     @FXML
@@ -128,57 +132,134 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
+    @FXML
+    private void toggleDominantGenome() {
+        if (isPaused) {
+            if (dominantGenomeCheckBox.isSelected()) {
+                highlightDominantGenomes();
+            } else {
+                removeHighlight("highlight-dominant-genome");
+            }
+        }
+    }
+
+    @FXML
+    private void toggleEquator() {
+        if (isPaused) {
+            if (equatorCheckBox.isSelected()) {
+                highlightEquator();
+            } else {
+                removeHighlight("highlight-equator");
+            }
+        }
+    }
+
+//    FIXME: elementBox is always null
+    private void highlightDominantGenomes() {
+        String dominantGenome = map.wObserver.findDominantGenome().toString(); // Ensure this method exists in Simulation
+
+        for (Region cell : getMapGridCells()) {
+            WorldElementBox elementBox = getWorldElementBox(cell);
+            if (elementBox != null && elementBox.getWorldElement() instanceof Animal animal) {
+                String cellGenome = animal.getGenome().toString(); // Adjust based on your Genome implementation
+                System.out.println("Cell Genome: " + cellGenome);
+                if (dominantGenome.equals(cellGenome)) {
+                    cell.getStyleClass().add("highlight-dominant-genome");
+                    System.out.println("Highlighting cell with dominant genome.");
+                }
+            }
+        }
+    }
+
+    private void highlightEquator() {
+        for (Region cell : getMapGridCells()) {
+            Vector2d position = getCellPosition(cell);
+            if (isEquator(position)) { // Define what constitutes the equator
+                cell.getStyleClass().add("highlight-equator");
+            }
+        }
+    }
+
+    private void removeHighlight(String styleClass) {
+        for (Region cell : getMapGridCells()) {
+            cell.getStyleClass().remove(styleClass);
+        }
+    }
+
+    private List<Region> getMapGridCells() {
+        return mapGrid.getChildren().stream()
+                .filter(node -> node instanceof Region)
+                .map(node -> (Region) node)
+                .toList();
+    }
+
+    private WorldElementBox getWorldElementBox(Region cell) {
+        Object data = cell.getUserData();
+        if (data instanceof WorldElementBox elementBox) {
+            return elementBox;
+        }
+        return null;
+    }
+
+    private Vector2d getCellPosition(Region cell) {
+        WorldElementBox elementBox = getWorldElementBox(cell);
+        if (elementBox != null) {
+            return elementBox.getPosition();
+        }
+        Integer columnIndex = GridPane.getColumnIndex(cell);
+        Integer rowIndex = GridPane.getRowIndex(cell);
+        if (columnIndex == null) columnIndex = 0;
+        if (rowIndex == null) rowIndex = 0;
+        int x = xMin + columnIndex - 1;
+        int y = yMax - rowIndex + 1;
+        return new Vector2d(x, y);
+    }
+
+    private boolean isEquator(Vector2d position) {
+        return map.equator.contains(position);
+    }
+
     public void setWorldMap(WorldMap map) {
-        this.map = map;
+        this.map = (AbstractWorldMap) map;
     }
 
     private void initializeCharts() {
-        // Configure Animals vs Grass Chart
         animalsGrassChart.getXAxis().setLabel("Day");
         animalsGrassChart.getYAxis().setLabel("Number of Animals/Grass");
         animalsGrassChart.setTitle("Animals vs Grass");
-        // The stylesheet will handle additional styles
 
-        // Initialize Series
         animalsSeries = new XYChart.Series<>();
         animalsSeries.setName("Animals");
         grassSeries = new XYChart.Series<>();
         grassSeries.setName("Grass");
 
-        // Add Series to Chart
         animalsGrassChart.getData().addAll(animalsSeries, grassSeries);
 
-        // Configure Energy vs Lifespan Chart
         energyLifespanChart.getXAxis().setLabel("Day");
         energyLifespanChart.getYAxis().setLabel("Avg Energy/Average Lifespan");
         energyLifespanChart.setTitle("Avg Energy vs Avg Lifespan");
 
-        // Initialize Series
         energySeries = new XYChart.Series<>();
         energySeries.setName("Avg Animal Energy");
         lifespanSeries = new XYChart.Series<>();
         lifespanSeries.setName("Avg Animal Lifespan");
 
-        // Add Series to Chart
         energyLifespanChart.getData().addAll(energySeries, lifespanSeries);
     }
 
     private void updateCharts(int day, int animals, int grass, double avgEnergy, double avgLifespan) {
-        // Add data to Animals vs Grass Chart
         animalsSeries.getData().add(new XYChart.Data<>(day, animals));
         grassSeries.getData().add(new XYChart.Data<>(day, grass));
 
-        // Add data to Energy vs Lifespan Chart
         energySeries.getData().add(new XYChart.Data<>(day, avgEnergy));
         lifespanSeries.getData().add(new XYChart.Data<>(day, avgLifespan));
 
-        // Limit the number of data points to MAX_DATA_POINTS
-        if (animalsSeries.getData().size() > MAX_DATA_POINTS) {
-            animalsSeries.getData().remove(0);
-            grassSeries.getData().remove(0);
-            energySeries.getData().remove(0);
-            lifespanSeries.getData().remove(0);
-        }
+//        if (animalsSeries.getData().size() > MAX_DATA_POINTS) {
+//            animalsSeries.getData().remove(0);
+//            grassSeries.getData().remove(0);
+//            energySeries.getData().remove(0);
+//            lifespanSeries.getData().remove(0);
+//        }
     }
 
     private void updateStatsDisplay(Simulation simulation) {
@@ -236,11 +317,9 @@ public class SimulationPresenter implements MapChangeListener {
                 if (map.isOccupied(pos)) {
                     List<WorldElement> elementsAtPos = map.objectAt(pos);
 
-                    // Use the first element as the representative for this position
                     WorldElement representativeElement = elementsAtPos.getFirst();
                     WorldElementBox elementBox = new WorldElementBox(representativeElement, pos.toString());
 
-                    // Set click event for the representative element
                     elementBox.getContainer().setOnMouseClicked(event -> {
                         if (isPaused && event.getButton() == MouseButton.PRIMARY) {
                             if (representativeElement instanceof Animal) {
@@ -249,10 +328,8 @@ public class SimulationPresenter implements MapChangeListener {
                         }
                     });
 
-                    // Add the representative element to the grid
                     mapGrid.add(elementBox.getContainer(), i - xMin + 1, yMax - j + 1);
                 } else {
-                    // Handle empty positions
                     Label emptyLabel = new Label(" ");
                     emptyLabel.setOnMouseClicked(event -> {
                         if (isPaused && event.getButton() == MouseButton.PRIMARY) {
@@ -262,7 +339,6 @@ public class SimulationPresenter implements MapChangeListener {
                     mapGrid.add(emptyLabel, i - xMin + 1, yMax - j + 1);
                 }
 
-                // Center the content in the grid cell
                 GridPane.setHalignment(mapGrid.getChildren().getLast(), HPos.CENTER);
             }
         }

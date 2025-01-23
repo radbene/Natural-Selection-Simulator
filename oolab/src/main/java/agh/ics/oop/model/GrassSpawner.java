@@ -29,7 +29,7 @@ public class GrassSpawner {
 
     private void spawnGrassFromIterator(int count, Iterator<Vector2d> iterator) {
         int attempts = 0;
-        while (count > 0 && attempts < 10 * count) {
+        while (count > 0 && attempts < 5 * count) {
             Vector2d position = iterator.next();
             if (!map.hasGrass(position)) {
                 map.addGrass(new Grass(position));

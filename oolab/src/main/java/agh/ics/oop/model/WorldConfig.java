@@ -193,7 +193,7 @@ public class WorldConfig {
         private static int dailyGrassGrowth = 5;
         private static int initialAnimalCount = 6;
         private static int initialAnimalEnergy = 50;
-        private static int energyToReproduce = 20;
+        private static int energyToReproduce = 40;
         private static int parentEnergyCost = 10;
         private static int minMutations = 0;
         private static int maxMutations = 2;

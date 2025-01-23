@@ -59,4 +59,8 @@ public class Simulation implements Runnable{
     public Map<String, Object> getStats(){
         return this.simulationHelper.getStats();
     }
+
+    public final AbstractWorldMap getMap(){
+        return this.map;
+    }
 }

@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.IncorrectPositionException;
 import agh.ics.oop.model.util.MapVisualizer;
+import javafx.util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,9 +16,9 @@ public abstract class AbstractWorldMap extends Globe {
     protected Vector2d lowerLeft;
     protected Vector2d upperRight;
     protected final List<MapChangeListener> observers = new ArrayList<>();
-    protected WorldObserver wObserver;
+    public WorldObserver wObserver;
     protected final Map<Vector2d, Grass> grasses = new HashMap<>();
-    protected final Equator equator;
+    public final Equator equator;
     protected final GrassSpawner grassSpawner;
     protected List<Animal> deadAnimals = new ArrayList<>();
     protected final UUID uuid = UUID.randomUUID();
@@ -59,8 +60,20 @@ public abstract class AbstractWorldMap extends Globe {
         return this.animals.values().stream().flatMap(List::stream).toList();
     }
 
+    public Map<Vector2d, ArrayList<Animal>> getAllAnimalsWithPositions(){
+        return this.animals;
+    }
+
     public List<Grass> getGrass() {
         return new ArrayList<>(this.grasses.values());
+    }
+
+    public Equator getEquator() {
+        return this.equator;
+    }
+
+    public Map<Vector2d, Grass> getGrassesWithPositions() {
+        return this.grasses;
     }
 
     public void addDeadAnimal(Animal animal) {
