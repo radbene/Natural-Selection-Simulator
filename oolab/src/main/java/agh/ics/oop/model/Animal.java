@@ -27,6 +27,10 @@ public class Animal implements WorldElement {
         return id;
     }
 
+    public void setChildrenCount(int childrenCount) {
+        this.childrenCount = childrenCount;
+    }
+
     private int childrenCount = 0;
 
     public int getDaysLived() {
@@ -114,8 +118,8 @@ public class Animal implements WorldElement {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
         Animal child = new Animal(position,config, globe);
         child.setGenome(childGenome);
-        this.childrenCount++;
-        partner.childrenCount++;
+        this.setChildrenCount(this.getChildren() + 1);
+        partner.setChildrenCount(partner.getChildren() + 1);
         //stats.addChild(this.id);
         //stats.addChild(partner.getId());
         return child;

@@ -106,6 +106,7 @@ public class SimulationPresenter implements MapChangeListener {
         initializeCharts();
         initializeTrackedAnimalUI();
 
+
         // Set a fixed size for the statsContainer
         statsContainer.setMinHeight(200); // Set a minimum height
         statsContainer.setMinWidth(200);

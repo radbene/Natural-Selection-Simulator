@@ -14,6 +14,10 @@ public class SimulationApp extends Application {
         BorderPane viewRoot = loader.load();
         SimulationPresenter presenter = loader.getController();
         configureStage(primaryStage, viewRoot);
+
+        // Enable fullscreen mode
+        primaryStage.setFullScreen(true); // Set the stage to fullscreen
+        primaryStage.setFullScreenExitHint(""); // Optional: Remove the exit hint message
         primaryStage.show();
     }
 

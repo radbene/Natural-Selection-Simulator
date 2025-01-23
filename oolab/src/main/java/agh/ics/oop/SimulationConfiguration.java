@@ -48,6 +48,8 @@ public class SimulationConfiguration extends Application {
 
         // Enable fullscreen mode
         primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint(""); // Optional: Remove the exit hint message
+
 
         // Create a GridPane layout
         GridPane gridPane = new GridPane();
@@ -372,7 +374,7 @@ public class SimulationConfiguration extends Application {
         } catch (IllegalArgumentException e) {
             showError("Invalid Input", e.getMessage());
         } catch (IOException e) {
-            showError("Error", "An error occurred while starting the simulation: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
