@@ -263,13 +263,17 @@ public class WorldConfig {
         }
 
         public Builder minMutations(int minMutations) {
-            validatePositive(minMutations, "Min Mutations");
+            if (minMutations < 0) {
+                throw new IllegalArgumentException(minMutations + " must be positive.");
+            }
             this.minMutations = minMutations;
             return this;
         }
 
         public Builder maxMutations(int maxMutations) {
-            validatePositive(maxMutations, "Max Mutations");
+            if (maxMutations < 0) {
+                throw new IllegalArgumentException(maxMutations + " must be positive.");
+            }
             this.maxMutations = maxMutations;
             return this;
         }

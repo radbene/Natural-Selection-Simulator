@@ -316,8 +316,6 @@ public class SimulationPresenter implements MapChangeListener {
     private void startSimulation() {
         WorldConfig.Builder builder = new WorldConfig.Builder();
         WorldConfig config = builder.build();
-        System.out.println("chu8j");
-        System.out.println(config.getMapWidth());
         Simulation sim = new Simulation(config);
         this.simulation = sim;
         sim.addObserver(this);

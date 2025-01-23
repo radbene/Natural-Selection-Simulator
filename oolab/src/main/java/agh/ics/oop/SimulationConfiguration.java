@@ -212,10 +212,10 @@ public class SimulationConfiguration extends Application {
             validateValue(parentEnergyCost, "Parent Energy Cost");
 
             int minMutations = Integer.parseInt(minMutationsField.getText());
-            validateValue(minMutations, "Min Mutations");
+            if(minMutations < 0){throw new IllegalArgumentException("minMutations" + " must be at least 0.");}
 
             int maxMutations = Integer.parseInt(maxMutationsField.getText());
-            validateValue(maxMutations, "Max Mutations");
+            if(maxMutations < 0){throw new IllegalArgumentException("maxMutations" + " must be at least 0.");}
 
             int genomeLength = Integer.parseInt(genomeLengthField.getText());
             validateValue(genomeLength, "Genome Length");
@@ -300,10 +300,10 @@ public class SimulationConfiguration extends Application {
             validateValue(parentEnergyCost, "Parent Energy Cost");
 
             int minMutations = Integer.parseInt(minMutationsField.getText());
-            validateValue(minMutations, "Min Mutations");
+            if(minMutations < 0){throw new IllegalArgumentException("minMutations" + " must be at least 0.");}
 
             int maxMutations = Integer.parseInt(maxMutationsField.getText());
-            validateValue(maxMutations, "Max Mutations");
+            if(maxMutations < 0){throw new IllegalArgumentException("maxMutations" + " must be at least 0.");}
 
             int genomeLength = Integer.parseInt(genomeLengthField.getText());
             validateValue(genomeLength, "Genome Length");
