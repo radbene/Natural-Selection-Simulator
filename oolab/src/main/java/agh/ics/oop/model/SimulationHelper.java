@@ -20,9 +20,6 @@ public class SimulationHelper {
     }
 
     public void runEpoch() {
-        if (this.epoch > 100) {
-            throw new RuntimeException("Epoch limit reached");
-        }
         newEpoch();
         removeDeadAnimals();
         if (config.getMapVariant()== EMapVariant.FIRE) {

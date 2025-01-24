@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.variants.EMutationVariant;
+
 import static java.lang.Math.round;
 
 public class Genome {
@@ -47,15 +49,15 @@ public class Genome {
         int energy2;
         if (animal1.getEnergy() > animal2.getEnergy()){
             genome1 = animal1.getGenome();
-             genome2 = animal2.getGenome();
-             energy1 = animal1.getEnergy();
-             energy2 = animal2.getEnergy();
+            genome2 = animal2.getGenome();
+            energy1 = animal1.getEnergy();
+            energy2 = animal2.getEnergy();
         }
         else {
-             genome2 = animal1.getGenome();
-             genome1 = animal2.getGenome();
-             energy2 = animal1.getEnergy();
-             energy1 = animal2.getEnergy();
+            genome2 = animal1.getGenome();
+            genome1 = animal2.getGenome();
+            energy2 = animal1.getEnergy();
+            energy1 = animal2.getEnergy();
         }
 
         //genome1 and energy1  belong to the stronger animal
@@ -79,7 +81,7 @@ public class Genome {
                 childrenGenome.genome[i] = genome1.genome[i];
             }
         }
-        return childrenGenome;
+        return mutation(childrenGenome);
 
     }
 
@@ -91,6 +93,35 @@ public class Genome {
         return genome;
     }
 
+    private Genome mutation(Genome genome) {
+        int numMutations = getRandomNumberInRange(config.getMinMutations(), config.getMaxMutations());
+
+        for (int i = 0; i < numMutations; i++) {
+            int geneIndex = getRandomNumberInRange(0, length - 1); // Losowy indeks genu do zmutowania
+
+            if (config.getMutationVariant() == EMutationVariant.STANDARD) {
+                genome.genome[geneIndex] = getRandomNumberInRange(minGeneValue, maxGeneValue);
+            } else {
+                int change = Math.random() < 0.5 ? 1 : -1; // Losowo +1 lub -1
+                int newValue = genome.genome[geneIndex] + change;
+
+                if (newValue < minGeneValue) {
+                    newValue = maxGeneValue;
+                } else if (newValue > maxGeneValue) {
+                    newValue = minGeneValue;
+                }
+
+                genome.genome[geneIndex] = newValue;
+            }
+        }
+
+        return genome;
+    }
+
+    private int getRandomNumberInRange(int min, int max) {
+        return (int) (Math.random() * (max - min + 1)) + min;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -99,5 +130,7 @@ public class Genome {
         return sb.toString();
     }
 }
+
+
 
 

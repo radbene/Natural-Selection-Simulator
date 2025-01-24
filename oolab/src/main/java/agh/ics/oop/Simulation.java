@@ -47,7 +47,7 @@ public class Simulation implements Runnable{
     }
 
     public void run() {
-        while(true){
+        while(!this.map.getAllAnimals().isEmpty()){
             this.simulationHelper.runEpoch();;
         }
     }
