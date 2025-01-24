@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a1e536-14ad-4814-afef-55c312a4bf1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/map_04a2e6fe-12ac-4961-85d0-2f7db5fa5410.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_14768d56-16b9-4ea5-9214-ba872951243f.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_2fc41ad8-ee63-4aee-bff5-334c950508d0.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_34a2011b-81e3-4942-8418-5209f79fa98f.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_4e0d5cbf-21ac-4c06-80a1-c3c12bb12346.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_4fa7fa0b-316b-4f73-886a-df834d399657.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_50407935-b825-4653-8462-edc4e7947701.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_5802b6dd-41fe-43b0-8123-539d31ec8938.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_b2d6632d-6d47-45cb-903c-3e8f86bd3afc.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_e307fd33-2ccc-42f7-ad51-2f40f42c5b92.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_e893adcd-03c9-41ca-a4de-e1a890ba3641.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_fa4fa378-9da3-478a-a42e-332935bd42e4.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulation_stats.csv" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_stats.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/SimulationConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/SimulationConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/AnimalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/AnimalTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +157,7 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.WorldGUI">
+  <component name="RunManager" selected="Gradle.AnimalTest">
     <configuration name="WorldGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="agh.ics.oop.WorldGUI" />
       <module name="oolab.main" />
@@ -285,8 +276,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WorldGUI" />
         <item itemvalue="Gradle.AnimalTest" />
+        <item itemvalue="Application.WorldGUI" />
         <item itemvalue="Gradle.AnimalTest.testMove" />
         <item itemvalue="Gradle.AnimalTest.testInitialization" />
         <item itemvalue="Gradle.RectangularMapTests" />

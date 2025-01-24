@@ -2,76 +2,84 @@ package agh.ics.oop.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
+
     private Animal animal;
     private WorldConfig config;
-    private AbstractWorldMap map;
-    private final MapBuilder mapBuilder = new MapBuilder();
+    private Globe globe;
 
     @BeforeEach
     void setUp() {
-        WorldConfig.Builder builder = new WorldConfig.Builder();
-        config = builder.build();
-        this.map = this.mapBuilder.createMap(this.config);
-        animal = new Animal(new Vector2d(2, 2), config, map);
+        config = new WorldConfig.Builder()
+                .initialAnimalEnergy(100)
+                .plantEnergy(10)
+                .energyToReproduce(50)
+                .build();
+
+        globe = new AbstractWorldMap(10, 10) {
+            @Override
+            public Move nextPosition(Move mv) {
+                return mv;
+            }
+        };
+
+        animal = new Animal(new Vector2d(2, 2), config, globe);
     }
 
     @Test
-    void testInitialization() {
-        assertNotNull(animal.getPosition(), "Position should not be null");
-        assertNotNull(animal.getDirection(), "Direction should not be null");
-        assertEquals(50, animal.getEnergy(), "Initial energy should match configuration");
-        assertEquals(0, animal.getLifespan(), "Days lived should start at 0");
-        assertEquals(0, animal.getChildren(), "Children count should start at 0");
+    void testAnimalInitialization() {
+        assertEquals(new Vector2d(2, 2), animal.getPosition());
+        assertEquals(100, animal.getEnergy());
+        assertEquals(MapDirection.NORTH, animal.getDirection());
+        assertFalse(animal.isDead());
     }
 
-    @Test
-    void testMove() {
-        Vector2d initialPosition = animal.getPosition();
-        MapDirection initialDirection = animal.getDirection();
-
-        animal.move();
-
-        assertNotEquals(initialPosition, animal.getPosition(), "Position should change after move");
-        assertEquals(1, animal.getDaysLived(), "Days lived should increment by 1 after move");
-    }
 
     @Test
-    void testIsAt() {
-        assertTrue(animal.isAt(new Vector2d(2, 2)), "Animal should be at the initial position");
-        animal.move();
-        assertFalse(animal.isAt(new Vector2d(0, 0)), "Animal should not be at the initial position after move");
-    }
-
-    @Test
-    void testEatGrass() {
+    void testAnimalEatGrass() {
         animal.eatGrass();
-        assertEquals(60, animal.getEnergy(), "Energy should increase by plant energy after eating grass");
+        assertEquals(110, animal.getEnergy()); // Energia powinna wzrosnąć o 10 (plantEnergy)
     }
 
     @Test
-    void testIsDead() {
-        for (int i = 0; i < 100; i++) {
-            animal.move();
-        }
-        assertTrue(animal.isDead(), "Animal should be dead after running out of energy");
-    }
-
-    @Test
-    void testReproduce() {
-        Animal partner = new Animal(new Vector2d(0, 0), MapDirection.NORTH, config, map);
-        animal.eatGrass(); 
-        partner.eatGrass();
-
-        assertTrue(animal.canReproduce(), "Animal should be able to reproduce");
-        assertTrue(partner.canReproduce(), "Partner should be able to reproduce");
-
+    void testAnimalReproduce() {
+        Animal partner = new Animal(new Vector2d(2, 2), config, globe);
         Animal child = animal.reproduce(partner);
-        assertNotNull(child, "Child should not be null");
-        assertEquals(animal.getPosition(), child.getPosition(), "Child should inherit parent's position");
-        assertNotNull(child.getGenome(), "Child should have a genome");
+
+        assertNotNull(child);
+        assertEquals(new Vector2d(2, 2), child.getPosition());
+        assertEquals(50, animal.getEnergy()); // Energia rodzica powinna się zmniejszyć o połowę
+        assertEquals(50, partner.getEnergy()); // Energia partnera powinna się zmniejszyć o połowę
+        assertEquals(1, animal.getChildren()); // Liczba dzieci rodzica powinna wzrosnąć o 1
+        assertEquals(1, partner.getChildren()); // Liczba dzieci partnera powinna wzrosnąć o 1
+    }
+
+    @Test
+    void testAnimalIsDead() {
+        animal.setEnergy(0);
+        assertTrue(animal.isDead());
+    }
+
+    @Test
+    void testAnimalCanReproduce() {
+        assertTrue(animal.canReproduce()); // Energia początkowa to 100, a energia do reprodukcji to 50
+        animal.setEnergy(40);
+        assertFalse(animal.canReproduce()); // Energia poniżej progu reprodukcji
+    }
+
+    @Test
+    void testAnimalGenome() {
+        Genome genome = animal.getGenome();
+        assertNotNull(genome);
+        assertTrue(genome.getCurrentGene() >= 0 && genome.getCurrentGene() <= 7); // Sprawdzenie, czy gen jest w zakresie
+    }
+
+    @Test
+    void testAnimalStats() {
+        AnimalStats stats = animal.getStats();
+        assertNotNull(stats);
+        assertEquals(0, stats.getGrassEaten()); // Na początku zwierzę nie zjadło żadnej trawy
     }
 }

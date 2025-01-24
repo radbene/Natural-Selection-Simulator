@@ -150,6 +150,8 @@ public class Animal implements WorldElement {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
         Animal child = new Animal(position,config, globe, this.stats, partner.stats, daysLived);
         child.setGenome(childGenome);
+        this.setEnergy(getEnergy() - config.getEnergyToReproduce());
+        partner.setEnergy(partner.getEnergy() - config.getEnergyToReproduce());
         if (this.stats != null) {
             this.childrenCount++;
             this.stats.addChild(child.getId());

@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import agh.ics.oop.model.variants.EMapVariant;
@@ -24,6 +25,7 @@ import agh.ics.oop.model.WorldConfig.Builder;
 public class SimulationConfiguration extends Application {
 
     // Declare UI components as instance variables
+    private Stage stage;
     private TextField mapWidthField;
     private TextField mapHeightField;
     private ComboBox<EMapVariant> mapVariantComboBox;
@@ -45,6 +47,8 @@ public class SimulationConfiguration extends Application {
     public void start(Stage primaryStage) {
         // Set the title of the window
         primaryStage.setTitle("Simulation Configuration");
+
+        this.stage = primaryStage;
 
         // Enable fullscreen mode
         primaryStage.setFullScreen(true);
@@ -574,6 +578,8 @@ public class SimulationConfiguration extends Application {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.initOwner(this.stage.getScene().getWindow()); // Set the owner of the alert
+        alert.initModality(Modality.WINDOW_MODAL); // Set the modality to window-modal
         alert.showAndWait();
     }
 

@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.FileWriter;
@@ -525,10 +526,17 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void showTrackedAnimalDeathNotification() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Animal Died");
-        alert.setHeaderText(null);
-        alert.setContentText("The tracked animal has died.");
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Animal Died");
+            alert.setHeaderText(null);
+            alert.setContentText("The tracked animal has died.");
+
+            // Set the alert to be window-modal (tied to the main window)
+            alert.initOwner(statsContainer.getScene().getWindow()); // Set the owner of the alert
+            alert.initModality(Modality.WINDOW_MODAL); // Set the modality to window-modal
+
+            alert.show();
+        });
     }
 }
