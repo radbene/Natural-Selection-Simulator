@@ -91,7 +91,7 @@
 
 .highlight-dominant-genome {
     -fx-background-color: rgba(255, 215, 0, 0.5); /* Gold with transparency */
-    -fx-border-color: gold;
+    -fx-border-color: red;
     -fx-border-width: 2px;
 }
 
