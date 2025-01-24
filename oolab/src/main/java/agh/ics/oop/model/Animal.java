@@ -88,22 +88,18 @@ public class Animal implements WorldElement {
     }
 
     public Animal(Vector2d position,
-                  MapDirection direction,
                   WorldConfig config,
-                  Genome genome,
                   Globe globe,
                   AnimalStats parent1Stats,
                   AnimalStats parent2Stats,
                   int dayOfBirth) {
 
         this.position = position;
-        this.direction = direction;
         this.config = config;
-        this.genome = genome;
         this.id = idCounter++;
         this.globe = globe;
         this.energy = new SimpleIntegerProperty(config.getInitialAnimalEnergy());
-
+        this.direction = MapDirection.randomDirection();
         this.stats = new AnimalStats(parent1Stats, parent2Stats, dayOfBirth);
 
     }
@@ -152,7 +148,7 @@ public class Animal implements WorldElement {
 
     Animal reproduce(Animal partner) {
         Genome childGenome = new Genome(config).reproductionGenome(this,partner);
-        Animal child = new Animal(position,config, globe);
+        Animal child = new Animal(position,config, globe, this.stats, partner.stats, daysLived);
         child.setGenome(childGenome);
         if (this.stats != null) {
             this.childrenCount++;

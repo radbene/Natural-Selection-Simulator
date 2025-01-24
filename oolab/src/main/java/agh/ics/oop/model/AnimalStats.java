@@ -28,6 +28,7 @@ public class AnimalStats {
 
     public void addChild(int id){
         this.children++;
+        this.descendants++;
         if (this.parent1 != null) this.parent1.addDescendant(id);
         if (this.parent2 != null) this.parent2.addDescendant(id);
     }

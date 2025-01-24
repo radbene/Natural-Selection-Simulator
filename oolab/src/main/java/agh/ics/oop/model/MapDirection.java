@@ -18,6 +18,10 @@ public enum MapDirection {
         this.unitVector = unitVector;
     }
 
+    public static MapDirection randomDirection() {
+        return MapDirection.values()[(int) (Math.random() * MapDirection.values().length)];
+    }
+
     @Override
     public String toString() {
         return name;
