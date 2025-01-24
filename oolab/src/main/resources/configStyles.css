@@ -1,24 +1,19 @@
-/* Apply padding to all elements in the GridPane */
 .grid-pane {
-    -fx-padding: 50px; /* Padding around the entire GridPane */
+    -fx-padding: 50px;
 }
 
-/* Apply padding to all labels */
 .label {
-    -fx-padding: 10px; /* Padding for labels */
+    -fx-padding: 10px;
 }
 
-/* Apply padding to all text fields */
 .text-field {
-    -fx-padding: 10px; /* Padding for text fields */
+    -fx-padding: 10px;
 }
 
-/* Apply padding to all combo boxes */
 .combo-box {
-    -fx-padding: 10px; /* Padding for combo boxes */
+    -fx-padding: 10px;
 }
 
-/* Apply padding to all buttons */
 .button {
-    -fx-padding: 10px; /* Padding for buttons */
+    -fx-padding: 10px;
 }

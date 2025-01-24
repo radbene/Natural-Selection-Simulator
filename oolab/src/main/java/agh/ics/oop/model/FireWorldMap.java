@@ -8,19 +8,31 @@ public class FireWorldMap extends AbstractWorldMap {
 
     private Map<Vector2d, Fire> fires = new HashMap<>();
 
-    public FireWorldMap(int width, int height, int n) {
+    public FireWorldMap(int width, int height, int n, List<MapChangeListener> injectedObservers) {
         super(width, height);
-        this.addObserver(new ConsoleMapDisplay());
-        this.addObserver(new FileMapDisplay(this.uuid));
+        if (injectedObservers != null) {
+            for (MapChangeListener observer : injectedObservers) {
+                this.addObserver(observer);
+            }
+        } else {
+            this.addObserver(new ConsoleMapDisplay());
+            this.addObserver(new FileMapDisplay(this.uuid));
+        }
     }
 
+    public FireWorldMap(int width, int height, int n) {
+        this(width, height, n, null);
+    }
+
+    @Override
     public ArrayList<WorldElement> objectAt(Vector2d position) {
         List<WorldElement> objects = super.objectAt(position);
         List<WorldElement> fireObjects = new ArrayList<>();
         if(fires.get(position) != null) {
             fireObjects.add(fires.get(position));
         }
-        return Stream.concat(fireObjects.stream(),objects.stream()).collect(Collectors.toCollection(ArrayList::new));
+        return Stream.concat(fireObjects.stream(), objects.stream())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void spreadFire(int maxAge, boolean start) {
@@ -39,7 +51,6 @@ public class FireWorldMap extends AbstractWorldMap {
             } else {
                 for (Vector2d neighbour : neighbours) {
                     positionsToAdd.add(position.add(neighbour));
-//                notifyObservers("Fire at " + position + " has burned out");
                 }
             }
         });
@@ -69,6 +80,7 @@ public class FireWorldMap extends AbstractWorldMap {
             animals.remove(position);
             animals.put(position, new ArrayList<>());
         }
+        notifyObservers("Fire added at " + position);
     }
 
     public void startFire(){
@@ -92,5 +104,9 @@ public class FireWorldMap extends AbstractWorldMap {
         int freeFields = super.calculateFreeFieldsInsideEquator();
         freeFields -= (int)fires.keySet().stream().filter(this.equator::contains).count();
         return freeFields;
+    }
+
+    public int getFireCount() {
+        return fires.size();
     }
 }

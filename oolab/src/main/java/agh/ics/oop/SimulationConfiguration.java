@@ -333,7 +333,6 @@ public class SimulationConfiguration extends Application {
                 fireFreq = Integer.parseInt(fireFreqField.getText());
                 validateValue(fireFreq, "Fire Frequency");
             }
-            // Additional validation for mutations and genome length
             if (minMutations > maxMutations) {
                 showError("Invalid Input", "Min Mutations must be less than or equal to Max Mutations.");
                 return;
@@ -343,7 +342,6 @@ public class SimulationConfiguration extends Application {
                 return;
             }
 
-            //Change WorldConfig Builder values
             Builder builder = new Builder();
             builder.mapWidth(mapWidth);
             builder.mapHeight(mapHeight);
@@ -365,10 +363,8 @@ public class SimulationConfiguration extends Application {
             builder.mapVariant(mapVariantComboBox.getValue());
 
 
-            // Close the configuration window
             primaryStage.close();
 
-            // Launch the SimulationApp
             SimulationApp simulationApp = new SimulationApp();
             Stage simulationStage = new Stage();
             simulationApp.start(simulationStage);
@@ -388,22 +384,18 @@ public class SimulationConfiguration extends Application {
      * @param configuration The configuration data to save.
      */
     private void openSaveConfigurationWindow(String configuration) {
-        // Create a new stage (window)
         Stage saveStage = new Stage();
         saveStage.setTitle("Save Configuration");
 
-        // Create a layout for the new window
         GridPane saveGrid = new GridPane();
         saveGrid.setHgap(10);
         saveGrid.setVgap(10);
 
-        // Add a label and text field for the configuration name
         Label nameLabel = new Label("Configuration Name:");
         TextField nameField = new TextField();
         saveGrid.add(nameLabel, 0, 0);
         saveGrid.add(nameField, 1, 0);
 
-        // Add a Save button
         Button saveButton = new Button("Save");
         saveButton.setOnAction(event -> {
             String configName = nameField.getText().trim();
@@ -412,19 +404,15 @@ public class SimulationConfiguration extends Application {
                 return;
             }
 
-            // Save the configuration to a file
             saveConfigurationToFile(configName, configuration);
 
-            // Close the save window
             saveStage.close();
         });
         saveGrid.add(saveButton, 1, 1);
 
-        // Create a scene and set it to the stage
         Scene saveScene = new Scene(saveGrid, 300, 100);
         saveStage.setScene(saveScene);
 
-        // Show the stage
         saveStage.show();
     }
 
@@ -437,13 +425,11 @@ public class SimulationConfiguration extends Application {
     private void saveConfigurationToFile(String configName, String configuration) {
         String fileName = "configs/" + configName + ".txt"; // Save in a "configs" folder
         try {
-            // Ensure the "configs" directory exists
             File configDir = new File("configs");
             if (!configDir.exists()) {
                 configDir.mkdir();
             }
 
-            // Write the configuration to the file
             try (FileWriter writer = new FileWriter(fileName)) {
                 writer.write(configuration);
                 showError("Success", "Configuration saved to " + fileName);
@@ -457,23 +443,19 @@ public class SimulationConfiguration extends Application {
      * Opens a new window to load a saved configuration.
      */
     private void openLoadConfigurationWindow() {
-        // Create a new stage (window)
         Stage loadStage = new Stage();
         loadStage.setTitle("Load Configuration");
 
-        // Create a layout for the new window
         GridPane loadGrid = new GridPane();
         loadGrid.setHgap(10);
         loadGrid.setVgap(10);
 
-        // Add a label and combo box for the configuration files
         Label configLabel = new Label("Select Configuration:");
         ComboBox<String> configComboBox = new ComboBox<>();
         configComboBox.getItems().addAll(listSavedConfigurations());
         loadGrid.add(configLabel, 0, 0);
         loadGrid.add(configComboBox, 1, 0);
 
-        // Add a Load button
         Button loadButton = new Button("Load");
         loadButton.setOnAction(event -> {
             String selectedFile = configComboBox.getValue();
@@ -482,27 +464,18 @@ public class SimulationConfiguration extends Application {
                 return;
             }
 
-            // Load the configuration from the selected file
             loadConfigurationFromFile("configs/" + selectedFile);
 
-            // Close the load window
             loadStage.close();
         });
         loadGrid.add(loadButton, 1, 1);
 
-        // Create a scene and set it to the stage
         Scene loadScene = new Scene(loadGrid, 300, 100);
         loadStage.setScene(loadScene);
 
-        // Show the stage
         loadStage.show();
     }
 
-    /**
-     * Loads the configuration data from a file and populates the input fields.
-     *
-     * @param fileName The name of the configuration file to load.
-     */
     private void loadConfigurationFromFile(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -512,7 +485,6 @@ public class SimulationConfiguration extends Application {
                     String key = parts[0].trim();
                     String value = parts[1].trim();
 
-                    // Populate the corresponding input field
                     switch (key) {
                         case "Map Width" -> mapWidthField.setText(value);
                         case "Map Height" -> mapHeightField.setText(value);
@@ -548,11 +520,6 @@ public class SimulationConfiguration extends Application {
         }
     }
 
-    /**
-     * Lists all saved configuration files in the "configs" directory.
-     *
-     * @return A list of configuration file names.
-     */
     private List<String> listSavedConfigurations() {
         List<String> configFiles = new ArrayList<>();
         File configDir = new File("configs");
@@ -567,25 +534,18 @@ public class SimulationConfiguration extends Application {
         return configFiles;
     }
 
-    /**
-     * Displays an error message dialog.
-     *
-     * @param title   The title of the error dialog.
-     * @param message The error message to display.
-     */
     private void showError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.initOwner(this.stage.getScene().getWindow()); // Set the owner of the alert
-        alert.initModality(Modality.WINDOW_MODAL); // Set the modality to window-modal
+        alert.initOwner(this.stage.getScene().getWindow());
+        alert.initModality(Modality.WINDOW_MODAL);
         alert.showAndWait();
     }
 
 
     public static void main(String[] args) {
-        // Launch the JavaFX application
         launch(args);
     }
 }

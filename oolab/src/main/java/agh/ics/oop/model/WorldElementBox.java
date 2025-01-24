@@ -20,7 +20,6 @@ public class WorldElementBox {
     private static final double LOW_ENERGY_THRESHOLD = 0.25;
     private static final double HIGH_ENERGY_THRESHOLD = 0.75;
 
-    // TODO: change to config
     private static final int MAX_ENERGY = 100;
 
     public WorldElementBox(WorldElement element, String position) {

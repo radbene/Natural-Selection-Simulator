@@ -15,9 +15,8 @@ public class SimulationApp extends Application {
         SimulationPresenter presenter = loader.getController();
         configureStage(primaryStage, viewRoot);
 
-        // Enable fullscreen mode
-        primaryStage.setFullScreen(true); // Set the stage to fullscreen
-        primaryStage.setFullScreenExitHint(""); // Optional: Remove the exit hint message
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 

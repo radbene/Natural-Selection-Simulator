@@ -43,9 +43,6 @@ public abstract class AbstractWorldMap extends Globe {
         for (MapChangeListener observer : observers) {
             observer.mapChanged(this, message);
         }
-//        if (wObserver != null) {
-//            wObserver.update();
-//        }
     }
 
     public Vector2d getLowerleft() {
@@ -90,7 +87,6 @@ public abstract class AbstractWorldMap extends Globe {
             ArrayList<Animal> animalsAtPosition = animals.get(animal.getPosition());
             animalsAtPosition.add(animal);
             animals.put(animal.getPosition(), animalsAtPosition);
-//            notifyObservers("Animal placed at " + animal.getPosition());
             return true;
         } else {
             throw new IncorrectPositionException(animal.getPosition());
@@ -107,7 +103,6 @@ public abstract class AbstractWorldMap extends Globe {
         ArrayList<Animal> animalsAtNewPosition = animals.get(animal.getPosition());
         animalsAtNewPosition.add(animal);
         animals.put(animal.getPosition(), animalsAtNewPosition);
-//        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
     }
 
     @Override
@@ -124,7 +119,6 @@ public abstract class AbstractWorldMap extends Globe {
         if (grasses.get(position) != null)
             grassObjects.add(grasses.get(position));
         return Stream.of(animalObjects, grassObjects).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new));
-
     }
 
     public List<WorldElement> getElements() {
@@ -141,7 +135,6 @@ public abstract class AbstractWorldMap extends Globe {
 
     public void spawnGrass(int n) {
         grassSpawner.spawnGrass(n);
-        // notifyObservers("Grass spawned");
     }
 
     public boolean hasGrass(Vector2d position) {
@@ -150,7 +143,6 @@ public abstract class AbstractWorldMap extends Globe {
 
     public void addGrass(Grass grass) {
         grasses.put(grass.getPosition(), grass);
-        // notifyObservers("Grass added at " + grass.getPosition());
     }
 
     public boolean contains(Vector2d position) {
@@ -192,7 +184,7 @@ public abstract class AbstractWorldMap extends Globe {
         }
         return emptyFields;
     }
-    
+
     @Override
     public String toString() {
         return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
@@ -206,5 +198,21 @@ public abstract class AbstractWorldMap extends Globe {
     @Override
     public Boundary getCurrentBounds() {
         return new Boundary(this.lowerLeft, this.upperRight);
+    }
+
+    public Map<Vector2d, ArrayList<Animal>> getAnimalsMap() {
+        return this.animals;
+    }
+
+    public Map<Vector2d, Grass> getGrassesMap() {
+        return this.grasses;
+    }
+
+    public List<Animal> getDeadAnimalsList() {
+        return this.deadAnimals;
+    }
+
+    public GrassSpawner getGrassSpawner() {
+        return this.grassSpawner;
     }
 }

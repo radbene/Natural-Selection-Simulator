@@ -22,12 +22,12 @@ public class SimulationHelper {
     public void runEpoch() {
         newEpoch();
         removeDeadAnimals();
-        if (config.getMapVariant()== EMapVariant.FIRE) {
+        if (config.getMapVariant() == EMapVariant.FIRE) {
             ((FireWorldMap) map).spreadFire(this.config.getFireMaxAge(), this.epoch % this.config.getFireFreq() == 0);
         }
         moveAnimals();
-        eatGrass(map.animals, map.grasses);
-        reproduceAnimals(map.animals);
+        eatGrass(map.getAnimalsMap(), map.getGrassesMap());
+        reproduceAnimals(map.getAnimalsMap());
         spawnGrass(config.getDailyGrassGrowth());
         gatherStats();
         map.notifyObservers("Epoch " + this.epoch + " ended");
@@ -39,10 +39,10 @@ public class SimulationHelper {
     }
 
     private void removeDeadAnimals() {
-        map.animals.values().forEach(animalList -> {
+        map.getAnimalsMap().values().forEach(animalList -> {
             animalList.removeIf(animal -> {
                 if (animal.isDead()) {
-                    map.deadAnimals.add(animal);
+                    map.getDeadAnimalsList().add(animal);
 
                     if (animal.getStats() != null) {
                         animal.getStats().die(epoch);
@@ -58,12 +58,12 @@ public class SimulationHelper {
     private void moveAnimals() {
         Map<Vector2d, ArrayList<Animal>> updatedMap = new HashMap<>();
 
-        for (Map.Entry<Vector2d, ArrayList<Animal>> entry : map.animals.entrySet()) {
+        for (Map.Entry<Vector2d, ArrayList<Animal>> entry : map.getAnimalsMap().entrySet()) {
             List<Animal> animalsAtCurrentPosition = entry.getValue();
 
             for (Animal animal : animalsAtCurrentPosition) {
                 animal.move();
-//                map.notifyObservers("Animal moved at " + animal.getPosition());
+                // map.notifyObservers("Animal moved at " + animal.getPosition());
                 Vector2d newPosition = animal.getPosition();
                 updatedMap.computeIfAbsent(newPosition, k -> new ArrayList<>()).add(animal);
             }
@@ -76,7 +76,7 @@ public class SimulationHelper {
     private void eatGrass(Map<Vector2d, ArrayList<Animal>> animals, Map<Vector2d, Grass> grasses) {
         List<Vector2d> matchingFields = animals.keySet().stream()
                 .filter(grasses::containsKey)
-                .toList();
+                .collect(Collectors.toList());
 
         for (Vector2d vector : matchingFields) {
             ArrayList<Animal> animalList = animals.get(vector);
@@ -90,29 +90,23 @@ public class SimulationHelper {
     }
 
     private void reproduceAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
-        // Find fields with more than one animal
         List<Vector2d> matchingFields = animals.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
                 .map(Map.Entry::getKey)
-                .toList();
+                .collect(Collectors.toList());
 
-        // Get the lists of animals on the matching fields
         List<ArrayList<Animal>> animalsToReproduce = matchingFields.stream()
                 .map(animals::get)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
-        // Iterate through the lists of animals and reproduce if conditions are met
         for (ArrayList<Animal> animalList : animalsToReproduce) {
             TieBreaker tb = new TieBreaker(animalList);
             List<Animal> strongestAnimals = tb.breakTheTie();
 
-            // Check if there are at least two animals and the second one can reproduce
             if (strongestAnimals.size() > 1 && strongestAnimals.get(1).canReproduce()) {
-                // Reproduce and get the offspring
                 Animal offspring = strongestAnimals.get(0).reproduce(strongestAnimals.get(1));
 
-                // Add the offspring to the same position in the map
                 Vector2d position = strongestAnimals.get(0).getPosition();
                 animals.get(position).add(offspring);
             }
@@ -143,14 +137,13 @@ public class SimulationHelper {
                     lowerLeft.getX() + (int) (Math.random() * width),
                     lowerLeft.getY() + (int) (Math.random() * height));
 
-            map.animals.computeIfAbsent(position, _ -> new ArrayList<>());
+            map.getAnimalsMap().computeIfAbsent(position, _ -> new ArrayList<>());
             Animal animal = new Animal(position, config, this.map);
-            map.animals.get(position).add(animal);
+            map.getAnimalsMap().get(position).add(animal);
             startingPositions.add(position);
         }
-        System.out.println(map.animals);
         int map_size = config.getMapHeight() * config.getMapWidth();
-        map.grassSpawner.spawnGrass(min(config.getInitialPlantCount(), map_size - animalsCount));
+        spawnGrass(min(config.getInitialPlantCount(), map_size - animalsCount));
         return startingPositions;
     }
 }
