@@ -36,14 +36,6 @@ public class Simulation implements Runnable{
         this.map = this.mapBuilder.createMap(this.config);
         this.simulationHelper = new SimulationHelper(this.map, config);
         this.starting_positions = this.simulationHelper.generateStartingPositions(this.config.getInitialAnimalCount());
-        for(Vector2d position: starting_positions){
-            Animal animal = new Animal(position,this.config,map);
-            try {
-                this.map.place(animal);
-            } catch (IncorrectPositionException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void run() {
